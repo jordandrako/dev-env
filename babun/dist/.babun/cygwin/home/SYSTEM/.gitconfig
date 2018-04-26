@@ -1,6 +1,0 @@
-[http]
-	sslverify = true
-[push]
-	default = matching
-[core]
-	trustctime = false

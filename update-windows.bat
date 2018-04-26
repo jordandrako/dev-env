@@ -1,10 +1,10 @@
 @ECHO OFF
 
-set PROFILEPATH "%HOMEDRIVE%%HOMEPATH%"
+set PROFILEPATH "%HOMEDRIVE%%HOMEPATH%\.babun\cygwin\home\%USERNAME%"
 
-if exist "%PROFILEPATH%\.babun\cygwin\home\%USERNAME%\" (
-  xcopy /s/e/h/y home "%PROFILEPATH%\.babun\cygwin\home\%USERNAME%\"
-)
-if exist "%HOMEDRIVE%\cmder\" (
+REM if exist "%HOMEDRIVE%%HOMEPATH%" (
+  xcopy /s/e/h/y home "%PROFILEPATH%\"
+REM )
+if exist "%HOMEDRIVE%\cmder" (
   xcopy /s/e/h/y cmder "%HOMEDRIVE%\cmder\"
 )
