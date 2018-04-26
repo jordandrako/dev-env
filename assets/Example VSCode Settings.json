@@ -1,0 +1,31 @@
+{
+  "terminal.external.windowsExec": "C:\\dev\\Cmder\\cmder.exe",
+  // Or Hyper if you prefer
+  // "terminal.external.windowsExec": "C:\\Users\\User\\AppData\\Local\\hyper\\Hyper.exe",
+  "terminal.integrated.cursorBlinking": true,
+  "terminal.integrated.cursorStyle": "line",
+  "terminal.integrated.fontFamily": "Source Code Pro for Powerline, Fira Code Retina, Fira Code, Consolas, Courier New, monospace",
+  "terminal.integrated.fontSize": 14,
+  "terminal.integrated.shell.windows": "C:\\Windows\\System32\\bash.exe",
+  // Or this if you have wsl.exe
+  // "terminal.integrated.shell.windows": "C:\\Windows\\System32\\wsl.exe",
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.startupEditor": "none",
+
+  "workbench.colorCustomizations": {
+    "terminal.ansiBlack": "#282c34",
+    "terminal.ansiBrightBlack": "#848d9f",
+    "terminal.ansiBlue": "#1167ae",
+    "terminal.ansiBrightBlue": "#61afef",
+    "terminal.ansiCyan": "#56b6c2",
+    "terminal.ansiBrightCyan": "#56b6c2",
+    "terminal.ansiRed": "#e06c75",
+    "terminal.ansiBrightRed": "#e06c75",
+    "terminal.ansiGreen": "#98c379",
+    "terminal.ansiBrightGreen": "#98c379",
+    "terminal.ansiYellow": "#d19a66",
+    "terminal.ansiBrightYellow": "#d19a66",
+    "terminal.ansiWhite": "#abb2bf",
+    "terminal.ansiBrightWhite": "#ffffff"
+  }
+}

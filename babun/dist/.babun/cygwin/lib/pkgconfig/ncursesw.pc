@@ -1,0 +1,15 @@
+prefix=/usr
+exec_prefix=/usr
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+major_version=5
+version=5.9.20150307
+
+Name: ncursesw
+Description: ncurses 5.9 library
+Version: ${version}
+URL: http://invisible-island.net/ncurses
+Requires.private: 
+Libs:  -lncursesw
+Libs.private: 
+Cflags:  -D_XOPEN_SOURCE=600

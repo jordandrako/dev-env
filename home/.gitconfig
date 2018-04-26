@@ -1,0 +1,34 @@
+[user]
+[alias]
+  lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+  del = branch -D
+  last = log -1 --stat
+  cp = cherry-pick
+  co = checkout
+  cl = clone
+  ci = commit
+  st = status -sb
+  br = branch
+  unstage = reset HEAD --
+  dc = diff --cached
+
+[push]
+  default = matching
+[remote "origin"]
+  prune = true
+[core]
+  editor = 'C:\\Program Files\\Microsoft VS Code\\Code.exe' -w
+  trustctime = false
+  filemode = false
+  autocrlf = input
+[color]
+  ui = true
+[credential]
+  helper = cache --timeout=3600
+[merge]
+  tool = vimdiff
+[mergetool]
+  keeptemporaries = false
+  keepbackups = false
+  prompt = false
+  trustexitcode = false

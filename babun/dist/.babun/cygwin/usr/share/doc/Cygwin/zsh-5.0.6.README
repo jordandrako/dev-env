@@ -1,0 +1,1618 @@
+zsh 5.0.6
+------------------------------------------
+A UNIX shell with many features.
+
+Runtime requirements:
+  cygwin-1.7.32 or newer
+
+Build requirements:
+  cygwin-1.7.32 or newer
+
+Canonical homepage:
+  http://www.zsh.org
+
+Canonical download:
+  ftp://ftp.zsh.org/pub/zsh/zsh-5.0.6.tar.bz2
+  ftp://ftp.zsh.org/pub/zsh/zsh-5.0.6-doc.tar.bz2
+
+------------------------------------
+
+Build pre-requisites:
+In order to build zsh you will need to install the following additional
+Cygwin packages:
+  autoconf
+  automake
+  gcc
+  libiconv
+  libgdbm4, libgdbm, libgdbm-devel
+  ncurses, libncurses-devel
+  patch
+  pcre, pcre-devel
+  tetex
+  [yodl]
+  
+
+Build instructions:
+  unpack zsh-5.0.6-1-src.tar.bz2
+    if you use setup to install this src package, it will be
+	 unpacked under /usr/src automatically
+  cd /usr/src
+  ./zsh-5.0.6-1.sh all
+
+This will create:
+  /usr/src/zsh-5.0.6-1.tar.bz2
+  /usr/src/zsh-5.0.6-1-src.tar.bz2
+
+Note:
+If you are going to debug zsh itself, you'll need to build it with
+debug.  This is best done with configure instead of playing with the
+Makefiles directly.  So instead of running the script with the 'all'
+option, do the following:
+  export ZSHCONFDEBUG="--enable-zsh-debug"
+  ./zsh-5.0.6-1.sh prep
+  ./zsh-5.0.6-1.sh conf
+  ./zsh-5.0.6-1.sh build
+At this point zsh is built with debug and can be debugged with gdb.
+The main executable and dll's are in zsh-5.0.6/.build/Src
+
+-------------------------------------------
+
+Files included in the binary distro
+
+  /etc/postinstall/zsh-profile.sh
+  /etc/preremove/zsh-manifest.lst
+  /etc/preremove/zsh.sh
+  /etc/profile.d/zshell.zsh
+  /usr/bin/libzsh-5.0.6.dll
+  /usr/bin/mkzsh
+  /usr/bin/zsh-5.0.6.exe
+  /usr/bin/zsh.exe
+  /usr/lib/zsh/5.0.6/zsh/attr.dll
+  /usr/lib/zsh/5.0.6/zsh/cap.dll
+  /usr/lib/zsh/5.0.6/zsh/clone.dll
+  /usr/lib/zsh/5.0.6/zsh/compctl.dll
+  /usr/lib/zsh/5.0.6/zsh/complete.dll
+  /usr/lib/zsh/5.0.6/zsh/complist.dll
+  /usr/lib/zsh/5.0.6/zsh/computil.dll
+  /usr/lib/zsh/5.0.6/zsh/curses.dll
+  /usr/lib/zsh/5.0.6/zsh/datetime.dll
+  /usr/lib/zsh/5.0.6/zsh/db/gdbm.dll
+  /usr/lib/zsh/5.0.6/zsh/deltochar.dll
+  /usr/lib/zsh/5.0.6/zsh/example.dll
+  /usr/lib/zsh/5.0.6/zsh/files.dll
+  /usr/lib/zsh/5.0.6/zsh/langinfo.dll
+  /usr/lib/zsh/5.0.6/zsh/mapfile.dll
+  /usr/lib/zsh/5.0.6/zsh/mathfunc.dll
+  /usr/lib/zsh/5.0.6/zsh/net/socket.dll
+  /usr/lib/zsh/5.0.6/zsh/net/tcp.dll
+  /usr/lib/zsh/5.0.6/zsh/newuser.dll
+  /usr/lib/zsh/5.0.6/zsh/parameter.dll
+  /usr/lib/zsh/5.0.6/zsh/pcre.dll
+  /usr/lib/zsh/5.0.6/zsh/regex.dll
+  /usr/lib/zsh/5.0.6/zsh/rlimits.dll
+  /usr/lib/zsh/5.0.6/zsh/sched.dll
+  /usr/lib/zsh/5.0.6/zsh/stat.dll
+  /usr/lib/zsh/5.0.6/zsh/system.dll
+  /usr/lib/zsh/5.0.6/zsh/termcap.dll
+  /usr/lib/zsh/5.0.6/zsh/terminfo.dll
+  /usr/lib/zsh/5.0.6/zsh/zftp.dll
+  /usr/lib/zsh/5.0.6/zsh/zle.dll
+  /usr/lib/zsh/5.0.6/zsh/zleparameter.dll
+  /usr/lib/zsh/5.0.6/zsh/zprof.dll
+  /usr/lib/zsh/5.0.6/zsh/zpty.dll
+  /usr/lib/zsh/5.0.6/zsh/zselect.dll
+  /usr/lib/zsh/5.0.6/zsh/zutil.dll
+  /usr/share/doc/Cygwin/zsh-5.0.6.README
+  /usr/share/doc/zsh-5.0.6/FAQ
+  /usr/share/doc/zsh-5.0.6/Functions/.cvsignore
+  /usr/share/doc/zsh-5.0.6/Functions/.distfiles
+  /usr/share/doc/zsh-5.0.6/Functions/Calendar/.distfiles
+  /usr/share/doc/zsh-5.0.6/Functions/Calendar/age
+  /usr/share/doc/zsh-5.0.6/Functions/Calendar/calendar
+  /usr/share/doc/zsh-5.0.6/Functions/Calendar/calendar_add
+  /usr/share/doc/zsh-5.0.6/Functions/Calendar/calendar_edit
+  /usr/share/doc/zsh-5.0.6/Functions/Calendar/calendar_lockfiles
+  /usr/share/doc/zsh-5.0.6/Functions/Calendar/calendar_parse
+  /usr/share/doc/zsh-5.0.6/Functions/Calendar/calendar_read
+  /usr/share/doc/zsh-5.0.6/Functions/Calendar/calendar_scandate
+  /usr/share/doc/zsh-5.0.6/Functions/Calendar/calendar_show
+  /usr/share/doc/zsh-5.0.6/Functions/Calendar/calendar_showdate
+  /usr/share/doc/zsh-5.0.6/Functions/Calendar/calendar_sort
+  /usr/share/doc/zsh-5.0.6/Functions/Chpwd/.distfiles
+  /usr/share/doc/zsh-5.0.6/Functions/Chpwd/_cdr
+  /usr/share/doc/zsh-5.0.6/Functions/Chpwd/cdr
+  /usr/share/doc/zsh-5.0.6/Functions/Chpwd/chpwd_recent_add
+  /usr/share/doc/zsh-5.0.6/Functions/Chpwd/chpwd_recent_dirs
+  /usr/share/doc/zsh-5.0.6/Functions/Chpwd/chpwd_recent_filehandler
+  /usr/share/doc/zsh-5.0.6/Functions/Chpwd/zsh_directory_name_cdr
+  /usr/share/doc/zsh-5.0.6/Functions/Compctl/.distfiles
+  /usr/share/doc/zsh-5.0.6/Functions/Compctl/cdmatch
+  /usr/share/doc/zsh-5.0.6/Functions/Compctl/cdmatch2
+  /usr/share/doc/zsh-5.0.6/Functions/Compctl/multicomp
+  /usr/share/doc/zsh-5.0.6/Functions/Example/.distfiles
+  /usr/share/doc/zsh-5.0.6/Functions/Example/acx
+  /usr/share/doc/zsh-5.0.6/Functions/Example/cat
+  /usr/share/doc/zsh-5.0.6/Functions/Example/cx
+  /usr/share/doc/zsh-5.0.6/Functions/Example/proto
+  /usr/share/doc/zsh-5.0.6/Functions/Example/pushd
+  /usr/share/doc/zsh-5.0.6/Functions/Example/randline
+  /usr/share/doc/zsh-5.0.6/Functions/Example/yp
+  /usr/share/doc/zsh-5.0.6/Functions/Example/yu
+  /usr/share/doc/zsh-5.0.6/Functions/Example/zless
+  /usr/share/doc/zsh-5.0.6/Functions/Example/zls
+  /usr/share/doc/zsh-5.0.6/Functions/Example/zpgrep
+  /usr/share/doc/zsh-5.0.6/Functions/Exceptions/.distfiles
+  /usr/share/doc/zsh-5.0.6/Functions/Exceptions/catch
+  /usr/share/doc/zsh-5.0.6/Functions/Exceptions/throw
+  /usr/share/doc/zsh-5.0.6/Functions/MIME/.distfiles
+  /usr/share/doc/zsh-5.0.6/Functions/MIME/pick-web-browser
+  /usr/share/doc/zsh-5.0.6/Functions/MIME/zsh-mime-contexts
+  /usr/share/doc/zsh-5.0.6/Functions/MIME/zsh-mime-handler
+  /usr/share/doc/zsh-5.0.6/Functions/MIME/zsh-mime-setup
+  /usr/share/doc/zsh-5.0.6/Functions/Misc/.distfiles
+  /usr/share/doc/zsh-5.0.6/Functions/Misc/add-zsh-hook
+  /usr/share/doc/zsh-5.0.6/Functions/Misc/allopt
+  /usr/share/doc/zsh-5.0.6/Functions/Misc/checkmail
+  /usr/share/doc/zsh-5.0.6/Functions/Misc/colors
+  /usr/share/doc/zsh-5.0.6/Functions/Misc/getjobs
+  /usr/share/doc/zsh-5.0.6/Functions/Misc/harden
+  /usr/share/doc/zsh-5.0.6/Functions/Misc/is-at-least
+  /usr/share/doc/zsh-5.0.6/Functions/Misc/mere
+  /usr/share/doc/zsh-5.0.6/Functions/Misc/nslookup
+  /usr/share/doc/zsh-5.0.6/Functions/Misc/promptnl
+  /usr/share/doc/zsh-5.0.6/Functions/Misc/regexp-replace
+  /usr/share/doc/zsh-5.0.6/Functions/Misc/relative
+  /usr/share/doc/zsh-5.0.6/Functions/Misc/run-help
+  /usr/share/doc/zsh-5.0.6/Functions/Misc/run-help-git
+  /usr/share/doc/zsh-5.0.6/Functions/Misc/run-help-openssl
+  /usr/share/doc/zsh-5.0.6/Functions/Misc/run-help-p4
+  /usr/share/doc/zsh-5.0.6/Functions/Misc/run-help-sudo
+  /usr/share/doc/zsh-5.0.6/Functions/Misc/run-help-svk
+  /usr/share/doc/zsh-5.0.6/Functions/Misc/run-help-svn
+  /usr/share/doc/zsh-5.0.6/Functions/Misc/sticky-note
+  /usr/share/doc/zsh-5.0.6/Functions/Misc/tetris
+  /usr/share/doc/zsh-5.0.6/Functions/Misc/xtermctl
+  /usr/share/doc/zsh-5.0.6/Functions/Misc/zargs
+  /usr/share/doc/zsh-5.0.6/Functions/Misc/zcalc
+  /usr/share/doc/zsh-5.0.6/Functions/Misc/zed
+  /usr/share/doc/zsh-5.0.6/Functions/Misc/zkbd
+  /usr/share/doc/zsh-5.0.6/Functions/Misc/zmathfuncdef
+  /usr/share/doc/zsh-5.0.6/Functions/Misc/zmv
+  /usr/share/doc/zsh-5.0.6/Functions/Misc/zrecompile
+  /usr/share/doc/zsh-5.0.6/Functions/Misc/zstyle+
+  /usr/share/doc/zsh-5.0.6/Functions/Misc/ztodo
+  /usr/share/doc/zsh-5.0.6/Functions/Newuser/.distfiles
+  /usr/share/doc/zsh-5.0.6/Functions/Newuser/zsh-newuser-install
+  /usr/share/doc/zsh-5.0.6/Functions/Prompts/.distfiles
+  /usr/share/doc/zsh-5.0.6/Functions/Prompts/prompt_adam1_setup
+  /usr/share/doc/zsh-5.0.6/Functions/Prompts/prompt_adam2_setup
+  /usr/share/doc/zsh-5.0.6/Functions/Prompts/prompt_bart_setup
+  /usr/share/doc/zsh-5.0.6/Functions/Prompts/prompt_bigfade_setup
+  /usr/share/doc/zsh-5.0.6/Functions/Prompts/prompt_clint_setup
+  /usr/share/doc/zsh-5.0.6/Functions/Prompts/prompt_elite2_setup
+  /usr/share/doc/zsh-5.0.6/Functions/Prompts/prompt_elite_setup
+  /usr/share/doc/zsh-5.0.6/Functions/Prompts/prompt_fade_setup
+  /usr/share/doc/zsh-5.0.6/Functions/Prompts/prompt_fire_setup
+  /usr/share/doc/zsh-5.0.6/Functions/Prompts/prompt_off_setup
+  /usr/share/doc/zsh-5.0.6/Functions/Prompts/prompt_oliver_setup
+  /usr/share/doc/zsh-5.0.6/Functions/Prompts/prompt_pws_setup
+  /usr/share/doc/zsh-5.0.6/Functions/Prompts/prompt_redhat_setup
+  /usr/share/doc/zsh-5.0.6/Functions/Prompts/prompt_special_chars
+  /usr/share/doc/zsh-5.0.6/Functions/Prompts/prompt_suse_setup
+  /usr/share/doc/zsh-5.0.6/Functions/Prompts/prompt_walters_setup
+  /usr/share/doc/zsh-5.0.6/Functions/Prompts/prompt_zefram_setup
+  /usr/share/doc/zsh-5.0.6/Functions/Prompts/promptinit
+  /usr/share/doc/zsh-5.0.6/Functions/README.zftp
+  /usr/share/doc/zsh-5.0.6/Functions/TCP/.distfiles
+  /usr/share/doc/zsh-5.0.6/Functions/TCP/tcp_alias
+  /usr/share/doc/zsh-5.0.6/Functions/TCP/tcp_close
+  /usr/share/doc/zsh-5.0.6/Functions/TCP/tcp_command
+  /usr/share/doc/zsh-5.0.6/Functions/TCP/tcp_expect
+  /usr/share/doc/zsh-5.0.6/Functions/TCP/tcp_fd_handler
+  /usr/share/doc/zsh-5.0.6/Functions/TCP/tcp_log
+  /usr/share/doc/zsh-5.0.6/Functions/TCP/tcp_open
+  /usr/share/doc/zsh-5.0.6/Functions/TCP/tcp_output
+  /usr/share/doc/zsh-5.0.6/Functions/TCP/tcp_point
+  /usr/share/doc/zsh-5.0.6/Functions/TCP/tcp_proxy
+  /usr/share/doc/zsh-5.0.6/Functions/TCP/tcp_read
+  /usr/share/doc/zsh-5.0.6/Functions/TCP/tcp_rename
+  /usr/share/doc/zsh-5.0.6/Functions/TCP/tcp_send
+  /usr/share/doc/zsh-5.0.6/Functions/TCP/tcp_sess
+  /usr/share/doc/zsh-5.0.6/Functions/TCP/tcp_shoot
+  /usr/share/doc/zsh-5.0.6/Functions/TCP/tcp_spam
+  /usr/share/doc/zsh-5.0.6/Functions/TCP/tcp_talk
+  /usr/share/doc/zsh-5.0.6/Functions/TCP/tcp_wait
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/.distfiles
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/Backends/.distfiles
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/Backends/VCS_INFO_detect_bzr
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/Backends/VCS_INFO_detect_cdv
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/Backends/VCS_INFO_detect_cvs
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/Backends/VCS_INFO_detect_darcs
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/Backends/VCS_INFO_detect_fossil
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/Backends/VCS_INFO_detect_git
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/Backends/VCS_INFO_detect_hg
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/Backends/VCS_INFO_detect_mtn
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/Backends/VCS_INFO_detect_p4
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/Backends/VCS_INFO_detect_svk
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/Backends/VCS_INFO_detect_svn
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/Backends/VCS_INFO_detect_tla
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/Backends/VCS_INFO_get_data_bzr
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/Backends/VCS_INFO_get_data_cdv
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/Backends/VCS_INFO_get_data_cvs
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/Backends/VCS_INFO_get_data_darcs
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/Backends/VCS_INFO_get_data_fossil
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/Backends/VCS_INFO_get_data_git
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/Backends/VCS_INFO_get_data_hg
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/Backends/VCS_INFO_get_data_mtn
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/Backends/VCS_INFO_get_data_p4
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/Backends/VCS_INFO_get_data_svk
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/Backends/VCS_INFO_get_data_svn
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/Backends/VCS_INFO_get_data_tla
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/VCS_INFO_adjust
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/VCS_INFO_bydir_detect
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/VCS_INFO_check_com
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/VCS_INFO_formats
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/VCS_INFO_get_cmd
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/VCS_INFO_hook
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/VCS_INFO_maxexports
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/VCS_INFO_nvcsformats
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/VCS_INFO_quilt
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/VCS_INFO_realpath
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/VCS_INFO_reposub
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/VCS_INFO_set
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/vcs_info
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/vcs_info_hookadd
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/vcs_info_hookdel
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/vcs_info_lastmsg
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/vcs_info_printsys
+  /usr/share/doc/zsh-5.0.6/Functions/VCS_Info/vcs_info_setsys
+  /usr/share/doc/zsh-5.0.6/Functions/Zftp/.distfiles
+  /usr/share/doc/zsh-5.0.6/Functions/Zftp/zfanon
+  /usr/share/doc/zsh-5.0.6/Functions/Zftp/zfautocheck
+  /usr/share/doc/zsh-5.0.6/Functions/Zftp/zfcd
+  /usr/share/doc/zsh-5.0.6/Functions/Zftp/zfcd_match
+  /usr/share/doc/zsh-5.0.6/Functions/Zftp/zfcget
+  /usr/share/doc/zsh-5.0.6/Functions/Zftp/zfclose
+  /usr/share/doc/zsh-5.0.6/Functions/Zftp/zfcput
+  /usr/share/doc/zsh-5.0.6/Functions/Zftp/zfdir
+  /usr/share/doc/zsh-5.0.6/Functions/Zftp/zffcache
+  /usr/share/doc/zsh-5.0.6/Functions/Zftp/zfgcp
+  /usr/share/doc/zsh-5.0.6/Functions/Zftp/zfget
+  /usr/share/doc/zsh-5.0.6/Functions/Zftp/zfget_match
+  /usr/share/doc/zsh-5.0.6/Functions/Zftp/zfgoto
+  /usr/share/doc/zsh-5.0.6/Functions/Zftp/zfhere
+  /usr/share/doc/zsh-5.0.6/Functions/Zftp/zfinit
+  /usr/share/doc/zsh-5.0.6/Functions/Zftp/zfls
+  /usr/share/doc/zsh-5.0.6/Functions/Zftp/zfmark
+  /usr/share/doc/zsh-5.0.6/Functions/Zftp/zfopen
+  /usr/share/doc/zsh-5.0.6/Functions/Zftp/zfparams
+  /usr/share/doc/zsh-5.0.6/Functions/Zftp/zfpcp
+  /usr/share/doc/zsh-5.0.6/Functions/Zftp/zfput
+  /usr/share/doc/zsh-5.0.6/Functions/Zftp/zfrglob
+  /usr/share/doc/zsh-5.0.6/Functions/Zftp/zfrtime
+  /usr/share/doc/zsh-5.0.6/Functions/Zftp/zfsession
+  /usr/share/doc/zsh-5.0.6/Functions/Zftp/zfstat
+  /usr/share/doc/zsh-5.0.6/Functions/Zftp/zftp_chpwd
+  /usr/share/doc/zsh-5.0.6/Functions/Zftp/zftp_progress
+  /usr/share/doc/zsh-5.0.6/Functions/Zftp/zftransfer
+  /usr/share/doc/zsh-5.0.6/Functions/Zftp/zftype
+  /usr/share/doc/zsh-5.0.6/Functions/Zftp/zfuget
+  /usr/share/doc/zsh-5.0.6/Functions/Zftp/zfuput
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/.distfiles
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/backward-kill-word-match
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/backward-word-match
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/capitalize-word-match
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/copy-earlier-word
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/cycle-completion-positions
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/define-composed-chars
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/delete-whole-word-match
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/down-case-word-match
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/down-line-or-beginning-search
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/edit-command-line
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/expand-absolute-path
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/forward-word-match
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/history-beginning-search-menu
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/history-pattern-search
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/history-search-end
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/incarg
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/incremental-complete-word
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/insert-composed-char
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/insert-files
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/insert-unicode-char
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/keeper
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/keymap+widget
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/kill-word-match
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/match-word-context
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/match-words-by-style
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/modify-current-argument
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/move-line-in-buffer
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/narrow-to-region
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/narrow-to-region-invisible
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/predict-on
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/quote-and-complete-word
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/read-from-minibuffer
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/replace-argument
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/replace-string
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/replace-string-again
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/select-word-style
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/send-invisible
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/smart-insert-last-word
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/split-shell-arguments
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/transpose-lines
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/transpose-words-match
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/up-case-word-match
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/up-line-or-beginning-search
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/url-quote-magic
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/which-command
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/zcalc-auto-insert
+  /usr/share/doc/zsh-5.0.6/Functions/Zle/zed-set-file-name
+  /usr/share/doc/zsh-5.0.6/INSTALL
+  /usr/share/doc/zsh-5.0.6/LICENCE
+  /usr/share/doc/zsh-5.0.6/META-FAQ
+  /usr/share/doc/zsh-5.0.6/README
+  /usr/share/doc/zsh-5.0.6/StartupFiles/etc/zlogin
+  /usr/share/doc/zsh-5.0.6/StartupFiles/etc/zprofile
+  /usr/share/doc/zsh-5.0.6/StartupFiles/etc/zshenv
+  /usr/share/doc/zsh-5.0.6/StartupFiles/etc/zshrc
+  /usr/share/info/zsh.info
+  /usr/share/info/zsh.info-1
+  /usr/share/info/zsh.info-2
+  /usr/share/info/zsh.info-3
+  /usr/share/info/zsh.info-4
+  /usr/share/info/zsh.info-5
+  /usr/share/info/zsh.info-6
+  /usr/share/man/man1/zsh.1
+  /usr/share/man/man1/zshall.1
+  /usr/share/man/man1/zshbuiltins.1
+  /usr/share/man/man1/zshcalsys.1
+  /usr/share/man/man1/zshcompctl.1
+  /usr/share/man/man1/zshcompsys.1
+  /usr/share/man/man1/zshcompwid.1
+  /usr/share/man/man1/zshcontrib.1
+  /usr/share/man/man1/zshexpn.1
+  /usr/share/man/man1/zshmisc.1
+  /usr/share/man/man1/zshmodules.1
+  /usr/share/man/man1/zshoptions.1
+  /usr/share/man/man1/zshparam.1
+  /usr/share/man/man1/zshroadmap.1
+  /usr/share/man/man1/zshtcpsys.1
+  /usr/share/man/man1/zshzftpsys.1
+  /usr/share/man/man1/zshzle.1
+  /usr/share/zsh/5.0.6/functions/VCS_INFO_adjust
+  /usr/share/zsh/5.0.6/functions/VCS_INFO_bydir_detect
+  /usr/share/zsh/5.0.6/functions/VCS_INFO_check_com
+  /usr/share/zsh/5.0.6/functions/VCS_INFO_detect_bzr
+  /usr/share/zsh/5.0.6/functions/VCS_INFO_detect_cdv
+  /usr/share/zsh/5.0.6/functions/VCS_INFO_detect_cvs
+  /usr/share/zsh/5.0.6/functions/VCS_INFO_detect_darcs
+  /usr/share/zsh/5.0.6/functions/VCS_INFO_detect_fossil
+  /usr/share/zsh/5.0.6/functions/VCS_INFO_detect_git
+  /usr/share/zsh/5.0.6/functions/VCS_INFO_detect_hg
+  /usr/share/zsh/5.0.6/functions/VCS_INFO_detect_mtn
+  /usr/share/zsh/5.0.6/functions/VCS_INFO_detect_p4
+  /usr/share/zsh/5.0.6/functions/VCS_INFO_detect_svk
+  /usr/share/zsh/5.0.6/functions/VCS_INFO_detect_svn
+  /usr/share/zsh/5.0.6/functions/VCS_INFO_detect_tla
+  /usr/share/zsh/5.0.6/functions/VCS_INFO_formats
+  /usr/share/zsh/5.0.6/functions/VCS_INFO_get_cmd
+  /usr/share/zsh/5.0.6/functions/VCS_INFO_get_data_bzr
+  /usr/share/zsh/5.0.6/functions/VCS_INFO_get_data_cdv
+  /usr/share/zsh/5.0.6/functions/VCS_INFO_get_data_cvs
+  /usr/share/zsh/5.0.6/functions/VCS_INFO_get_data_darcs
+  /usr/share/zsh/5.0.6/functions/VCS_INFO_get_data_fossil
+  /usr/share/zsh/5.0.6/functions/VCS_INFO_get_data_git
+  /usr/share/zsh/5.0.6/functions/VCS_INFO_get_data_hg
+  /usr/share/zsh/5.0.6/functions/VCS_INFO_get_data_mtn
+  /usr/share/zsh/5.0.6/functions/VCS_INFO_get_data_p4
+  /usr/share/zsh/5.0.6/functions/VCS_INFO_get_data_svk
+  /usr/share/zsh/5.0.6/functions/VCS_INFO_get_data_svn
+  /usr/share/zsh/5.0.6/functions/VCS_INFO_get_data_tla
+  /usr/share/zsh/5.0.6/functions/VCS_INFO_hook
+  /usr/share/zsh/5.0.6/functions/VCS_INFO_maxexports
+  /usr/share/zsh/5.0.6/functions/VCS_INFO_nvcsformats
+  /usr/share/zsh/5.0.6/functions/VCS_INFO_quilt
+  /usr/share/zsh/5.0.6/functions/VCS_INFO_realpath
+  /usr/share/zsh/5.0.6/functions/VCS_INFO_reposub
+  /usr/share/zsh/5.0.6/functions/VCS_INFO_set
+  /usr/share/zsh/5.0.6/functions/_SUSEconfig
+  /usr/share/zsh/5.0.6/functions/_a2ps
+  /usr/share/zsh/5.0.6/functions/_a2utils
+  /usr/share/zsh/5.0.6/functions/_aap
+  /usr/share/zsh/5.0.6/functions/_acpi
+  /usr/share/zsh/5.0.6/functions/_acpitool
+  /usr/share/zsh/5.0.6/functions/_acroread
+  /usr/share/zsh/5.0.6/functions/_adb
+  /usr/share/zsh/5.0.6/functions/_alias
+  /usr/share/zsh/5.0.6/functions/_aliases
+  /usr/share/zsh/5.0.6/functions/_all_labels
+  /usr/share/zsh/5.0.6/functions/_all_matches
+  /usr/share/zsh/5.0.6/functions/_alternative
+  /usr/share/zsh/5.0.6/functions/_analyseplugin
+  /usr/share/zsh/5.0.6/functions/_ant
+  /usr/share/zsh/5.0.6/functions/_antiword
+  /usr/share/zsh/5.0.6/functions/_apachectl
+  /usr/share/zsh/5.0.6/functions/_apm
+  /usr/share/zsh/5.0.6/functions/_approximate
+  /usr/share/zsh/5.0.6/functions/_apt
+  /usr/share/zsh/5.0.6/functions/_apt-file
+  /usr/share/zsh/5.0.6/functions/_apt-move
+  /usr/share/zsh/5.0.6/functions/_apt-show-versions
+  /usr/share/zsh/5.0.6/functions/_aptitude
+  /usr/share/zsh/5.0.6/functions/_arch_archives
+  /usr/share/zsh/5.0.6/functions/_arch_namespace
+  /usr/share/zsh/5.0.6/functions/_arg_compile
+  /usr/share/zsh/5.0.6/functions/_arguments
+  /usr/share/zsh/5.0.6/functions/_arp
+  /usr/share/zsh/5.0.6/functions/_arping
+  /usr/share/zsh/5.0.6/functions/_arrays
+  /usr/share/zsh/5.0.6/functions/_assign
+  /usr/share/zsh/5.0.6/functions/_at
+  /usr/share/zsh/5.0.6/functions/_attr
+  /usr/share/zsh/5.0.6/functions/_auto-apt
+  /usr/share/zsh/5.0.6/functions/_autocd
+  /usr/share/zsh/5.0.6/functions/_awk
+  /usr/share/zsh/5.0.6/functions/_axi-cache
+  /usr/share/zsh/5.0.6/functions/_bash_completions
+  /usr/share/zsh/5.0.6/functions/_baz
+  /usr/share/zsh/5.0.6/functions/_be_name
+  /usr/share/zsh/5.0.6/functions/_beadm
+  /usr/share/zsh/5.0.6/functions/_bind_addresses
+  /usr/share/zsh/5.0.6/functions/_bindkey
+  /usr/share/zsh/5.0.6/functions/_bison
+  /usr/share/zsh/5.0.6/functions/_bittorrent
+  /usr/share/zsh/5.0.6/functions/_bogofilter
+  /usr/share/zsh/5.0.6/functions/_bpython
+  /usr/share/zsh/5.0.6/functions/_brace_parameter
+  /usr/share/zsh/5.0.6/functions/_brctl
+  /usr/share/zsh/5.0.6/functions/_bsd_pkg
+  /usr/share/zsh/5.0.6/functions/_btrfs
+  /usr/share/zsh/5.0.6/functions/_bts
+  /usr/share/zsh/5.0.6/functions/_bug
+  /usr/share/zsh/5.0.6/functions/_builtin
+  /usr/share/zsh/5.0.6/functions/_bzip2
+  /usr/share/zsh/5.0.6/functions/_bzr
+  /usr/share/zsh/5.0.6/functions/_cache_invalid
+  /usr/share/zsh/5.0.6/functions/_cal
+  /usr/share/zsh/5.0.6/functions/_calendar
+  /usr/share/zsh/5.0.6/functions/_call_function
+  /usr/share/zsh/5.0.6/functions/_call_program
+  /usr/share/zsh/5.0.6/functions/_canonical_paths
+  /usr/share/zsh/5.0.6/functions/_cat
+  /usr/share/zsh/5.0.6/functions/_ccal
+  /usr/share/zsh/5.0.6/functions/_cd
+  /usr/share/zsh/5.0.6/functions/_cdbs-edit-patch
+  /usr/share/zsh/5.0.6/functions/_cdcd
+  /usr/share/zsh/5.0.6/functions/_cdr
+  /usr/share/zsh/5.0.6/functions/_cdrdao
+  /usr/share/zsh/5.0.6/functions/_cdrecord
+  /usr/share/zsh/5.0.6/functions/_chflags
+  /usr/share/zsh/5.0.6/functions/_chkconfig
+  /usr/share/zsh/5.0.6/functions/_chmod
+  /usr/share/zsh/5.0.6/functions/_chown
+  /usr/share/zsh/5.0.6/functions/_chrt
+  /usr/share/zsh/5.0.6/functions/_chsh
+  /usr/share/zsh/5.0.6/functions/_clay
+  /usr/share/zsh/5.0.6/functions/_combination
+  /usr/share/zsh/5.0.6/functions/_comm
+  /usr/share/zsh/5.0.6/functions/_command
+  /usr/share/zsh/5.0.6/functions/_command_names
+  /usr/share/zsh/5.0.6/functions/_comp_locale
+  /usr/share/zsh/5.0.6/functions/_compdef
+  /usr/share/zsh/5.0.6/functions/_complete
+  /usr/share/zsh/5.0.6/functions/_complete_debug
+  /usr/share/zsh/5.0.6/functions/_complete_help
+  /usr/share/zsh/5.0.6/functions/_complete_help_generic
+  /usr/share/zsh/5.0.6/functions/_complete_tag
+  /usr/share/zsh/5.0.6/functions/_compress
+  /usr/share/zsh/5.0.6/functions/_condition
+  /usr/share/zsh/5.0.6/functions/_configure
+  /usr/share/zsh/5.0.6/functions/_coreadm
+  /usr/share/zsh/5.0.6/functions/_correct
+  /usr/share/zsh/5.0.6/functions/_correct_filename
+  /usr/share/zsh/5.0.6/functions/_correct_word
+  /usr/share/zsh/5.0.6/functions/_cowsay
+  /usr/share/zsh/5.0.6/functions/_cp
+  /usr/share/zsh/5.0.6/functions/_cpio
+  /usr/share/zsh/5.0.6/functions/_cplay
+  /usr/share/zsh/5.0.6/functions/_cryptsetup
+  /usr/share/zsh/5.0.6/functions/_cssh
+  /usr/share/zsh/5.0.6/functions/_csup
+  /usr/share/zsh/5.0.6/functions/_ctags_tags
+  /usr/share/zsh/5.0.6/functions/_cut
+  /usr/share/zsh/5.0.6/functions/_cvs
+  /usr/share/zsh/5.0.6/functions/_cvsup
+  /usr/share/zsh/5.0.6/functions/_cygcheck
+  /usr/share/zsh/5.0.6/functions/_cygpath
+  /usr/share/zsh/5.0.6/functions/_cygrunsrv
+  /usr/share/zsh/5.0.6/functions/_cygserver
+  /usr/share/zsh/5.0.6/functions/_cygstart
+  /usr/share/zsh/5.0.6/functions/_dak
+  /usr/share/zsh/5.0.6/functions/_darcs
+  /usr/share/zsh/5.0.6/functions/_date
+  /usr/share/zsh/5.0.6/functions/_dbus
+  /usr/share/zsh/5.0.6/functions/_dchroot
+  /usr/share/zsh/5.0.6/functions/_dchroot-dsa
+  /usr/share/zsh/5.0.6/functions/_dcop
+  /usr/share/zsh/5.0.6/functions/_dcut
+  /usr/share/zsh/5.0.6/functions/_dd
+  /usr/share/zsh/5.0.6/functions/_deb_packages
+  /usr/share/zsh/5.0.6/functions/_debchange
+  /usr/share/zsh/5.0.6/functions/_debdiff
+  /usr/share/zsh/5.0.6/functions/_debfoster
+  /usr/share/zsh/5.0.6/functions/_debsign
+  /usr/share/zsh/5.0.6/functions/_default
+  /usr/share/zsh/5.0.6/functions/_defaults
+  /usr/share/zsh/5.0.6/functions/_delimiters
+  /usr/share/zsh/5.0.6/functions/_describe
+  /usr/share/zsh/5.0.6/functions/_description
+  /usr/share/zsh/5.0.6/functions/_devtodo
+  /usr/share/zsh/5.0.6/functions/_df
+  /usr/share/zsh/5.0.6/functions/_dhclient
+  /usr/share/zsh/5.0.6/functions/_dhcpinfo
+  /usr/share/zsh/5.0.6/functions/_dict
+  /usr/share/zsh/5.0.6/functions/_dict_words
+  /usr/share/zsh/5.0.6/functions/_diff
+  /usr/share/zsh/5.0.6/functions/_diff_options
+  /usr/share/zsh/5.0.6/functions/_diffstat
+  /usr/share/zsh/5.0.6/functions/_dir_list
+  /usr/share/zsh/5.0.6/functions/_directories
+  /usr/share/zsh/5.0.6/functions/_directory_stack
+  /usr/share/zsh/5.0.6/functions/_dirs
+  /usr/share/zsh/5.0.6/functions/_disable
+  /usr/share/zsh/5.0.6/functions/_dispatch
+  /usr/share/zsh/5.0.6/functions/_django
+  /usr/share/zsh/5.0.6/functions/_dladm
+  /usr/share/zsh/5.0.6/functions/_dlocate
+  /usr/share/zsh/5.0.6/functions/_dmidecode
+  /usr/share/zsh/5.0.6/functions/_docker
+  /usr/share/zsh/5.0.6/functions/_domains
+  /usr/share/zsh/5.0.6/functions/_dpatch-edit-patch
+  /usr/share/zsh/5.0.6/functions/_dpkg
+  /usr/share/zsh/5.0.6/functions/_dpkg-buildpackage
+  /usr/share/zsh/5.0.6/functions/_dpkg-cross
+  /usr/share/zsh/5.0.6/functions/_dpkg-repack
+  /usr/share/zsh/5.0.6/functions/_dpkg_source
+  /usr/share/zsh/5.0.6/functions/_dput
+  /usr/share/zsh/5.0.6/functions/_dsh
+  /usr/share/zsh/5.0.6/functions/_dtrace
+  /usr/share/zsh/5.0.6/functions/_du
+  /usr/share/zsh/5.0.6/functions/_dumpadm
+  /usr/share/zsh/5.0.6/functions/_dumper
+  /usr/share/zsh/5.0.6/functions/_dupload
+  /usr/share/zsh/5.0.6/functions/_dvi
+  /usr/share/zsh/5.0.6/functions/_dynamic_directory_name
+  /usr/share/zsh/5.0.6/functions/_ecasound
+  /usr/share/zsh/5.0.6/functions/_echotc
+  /usr/share/zsh/5.0.6/functions/_echoti
+  /usr/share/zsh/5.0.6/functions/_elinks
+  /usr/share/zsh/5.0.6/functions/_elm
+  /usr/share/zsh/5.0.6/functions/_email_addresses
+  /usr/share/zsh/5.0.6/functions/_emulate
+  /usr/share/zsh/5.0.6/functions/_enable
+  /usr/share/zsh/5.0.6/functions/_enscript
+  /usr/share/zsh/5.0.6/functions/_env
+  /usr/share/zsh/5.0.6/functions/_equal
+  /usr/share/zsh/5.0.6/functions/_espeak
+  /usr/share/zsh/5.0.6/functions/_etags
+  /usr/share/zsh/5.0.6/functions/_ethtool
+  /usr/share/zsh/5.0.6/functions/_expand
+  /usr/share/zsh/5.0.6/functions/_expand_alias
+  /usr/share/zsh/5.0.6/functions/_expand_word
+  /usr/share/zsh/5.0.6/functions/_extensions
+  /usr/share/zsh/5.0.6/functions/_fakeroot
+  /usr/share/zsh/5.0.6/functions/_fc
+  /usr/share/zsh/5.0.6/functions/_feh
+  /usr/share/zsh/5.0.6/functions/_fetch
+  /usr/share/zsh/5.0.6/functions/_fetchmail
+  /usr/share/zsh/5.0.6/functions/_ffmpeg
+  /usr/share/zsh/5.0.6/functions/_figlet
+  /usr/share/zsh/5.0.6/functions/_file_descriptors
+  /usr/share/zsh/5.0.6/functions/_file_systems
+  /usr/share/zsh/5.0.6/functions/_files
+  /usr/share/zsh/5.0.6/functions/_find
+  /usr/share/zsh/5.0.6/functions/_finger
+  /usr/share/zsh/5.0.6/functions/_fink
+  /usr/share/zsh/5.0.6/functions/_first
+  /usr/share/zsh/5.0.6/functions/_flasher
+  /usr/share/zsh/5.0.6/functions/_flex
+  /usr/share/zsh/5.0.6/functions/_floppy
+  /usr/share/zsh/5.0.6/functions/_flowadm
+  /usr/share/zsh/5.0.6/functions/_fmadm
+  /usr/share/zsh/5.0.6/functions/_fortune
+  /usr/share/zsh/5.0.6/functions/_freebsd-update
+  /usr/share/zsh/5.0.6/functions/_fsh
+  /usr/share/zsh/5.0.6/functions/_fstat
+  /usr/share/zsh/5.0.6/functions/_functions
+  /usr/share/zsh/5.0.6/functions/_fuse_arguments
+  /usr/share/zsh/5.0.6/functions/_fuse_values
+  /usr/share/zsh/5.0.6/functions/_fuser
+  /usr/share/zsh/5.0.6/functions/_fusermount
+  /usr/share/zsh/5.0.6/functions/_gcc
+  /usr/share/zsh/5.0.6/functions/_gcore
+  /usr/share/zsh/5.0.6/functions/_gdb
+  /usr/share/zsh/5.0.6/functions/_generic
+  /usr/share/zsh/5.0.6/functions/_genisoimage
+  /usr/share/zsh/5.0.6/functions/_getclip
+  /usr/share/zsh/5.0.6/functions/_getconf
+  /usr/share/zsh/5.0.6/functions/_getent
+  /usr/share/zsh/5.0.6/functions/_getfacl
+  /usr/share/zsh/5.0.6/functions/_getmail
+  /usr/share/zsh/5.0.6/functions/_git
+  /usr/share/zsh/5.0.6/functions/_git-buildpackage
+  /usr/share/zsh/5.0.6/functions/_global
+  /usr/share/zsh/5.0.6/functions/_global_tags
+  /usr/share/zsh/5.0.6/functions/_globflags
+  /usr/share/zsh/5.0.6/functions/_globqual_delims
+  /usr/share/zsh/5.0.6/functions/_globquals
+  /usr/share/zsh/5.0.6/functions/_gnome-gv
+  /usr/share/zsh/5.0.6/functions/_gnu_generic
+  /usr/share/zsh/5.0.6/functions/_gnupod
+  /usr/share/zsh/5.0.6/functions/_gnutls
+  /usr/share/zsh/5.0.6/functions/_go
+  /usr/share/zsh/5.0.6/functions/_gpg
+  /usr/share/zsh/5.0.6/functions/_gphoto2
+  /usr/share/zsh/5.0.6/functions/_gprof
+  /usr/share/zsh/5.0.6/functions/_gqview
+  /usr/share/zsh/5.0.6/functions/_gradle
+  /usr/share/zsh/5.0.6/functions/_graphicsmagick
+  /usr/share/zsh/5.0.6/functions/_grep
+  /usr/share/zsh/5.0.6/functions/_grep-excuses
+  /usr/share/zsh/5.0.6/functions/_groff
+  /usr/share/zsh/5.0.6/functions/_groups
+  /usr/share/zsh/5.0.6/functions/_growisofs
+  /usr/share/zsh/5.0.6/functions/_gs
+  /usr/share/zsh/5.0.6/functions/_guard
+  /usr/share/zsh/5.0.6/functions/_guilt
+  /usr/share/zsh/5.0.6/functions/_gv
+  /usr/share/zsh/5.0.6/functions/_gzip
+  /usr/share/zsh/5.0.6/functions/_hash
+  /usr/share/zsh/5.0.6/functions/_have_glob_qual
+  /usr/share/zsh/5.0.6/functions/_hdiutil
+  /usr/share/zsh/5.0.6/functions/_hg
+  /usr/share/zsh/5.0.6/functions/_history
+  /usr/share/zsh/5.0.6/functions/_history_complete_word
+  /usr/share/zsh/5.0.6/functions/_history_modifiers
+  /usr/share/zsh/5.0.6/functions/_hosts
+  /usr/share/zsh/5.0.6/functions/_hwinfo
+  /usr/share/zsh/5.0.6/functions/_iconv
+  /usr/share/zsh/5.0.6/functions/_id
+  /usr/share/zsh/5.0.6/functions/_ifconfig
+  /usr/share/zsh/5.0.6/functions/_iftop
+  /usr/share/zsh/5.0.6/functions/_ignored
+  /usr/share/zsh/5.0.6/functions/_imagemagick
+  /usr/share/zsh/5.0.6/functions/_in_vared
+  /usr/share/zsh/5.0.6/functions/_inetadm
+  /usr/share/zsh/5.0.6/functions/_init_d
+  /usr/share/zsh/5.0.6/functions/_initctl
+  /usr/share/zsh/5.0.6/functions/_invoke-rc.d
+  /usr/share/zsh/5.0.6/functions/_ionice
+  /usr/share/zsh/5.0.6/functions/_ip
+  /usr/share/zsh/5.0.6/functions/_ipadm
+  /usr/share/zsh/5.0.6/functions/_ipset
+  /usr/share/zsh/5.0.6/functions/_iptables
+  /usr/share/zsh/5.0.6/functions/_irssi
+  /usr/share/zsh/5.0.6/functions/_ispell
+  /usr/share/zsh/5.0.6/functions/_iwconfig
+  /usr/share/zsh/5.0.6/functions/_java
+  /usr/share/zsh/5.0.6/functions/_java_class
+  /usr/share/zsh/5.0.6/functions/_jobs
+  /usr/share/zsh/5.0.6/functions/_jobs_bg
+  /usr/share/zsh/5.0.6/functions/_jobs_builtin
+  /usr/share/zsh/5.0.6/functions/_jobs_fg
+  /usr/share/zsh/5.0.6/functions/_joe
+  /usr/share/zsh/5.0.6/functions/_join
+  /usr/share/zsh/5.0.6/functions/_kfmclient
+  /usr/share/zsh/5.0.6/functions/_kill
+  /usr/share/zsh/5.0.6/functions/_killall
+  /usr/share/zsh/5.0.6/functions/_kld
+  /usr/share/zsh/5.0.6/functions/_knock
+  /usr/share/zsh/5.0.6/functions/_kvno
+  /usr/share/zsh/5.0.6/functions/_last
+  /usr/share/zsh/5.0.6/functions/_ld_debug
+  /usr/share/zsh/5.0.6/functions/_ldd
+  /usr/share/zsh/5.0.6/functions/_less
+  /usr/share/zsh/5.0.6/functions/_lha
+  /usr/share/zsh/5.0.6/functions/_lighttpd
+  /usr/share/zsh/5.0.6/functions/_limit
+  /usr/share/zsh/5.0.6/functions/_limits
+  /usr/share/zsh/5.0.6/functions/_links
+  /usr/share/zsh/5.0.6/functions/_lintian
+  /usr/share/zsh/5.0.6/functions/_list
+  /usr/share/zsh/5.0.6/functions/_list_files
+  /usr/share/zsh/5.0.6/functions/_ln
+  /usr/share/zsh/5.0.6/functions/_loadkeys
+  /usr/share/zsh/5.0.6/functions/_locales
+  /usr/share/zsh/5.0.6/functions/_locate
+  /usr/share/zsh/5.0.6/functions/_logical_volumes
+  /usr/share/zsh/5.0.6/functions/_look
+  /usr/share/zsh/5.0.6/functions/_losetup
+  /usr/share/zsh/5.0.6/functions/_lp
+  /usr/share/zsh/5.0.6/functions/_ls
+  /usr/share/zsh/5.0.6/functions/_lscfg
+  /usr/share/zsh/5.0.6/functions/_lsdev
+  /usr/share/zsh/5.0.6/functions/_lslv
+  /usr/share/zsh/5.0.6/functions/_lsof
+  /usr/share/zsh/5.0.6/functions/_lspv
+  /usr/share/zsh/5.0.6/functions/_lsusb
+  /usr/share/zsh/5.0.6/functions/_lsvg
+  /usr/share/zsh/5.0.6/functions/_lynx
+  /usr/share/zsh/5.0.6/functions/_lzop
+  /usr/share/zsh/5.0.6/functions/_mac_applications
+  /usr/share/zsh/5.0.6/functions/_mac_files_for_application
+  /usr/share/zsh/5.0.6/functions/_madison
+  /usr/share/zsh/5.0.6/functions/_mail
+  /usr/share/zsh/5.0.6/functions/_mailboxes
+  /usr/share/zsh/5.0.6/functions/_main_complete
+  /usr/share/zsh/5.0.6/functions/_make
+  /usr/share/zsh/5.0.6/functions/_make-kpkg
+  /usr/share/zsh/5.0.6/functions/_man
+  /usr/share/zsh/5.0.6/functions/_match
+  /usr/share/zsh/5.0.6/functions/_math
+  /usr/share/zsh/5.0.6/functions/_math_params
+  /usr/share/zsh/5.0.6/functions/_matlab
+  /usr/share/zsh/5.0.6/functions/_md5sum
+  /usr/share/zsh/5.0.6/functions/_mdadm
+  /usr/share/zsh/5.0.6/functions/_members
+  /usr/share/zsh/5.0.6/functions/_mencal
+  /usr/share/zsh/5.0.6/functions/_menu
+  /usr/share/zsh/5.0.6/functions/_mere
+  /usr/share/zsh/5.0.6/functions/_mergechanges
+  /usr/share/zsh/5.0.6/functions/_message
+  /usr/share/zsh/5.0.6/functions/_metaflac
+  /usr/share/zsh/5.0.6/functions/_mh
+  /usr/share/zsh/5.0.6/functions/_mii-tool
+  /usr/share/zsh/5.0.6/functions/_mime_types
+  /usr/share/zsh/5.0.6/functions/_mkdir
+  /usr/share/zsh/5.0.6/functions/_mkgroup
+  /usr/share/zsh/5.0.6/functions/_mkpasswd
+  /usr/share/zsh/5.0.6/functions/_mkshortcut
+  /usr/share/zsh/5.0.6/functions/_mkzsh
+  /usr/share/zsh/5.0.6/functions/_module
+  /usr/share/zsh/5.0.6/functions/_module-assistant
+  /usr/share/zsh/5.0.6/functions/_module_math_func
+  /usr/share/zsh/5.0.6/functions/_modutils
+  /usr/share/zsh/5.0.6/functions/_mondo
+  /usr/share/zsh/5.0.6/functions/_monotone
+  /usr/share/zsh/5.0.6/functions/_moosic
+  /usr/share/zsh/5.0.6/functions/_mosh
+  /usr/share/zsh/5.0.6/functions/_most_recent_file
+  /usr/share/zsh/5.0.6/functions/_mount
+  /usr/share/zsh/5.0.6/functions/_mozilla
+  /usr/share/zsh/5.0.6/functions/_mpc
+  /usr/share/zsh/5.0.6/functions/_mplayer
+  /usr/share/zsh/5.0.6/functions/_mt
+  /usr/share/zsh/5.0.6/functions/_mtools
+  /usr/share/zsh/5.0.6/functions/_mtr
+  /usr/share/zsh/5.0.6/functions/_multi_parts
+  /usr/share/zsh/5.0.6/functions/_mutt
+  /usr/share/zsh/5.0.6/functions/_my_accounts
+  /usr/share/zsh/5.0.6/functions/_mysql_utils
+  /usr/share/zsh/5.0.6/functions/_mysqldiff
+  /usr/share/zsh/5.0.6/functions/_nautilus
+  /usr/share/zsh/5.0.6/functions/_ncftp
+  /usr/share/zsh/5.0.6/functions/_nedit
+  /usr/share/zsh/5.0.6/functions/_net_interfaces
+  /usr/share/zsh/5.0.6/functions/_netcat
+  /usr/share/zsh/5.0.6/functions/_netscape
+  /usr/share/zsh/5.0.6/functions/_netstat
+  /usr/share/zsh/5.0.6/functions/_newsgroups
+  /usr/share/zsh/5.0.6/functions/_next_label
+  /usr/share/zsh/5.0.6/functions/_next_tags
+  /usr/share/zsh/5.0.6/functions/_nice
+  /usr/share/zsh/5.0.6/functions/_nkf
+  /usr/share/zsh/5.0.6/functions/_nm
+  /usr/share/zsh/5.0.6/functions/_nmap
+  /usr/share/zsh/5.0.6/functions/_nmcli
+  /usr/share/zsh/5.0.6/functions/_normal
+  /usr/share/zsh/5.0.6/functions/_nothing
+  /usr/share/zsh/5.0.6/functions/_notmuch
+  /usr/share/zsh/5.0.6/functions/_npm
+  /usr/share/zsh/5.0.6/functions/_nslookup
+  /usr/share/zsh/5.0.6/functions/_object_classes
+  /usr/share/zsh/5.0.6/functions/_od
+  /usr/share/zsh/5.0.6/functions/_okular
+  /usr/share/zsh/5.0.6/functions/_oldlist
+  /usr/share/zsh/5.0.6/functions/_open
+  /usr/share/zsh/5.0.6/functions/_options
+  /usr/share/zsh/5.0.6/functions/_options_set
+  /usr/share/zsh/5.0.6/functions/_options_unset
+  /usr/share/zsh/5.0.6/functions/_osc
+  /usr/share/zsh/5.0.6/functions/_other_accounts
+  /usr/share/zsh/5.0.6/functions/_pack
+  /usr/share/zsh/5.0.6/functions/_parameter
+  /usr/share/zsh/5.0.6/functions/_parameters
+  /usr/share/zsh/5.0.6/functions/_passwd
+  /usr/share/zsh/5.0.6/functions/_patch
+  /usr/share/zsh/5.0.6/functions/_path_commands
+  /usr/share/zsh/5.0.6/functions/_path_files
+  /usr/share/zsh/5.0.6/functions/_pax
+  /usr/share/zsh/5.0.6/functions/_pbm
+  /usr/share/zsh/5.0.6/functions/_pbuilder
+  /usr/share/zsh/5.0.6/functions/_pdf
+  /usr/share/zsh/5.0.6/functions/_pdftk
+  /usr/share/zsh/5.0.6/functions/_perforce
+  /usr/share/zsh/5.0.6/functions/_perl
+  /usr/share/zsh/5.0.6/functions/_perl_basepods
+  /usr/share/zsh/5.0.6/functions/_perl_modules
+  /usr/share/zsh/5.0.6/functions/_perldoc
+  /usr/share/zsh/5.0.6/functions/_pfctl
+  /usr/share/zsh/5.0.6/functions/_pfexec
+  /usr/share/zsh/5.0.6/functions/_pgrep
+  /usr/share/zsh/5.0.6/functions/_php
+  /usr/share/zsh/5.0.6/functions/_physical_volumes
+  /usr/share/zsh/5.0.6/functions/_pick_variant
+  /usr/share/zsh/5.0.6/functions/_pids
+  /usr/share/zsh/5.0.6/functions/_pine
+  /usr/share/zsh/5.0.6/functions/_ping
+  /usr/share/zsh/5.0.6/functions/_piuparts
+  /usr/share/zsh/5.0.6/functions/_pkg-config
+  /usr/share/zsh/5.0.6/functions/_pkg5
+  /usr/share/zsh/5.0.6/functions/_pkg_instance
+  /usr/share/zsh/5.0.6/functions/_pkgadd
+  /usr/share/zsh/5.0.6/functions/_pkginfo
+  /usr/share/zsh/5.0.6/functions/_pkgrm
+  /usr/share/zsh/5.0.6/functions/_pkgtool
+  /usr/share/zsh/5.0.6/functions/_pon
+  /usr/share/zsh/5.0.6/functions/_portaudit
+  /usr/share/zsh/5.0.6/functions/_portlint
+  /usr/share/zsh/5.0.6/functions/_portmaster
+  /usr/share/zsh/5.0.6/functions/_ports
+  /usr/share/zsh/5.0.6/functions/_portsnap
+  /usr/share/zsh/5.0.6/functions/_postfix
+  /usr/share/zsh/5.0.6/functions/_postscript
+  /usr/share/zsh/5.0.6/functions/_powerd
+  /usr/share/zsh/5.0.6/functions/_prcs
+  /usr/share/zsh/5.0.6/functions/_precommand
+  /usr/share/zsh/5.0.6/functions/_prefix
+  /usr/share/zsh/5.0.6/functions/_print
+  /usr/share/zsh/5.0.6/functions/_printenv
+  /usr/share/zsh/5.0.6/functions/_printers
+  /usr/share/zsh/5.0.6/functions/_procstat
+  /usr/share/zsh/5.0.6/functions/_prompt
+  /usr/share/zsh/5.0.6/functions/_prove
+  /usr/share/zsh/5.0.6/functions/_prstat
+  /usr/share/zsh/5.0.6/functions/_ps
+  /usr/share/zsh/5.0.6/functions/_ps1234
+  /usr/share/zsh/5.0.6/functions/_ps_cygwin
+  /usr/share/zsh/5.0.6/functions/_pscp
+  /usr/share/zsh/5.0.6/functions/_pspdf
+  /usr/share/zsh/5.0.6/functions/_psutils
+  /usr/share/zsh/5.0.6/functions/_ptree
+  /usr/share/zsh/5.0.6/functions/_pump
+  /usr/share/zsh/5.0.6/functions/_putclip
+  /usr/share/zsh/5.0.6/functions/_pydoc
+  /usr/share/zsh/5.0.6/functions/_python
+  /usr/share/zsh/5.0.6/functions/_qemu
+  /usr/share/zsh/5.0.6/functions/_qiv
+  /usr/share/zsh/5.0.6/functions/_qtplay
+  /usr/share/zsh/5.0.6/functions/_quilt
+  /usr/share/zsh/5.0.6/functions/_raggle
+  /usr/share/zsh/5.0.6/functions/_rake
+  /usr/share/zsh/5.0.6/functions/_ranlib
+  /usr/share/zsh/5.0.6/functions/_rar
+  /usr/share/zsh/5.0.6/functions/_rcs
+  /usr/share/zsh/5.0.6/functions/_read
+  /usr/share/zsh/5.0.6/functions/_read_comp
+  /usr/share/zsh/5.0.6/functions/_readshortcut
+  /usr/share/zsh/5.0.6/functions/_rebootin
+  /usr/share/zsh/5.0.6/functions/_redirect
+  /usr/share/zsh/5.0.6/functions/_regex_arguments
+  /usr/share/zsh/5.0.6/functions/_regex_words
+  /usr/share/zsh/5.0.6/functions/_remote_files
+  /usr/share/zsh/5.0.6/functions/_renice
+  /usr/share/zsh/5.0.6/functions/_reprepro
+  /usr/share/zsh/5.0.6/functions/_requested
+  /usr/share/zsh/5.0.6/functions/_retrieve_cache
+  /usr/share/zsh/5.0.6/functions/_retrieve_mac_apps
+  /usr/share/zsh/5.0.6/functions/_ri
+  /usr/share/zsh/5.0.6/functions/_rlogin
+  /usr/share/zsh/5.0.6/functions/_rm
+  /usr/share/zsh/5.0.6/functions/_rpm
+  /usr/share/zsh/5.0.6/functions/_rpmbuild
+  /usr/share/zsh/5.0.6/functions/_rrdtool
+  /usr/share/zsh/5.0.6/functions/_rsync
+  /usr/share/zsh/5.0.6/functions/_rubber
+  /usr/share/zsh/5.0.6/functions/_ruby
+  /usr/share/zsh/5.0.6/functions/_run-help
+  /usr/share/zsh/5.0.6/functions/_sablotron
+  /usr/share/zsh/5.0.6/functions/_samba
+  /usr/share/zsh/5.0.6/functions/_savecore
+  /usr/share/zsh/5.0.6/functions/_sccs
+  /usr/share/zsh/5.0.6/functions/_sched
+  /usr/share/zsh/5.0.6/functions/_schedtool
+  /usr/share/zsh/5.0.6/functions/_schroot
+  /usr/share/zsh/5.0.6/functions/_screen
+  /usr/share/zsh/5.0.6/functions/_sed
+  /usr/share/zsh/5.0.6/functions/_sep_parts
+  /usr/share/zsh/5.0.6/functions/_sequence
+  /usr/share/zsh/5.0.6/functions/_service
+  /usr/share/zsh/5.0.6/functions/_services
+  /usr/share/zsh/5.0.6/functions/_set
+  /usr/share/zsh/5.0.6/functions/_set_command
+  /usr/share/zsh/5.0.6/functions/_setfacl
+  /usr/share/zsh/5.0.6/functions/_setopt
+  /usr/share/zsh/5.0.6/functions/_setup
+  /usr/share/zsh/5.0.6/functions/_setxkbmap
+  /usr/share/zsh/5.0.6/functions/_sh
+  /usr/share/zsh/5.0.6/functions/_showmount
+  /usr/share/zsh/5.0.6/functions/_signals
+  /usr/share/zsh/5.0.6/functions/_sisu
+  /usr/share/zsh/5.0.6/functions/_slrn
+  /usr/share/zsh/5.0.6/functions/_smit
+  /usr/share/zsh/5.0.6/functions/_snoop
+  /usr/share/zsh/5.0.6/functions/_socket
+  /usr/share/zsh/5.0.6/functions/_sockstat
+  /usr/share/zsh/5.0.6/functions/_softwareupdate
+  /usr/share/zsh/5.0.6/functions/_sort
+  /usr/share/zsh/5.0.6/functions/_source
+  /usr/share/zsh/5.0.6/functions/_spamassassin
+  /usr/share/zsh/5.0.6/functions/_sqlite
+  /usr/share/zsh/5.0.6/functions/_sqsh
+  /usr/share/zsh/5.0.6/functions/_ss
+  /usr/share/zsh/5.0.6/functions/_ssh
+  /usr/share/zsh/5.0.6/functions/_sshfs
+  /usr/share/zsh/5.0.6/functions/_stat
+  /usr/share/zsh/5.0.6/functions/_stgit
+  /usr/share/zsh/5.0.6/functions/_store_cache
+  /usr/share/zsh/5.0.6/functions/_strace
+  /usr/share/zsh/5.0.6/functions/_strip
+  /usr/share/zsh/5.0.6/functions/_stty
+  /usr/share/zsh/5.0.6/functions/_su
+  /usr/share/zsh/5.0.6/functions/_sub_commands
+  /usr/share/zsh/5.0.6/functions/_subscript
+  /usr/share/zsh/5.0.6/functions/_subversion
+  /usr/share/zsh/5.0.6/functions/_sudo
+  /usr/share/zsh/5.0.6/functions/_suffix_alias_files
+  /usr/share/zsh/5.0.6/functions/_surfraw
+  /usr/share/zsh/5.0.6/functions/_svcadm
+  /usr/share/zsh/5.0.6/functions/_svccfg
+  /usr/share/zsh/5.0.6/functions/_svcprop
+  /usr/share/zsh/5.0.6/functions/_svcs
+  /usr/share/zsh/5.0.6/functions/_svcs_fmri
+  /usr/share/zsh/5.0.6/functions/_svn-buildpackage
+  /usr/share/zsh/5.0.6/functions/_sysctl
+  /usr/share/zsh/5.0.6/functions/_sysstat
+  /usr/share/zsh/5.0.6/functions/_system_profiler
+  /usr/share/zsh/5.0.6/functions/_systemd
+  /usr/share/zsh/5.0.6/functions/_tags
+  /usr/share/zsh/5.0.6/functions/_tar
+  /usr/share/zsh/5.0.6/functions/_tar_archive
+  /usr/share/zsh/5.0.6/functions/_tardy
+  /usr/share/zsh/5.0.6/functions/_tcpdump
+  /usr/share/zsh/5.0.6/functions/_tcpsys
+  /usr/share/zsh/5.0.6/functions/_tcptraceroute
+  /usr/share/zsh/5.0.6/functions/_telnet
+  /usr/share/zsh/5.0.6/functions/_terminals
+  /usr/share/zsh/5.0.6/functions/_tex
+  /usr/share/zsh/5.0.6/functions/_texi
+  /usr/share/zsh/5.0.6/functions/_texinfo
+  /usr/share/zsh/5.0.6/functions/_tidy
+  /usr/share/zsh/5.0.6/functions/_tiff
+  /usr/share/zsh/5.0.6/functions/_tilde
+  /usr/share/zsh/5.0.6/functions/_tilde_files
+  /usr/share/zsh/5.0.6/functions/_time_zone
+  /usr/share/zsh/5.0.6/functions/_tin
+  /usr/share/zsh/5.0.6/functions/_tla
+  /usr/share/zsh/5.0.6/functions/_tmux
+  /usr/share/zsh/5.0.6/functions/_todo.sh
+  /usr/share/zsh/5.0.6/functions/_toilet
+  /usr/share/zsh/5.0.6/functions/_toolchain-source
+  /usr/share/zsh/5.0.6/functions/_topgit
+  /usr/share/zsh/5.0.6/functions/_totd
+  /usr/share/zsh/5.0.6/functions/_tpb
+  /usr/share/zsh/5.0.6/functions/_tpconfig
+  /usr/share/zsh/5.0.6/functions/_tracepath
+  /usr/share/zsh/5.0.6/functions/_trap
+  /usr/share/zsh/5.0.6/functions/_tree
+  /usr/share/zsh/5.0.6/functions/_ttyctl
+  /usr/share/zsh/5.0.6/functions/_tune2fs
+  /usr/share/zsh/5.0.6/functions/_twidge
+  /usr/share/zsh/5.0.6/functions/_twisted
+  /usr/share/zsh/5.0.6/functions/_typeset
+  /usr/share/zsh/5.0.6/functions/_ulimit
+  /usr/share/zsh/5.0.6/functions/_uml
+  /usr/share/zsh/5.0.6/functions/_unace
+  /usr/share/zsh/5.0.6/functions/_uname
+  /usr/share/zsh/5.0.6/functions/_unexpand
+  /usr/share/zsh/5.0.6/functions/_unhash
+  /usr/share/zsh/5.0.6/functions/_uniq
+  /usr/share/zsh/5.0.6/functions/_unison
+  /usr/share/zsh/5.0.6/functions/_units
+  /usr/share/zsh/5.0.6/functions/_unsetopt
+  /usr/share/zsh/5.0.6/functions/_update-alternatives
+  /usr/share/zsh/5.0.6/functions/_update-rc.d
+  /usr/share/zsh/5.0.6/functions/_urls
+  /usr/share/zsh/5.0.6/functions/_urpmi
+  /usr/share/zsh/5.0.6/functions/_urxvt
+  /usr/share/zsh/5.0.6/functions/_uscan
+  /usr/share/zsh/5.0.6/functions/_user_admin
+  /usr/share/zsh/5.0.6/functions/_user_at_host
+  /usr/share/zsh/5.0.6/functions/_user_expand
+  /usr/share/zsh/5.0.6/functions/_user_math_func
+  /usr/share/zsh/5.0.6/functions/_users
+  /usr/share/zsh/5.0.6/functions/_users_on
+  /usr/share/zsh/5.0.6/functions/_uzbl
+  /usr/share/zsh/5.0.6/functions/_valgrind
+  /usr/share/zsh/5.0.6/functions/_value
+  /usr/share/zsh/5.0.6/functions/_values
+  /usr/share/zsh/5.0.6/functions/_vared
+  /usr/share/zsh/5.0.6/functions/_vars
+  /usr/share/zsh/5.0.6/functions/_vcsh
+  /usr/share/zsh/5.0.6/functions/_vim
+  /usr/share/zsh/5.0.6/functions/_vim-addons
+  /usr/share/zsh/5.0.6/functions/_vnc
+  /usr/share/zsh/5.0.6/functions/_volume_groups
+  /usr/share/zsh/5.0.6/functions/_vorbis
+  /usr/share/zsh/5.0.6/functions/_vorbiscomment
+  /usr/share/zsh/5.0.6/functions/_vserver
+  /usr/share/zsh/5.0.6/functions/_vux
+  /usr/share/zsh/5.0.6/functions/_w3m
+  /usr/share/zsh/5.0.6/functions/_wait
+  /usr/share/zsh/5.0.6/functions/_wajig
+  /usr/share/zsh/5.0.6/functions/_wakeup_capable_devices
+  /usr/share/zsh/5.0.6/functions/_wanna-build
+  /usr/share/zsh/5.0.6/functions/_wanted
+  /usr/share/zsh/5.0.6/functions/_webbrowser
+  /usr/share/zsh/5.0.6/functions/_wget
+  /usr/share/zsh/5.0.6/functions/_whereis
+  /usr/share/zsh/5.0.6/functions/_which
+  /usr/share/zsh/5.0.6/functions/_whois
+  /usr/share/zsh/5.0.6/functions/_wiggle
+  /usr/share/zsh/5.0.6/functions/_wpa_cli
+  /usr/share/zsh/5.0.6/functions/_x_arguments
+  /usr/share/zsh/5.0.6/functions/_x_borderwidth
+  /usr/share/zsh/5.0.6/functions/_x_color
+  /usr/share/zsh/5.0.6/functions/_x_colormapid
+  /usr/share/zsh/5.0.6/functions/_x_cursor
+  /usr/share/zsh/5.0.6/functions/_x_display
+  /usr/share/zsh/5.0.6/functions/_x_extension
+  /usr/share/zsh/5.0.6/functions/_x_font
+  /usr/share/zsh/5.0.6/functions/_x_geometry
+  /usr/share/zsh/5.0.6/functions/_x_keysym
+  /usr/share/zsh/5.0.6/functions/_x_locale
+  /usr/share/zsh/5.0.6/functions/_x_modifier
+  /usr/share/zsh/5.0.6/functions/_x_name
+  /usr/share/zsh/5.0.6/functions/_x_resource
+  /usr/share/zsh/5.0.6/functions/_x_selection_timeout
+  /usr/share/zsh/5.0.6/functions/_x_title
+  /usr/share/zsh/5.0.6/functions/_x_utils
+  /usr/share/zsh/5.0.6/functions/_x_visual
+  /usr/share/zsh/5.0.6/functions/_x_window
+  /usr/share/zsh/5.0.6/functions/_xargs
+  /usr/share/zsh/5.0.6/functions/_xauth
+  /usr/share/zsh/5.0.6/functions/_xclip
+  /usr/share/zsh/5.0.6/functions/_xdvi
+  /usr/share/zsh/5.0.6/functions/_xfig
+  /usr/share/zsh/5.0.6/functions/_xft_fonts
+  /usr/share/zsh/5.0.6/functions/_xloadimage
+  /usr/share/zsh/5.0.6/functions/_xmlsoft
+  /usr/share/zsh/5.0.6/functions/_xmms2
+  /usr/share/zsh/5.0.6/functions/_xmodmap
+  /usr/share/zsh/5.0.6/functions/_xournal
+  /usr/share/zsh/5.0.6/functions/_xpdf
+  /usr/share/zsh/5.0.6/functions/_xrandr
+  /usr/share/zsh/5.0.6/functions/_xscreensaver
+  /usr/share/zsh/5.0.6/functions/_xset
+  /usr/share/zsh/5.0.6/functions/_xt_arguments
+  /usr/share/zsh/5.0.6/functions/_xt_session_id
+  /usr/share/zsh/5.0.6/functions/_xterm
+  /usr/share/zsh/5.0.6/functions/_xv
+  /usr/share/zsh/5.0.6/functions/_xwit
+  /usr/share/zsh/5.0.6/functions/_xz
+  /usr/share/zsh/5.0.6/functions/_yafc
+  /usr/share/zsh/5.0.6/functions/_yast
+  /usr/share/zsh/5.0.6/functions/_yast2
+  /usr/share/zsh/5.0.6/functions/_yodl
+  /usr/share/zsh/5.0.6/functions/_yp
+  /usr/share/zsh/5.0.6/functions/_yum
+  /usr/share/zsh/5.0.6/functions/_zargs
+  /usr/share/zsh/5.0.6/functions/_zattr
+  /usr/share/zsh/5.0.6/functions/_zcalc_line
+  /usr/share/zsh/5.0.6/functions/_zcat
+  /usr/share/zsh/5.0.6/functions/_zcompile
+  /usr/share/zsh/5.0.6/functions/_zdump
+  /usr/share/zsh/5.0.6/functions/_zed
+  /usr/share/zsh/5.0.6/functions/_zfs
+  /usr/share/zsh/5.0.6/functions/_zfs_dataset
+  /usr/share/zsh/5.0.6/functions/_zfs_keysource_props
+  /usr/share/zsh/5.0.6/functions/_zfs_pool
+  /usr/share/zsh/5.0.6/functions/_zftp
+  /usr/share/zsh/5.0.6/functions/_zip
+  /usr/share/zsh/5.0.6/functions/_zle
+  /usr/share/zsh/5.0.6/functions/_zlogin
+  /usr/share/zsh/5.0.6/functions/_zmodload
+  /usr/share/zsh/5.0.6/functions/_zmv
+  /usr/share/zsh/5.0.6/functions/_zoneadm
+  /usr/share/zsh/5.0.6/functions/_zones
+  /usr/share/zsh/5.0.6/functions/_zpool
+  /usr/share/zsh/5.0.6/functions/_zpty
+  /usr/share/zsh/5.0.6/functions/_zsh-mime-handler
+  /usr/share/zsh/5.0.6/functions/_zstyle
+  /usr/share/zsh/5.0.6/functions/_ztodo
+  /usr/share/zsh/5.0.6/functions/_zypper
+  /usr/share/zsh/5.0.6/functions/add-zsh-hook
+  /usr/share/zsh/5.0.6/functions/age
+  /usr/share/zsh/5.0.6/functions/allopt
+  /usr/share/zsh/5.0.6/functions/backward-kill-word-match
+  /usr/share/zsh/5.0.6/functions/backward-word-match
+  /usr/share/zsh/5.0.6/functions/bashcompinit
+  /usr/share/zsh/5.0.6/functions/calendar
+  /usr/share/zsh/5.0.6/functions/calendar_add
+  /usr/share/zsh/5.0.6/functions/calendar_edit
+  /usr/share/zsh/5.0.6/functions/calendar_lockfiles
+  /usr/share/zsh/5.0.6/functions/calendar_parse
+  /usr/share/zsh/5.0.6/functions/calendar_read
+  /usr/share/zsh/5.0.6/functions/calendar_scandate
+  /usr/share/zsh/5.0.6/functions/calendar_show
+  /usr/share/zsh/5.0.6/functions/calendar_showdate
+  /usr/share/zsh/5.0.6/functions/calendar_sort
+  /usr/share/zsh/5.0.6/functions/capitalize-word-match
+  /usr/share/zsh/5.0.6/functions/catch
+  /usr/share/zsh/5.0.6/functions/cdr
+  /usr/share/zsh/5.0.6/functions/checkmail
+  /usr/share/zsh/5.0.6/functions/chpwd_recent_add
+  /usr/share/zsh/5.0.6/functions/chpwd_recent_dirs
+  /usr/share/zsh/5.0.6/functions/chpwd_recent_filehandler
+  /usr/share/zsh/5.0.6/functions/colors
+  /usr/share/zsh/5.0.6/functions/compaudit
+  /usr/share/zsh/5.0.6/functions/compdump
+  /usr/share/zsh/5.0.6/functions/compinit
+  /usr/share/zsh/5.0.6/functions/compinstall
+  /usr/share/zsh/5.0.6/functions/copy-earlier-word
+  /usr/share/zsh/5.0.6/functions/cycle-completion-positions
+  /usr/share/zsh/5.0.6/functions/define-composed-chars
+  /usr/share/zsh/5.0.6/functions/delete-whole-word-match
+  /usr/share/zsh/5.0.6/functions/down-case-word-match
+  /usr/share/zsh/5.0.6/functions/down-line-or-beginning-search
+  /usr/share/zsh/5.0.6/functions/edit-command-line
+  /usr/share/zsh/5.0.6/functions/expand-absolute-path
+  /usr/share/zsh/5.0.6/functions/forward-word-match
+  /usr/share/zsh/5.0.6/functions/getjobs
+  /usr/share/zsh/5.0.6/functions/harden
+  /usr/share/zsh/5.0.6/functions/history-beginning-search-menu
+  /usr/share/zsh/5.0.6/functions/history-pattern-search
+  /usr/share/zsh/5.0.6/functions/history-search-end
+  /usr/share/zsh/5.0.6/functions/incarg
+  /usr/share/zsh/5.0.6/functions/incremental-complete-word
+  /usr/share/zsh/5.0.6/functions/insert-composed-char
+  /usr/share/zsh/5.0.6/functions/insert-files
+  /usr/share/zsh/5.0.6/functions/insert-unicode-char
+  /usr/share/zsh/5.0.6/functions/is-at-least
+  /usr/share/zsh/5.0.6/functions/keeper
+  /usr/share/zsh/5.0.6/functions/keymap+widget
+  /usr/share/zsh/5.0.6/functions/kill-word-match
+  /usr/share/zsh/5.0.6/functions/match-word-context
+  /usr/share/zsh/5.0.6/functions/match-words-by-style
+  /usr/share/zsh/5.0.6/functions/mere
+  /usr/share/zsh/5.0.6/functions/modify-current-argument
+  /usr/share/zsh/5.0.6/functions/move-line-in-buffer
+  /usr/share/zsh/5.0.6/functions/narrow-to-region
+  /usr/share/zsh/5.0.6/functions/narrow-to-region-invisible
+  /usr/share/zsh/5.0.6/functions/nslookup
+  /usr/share/zsh/5.0.6/functions/pick-web-browser
+  /usr/share/zsh/5.0.6/functions/predict-on
+  /usr/share/zsh/5.0.6/functions/prompt_adam1_setup
+  /usr/share/zsh/5.0.6/functions/prompt_adam2_setup
+  /usr/share/zsh/5.0.6/functions/prompt_bart_setup
+  /usr/share/zsh/5.0.6/functions/prompt_bigfade_setup
+  /usr/share/zsh/5.0.6/functions/prompt_clint_setup
+  /usr/share/zsh/5.0.6/functions/prompt_elite2_setup
+  /usr/share/zsh/5.0.6/functions/prompt_elite_setup
+  /usr/share/zsh/5.0.6/functions/prompt_fade_setup
+  /usr/share/zsh/5.0.6/functions/prompt_fire_setup
+  /usr/share/zsh/5.0.6/functions/prompt_off_setup
+  /usr/share/zsh/5.0.6/functions/prompt_oliver_setup
+  /usr/share/zsh/5.0.6/functions/prompt_pws_setup
+  /usr/share/zsh/5.0.6/functions/prompt_redhat_setup
+  /usr/share/zsh/5.0.6/functions/prompt_special_chars
+  /usr/share/zsh/5.0.6/functions/prompt_suse_setup
+  /usr/share/zsh/5.0.6/functions/prompt_walters_setup
+  /usr/share/zsh/5.0.6/functions/prompt_zefram_setup
+  /usr/share/zsh/5.0.6/functions/promptinit
+  /usr/share/zsh/5.0.6/functions/promptnl
+  /usr/share/zsh/5.0.6/functions/quote-and-complete-word
+  /usr/share/zsh/5.0.6/functions/read-from-minibuffer
+  /usr/share/zsh/5.0.6/functions/regexp-replace
+  /usr/share/zsh/5.0.6/functions/relative
+  /usr/share/zsh/5.0.6/functions/replace-argument
+  /usr/share/zsh/5.0.6/functions/replace-string
+  /usr/share/zsh/5.0.6/functions/replace-string-again
+  /usr/share/zsh/5.0.6/functions/run-help
+  /usr/share/zsh/5.0.6/functions/run-help-git
+  /usr/share/zsh/5.0.6/functions/run-help-openssl
+  /usr/share/zsh/5.0.6/functions/run-help-p4
+  /usr/share/zsh/5.0.6/functions/run-help-sudo
+  /usr/share/zsh/5.0.6/functions/run-help-svk
+  /usr/share/zsh/5.0.6/functions/run-help-svn
+  /usr/share/zsh/5.0.6/functions/select-word-style
+  /usr/share/zsh/5.0.6/functions/send-invisible
+  /usr/share/zsh/5.0.6/functions/smart-insert-last-word
+  /usr/share/zsh/5.0.6/functions/split-shell-arguments
+  /usr/share/zsh/5.0.6/functions/sticky-note
+  /usr/share/zsh/5.0.6/functions/tcp_alias
+  /usr/share/zsh/5.0.6/functions/tcp_close
+  /usr/share/zsh/5.0.6/functions/tcp_command
+  /usr/share/zsh/5.0.6/functions/tcp_expect
+  /usr/share/zsh/5.0.6/functions/tcp_fd_handler
+  /usr/share/zsh/5.0.6/functions/tcp_log
+  /usr/share/zsh/5.0.6/functions/tcp_open
+  /usr/share/zsh/5.0.6/functions/tcp_output
+  /usr/share/zsh/5.0.6/functions/tcp_point
+  /usr/share/zsh/5.0.6/functions/tcp_proxy
+  /usr/share/zsh/5.0.6/functions/tcp_read
+  /usr/share/zsh/5.0.6/functions/tcp_rename
+  /usr/share/zsh/5.0.6/functions/tcp_send
+  /usr/share/zsh/5.0.6/functions/tcp_sess
+  /usr/share/zsh/5.0.6/functions/tcp_shoot
+  /usr/share/zsh/5.0.6/functions/tcp_spam
+  /usr/share/zsh/5.0.6/functions/tcp_talk
+  /usr/share/zsh/5.0.6/functions/tcp_wait
+  /usr/share/zsh/5.0.6/functions/tetris
+  /usr/share/zsh/5.0.6/functions/throw
+  /usr/share/zsh/5.0.6/functions/transpose-lines
+  /usr/share/zsh/5.0.6/functions/transpose-words-match
+  /usr/share/zsh/5.0.6/functions/up-case-word-match
+  /usr/share/zsh/5.0.6/functions/up-line-or-beginning-search
+  /usr/share/zsh/5.0.6/functions/url-quote-magic
+  /usr/share/zsh/5.0.6/functions/vcs_info
+  /usr/share/zsh/5.0.6/functions/vcs_info_hookadd
+  /usr/share/zsh/5.0.6/functions/vcs_info_hookdel
+  /usr/share/zsh/5.0.6/functions/vcs_info_lastmsg
+  /usr/share/zsh/5.0.6/functions/vcs_info_printsys
+  /usr/share/zsh/5.0.6/functions/vcs_info_setsys
+  /usr/share/zsh/5.0.6/functions/which-command
+  /usr/share/zsh/5.0.6/functions/xtermctl
+  /usr/share/zsh/5.0.6/functions/zargs
+  /usr/share/zsh/5.0.6/functions/zcalc
+  /usr/share/zsh/5.0.6/functions/zcalc-auto-insert
+  /usr/share/zsh/5.0.6/functions/zed
+  /usr/share/zsh/5.0.6/functions/zed-set-file-name
+  /usr/share/zsh/5.0.6/functions/zfanon
+  /usr/share/zsh/5.0.6/functions/zfautocheck
+  /usr/share/zsh/5.0.6/functions/zfcd
+  /usr/share/zsh/5.0.6/functions/zfcd_match
+  /usr/share/zsh/5.0.6/functions/zfcget
+  /usr/share/zsh/5.0.6/functions/zfclose
+  /usr/share/zsh/5.0.6/functions/zfcput
+  /usr/share/zsh/5.0.6/functions/zfdir
+  /usr/share/zsh/5.0.6/functions/zffcache
+  /usr/share/zsh/5.0.6/functions/zfgcp
+  /usr/share/zsh/5.0.6/functions/zfget
+  /usr/share/zsh/5.0.6/functions/zfget_match
+  /usr/share/zsh/5.0.6/functions/zfgoto
+  /usr/share/zsh/5.0.6/functions/zfhere
+  /usr/share/zsh/5.0.6/functions/zfinit
+  /usr/share/zsh/5.0.6/functions/zfls
+  /usr/share/zsh/5.0.6/functions/zfmark
+  /usr/share/zsh/5.0.6/functions/zfopen
+  /usr/share/zsh/5.0.6/functions/zfparams
+  /usr/share/zsh/5.0.6/functions/zfpcp
+  /usr/share/zsh/5.0.6/functions/zfput
+  /usr/share/zsh/5.0.6/functions/zfrglob
+  /usr/share/zsh/5.0.6/functions/zfrtime
+  /usr/share/zsh/5.0.6/functions/zfsession
+  /usr/share/zsh/5.0.6/functions/zfstat
+  /usr/share/zsh/5.0.6/functions/zftp_chpwd
+  /usr/share/zsh/5.0.6/functions/zftp_progress
+  /usr/share/zsh/5.0.6/functions/zftransfer
+  /usr/share/zsh/5.0.6/functions/zftype
+  /usr/share/zsh/5.0.6/functions/zfuget
+  /usr/share/zsh/5.0.6/functions/zfuput
+  /usr/share/zsh/5.0.6/functions/zkbd
+  /usr/share/zsh/5.0.6/functions/zmathfuncdef
+  /usr/share/zsh/5.0.6/functions/zmv
+  /usr/share/zsh/5.0.6/functions/zrecompile
+  /usr/share/zsh/5.0.6/functions/zsh-mime-contexts
+  /usr/share/zsh/5.0.6/functions/zsh-mime-handler
+  /usr/share/zsh/5.0.6/functions/zsh-mime-setup
+  /usr/share/zsh/5.0.6/functions/zsh-newuser-install
+  /usr/share/zsh/5.0.6/functions/zsh_directory_name_cdr
+  /usr/share/zsh/5.0.6/functions/zstyle+
+  /usr/share/zsh/5.0.6/functions/ztodo
+  /usr/share/zsh/5.0.6/help/alias
+  /usr/share/zsh/5.0.6/help/bg
+  /usr/share/zsh/5.0.6/help/bindkey
+  /usr/share/zsh/5.0.6/help/break
+  /usr/share/zsh/5.0.6/help/builtin
+  /usr/share/zsh/5.0.6/help/cap
+  /usr/share/zsh/5.0.6/help/cd
+  /usr/share/zsh/5.0.6/help/clone
+  /usr/share/zsh/5.0.6/help/colon
+  /usr/share/zsh/5.0.6/help/command
+  /usr/share/zsh/5.0.6/help/comparguments
+  /usr/share/zsh/5.0.6/help/compcall
+  /usr/share/zsh/5.0.6/help/compctl
+  /usr/share/zsh/5.0.6/help/compdescribe
+  /usr/share/zsh/5.0.6/help/compfiles
+  /usr/share/zsh/5.0.6/help/compgroups
+  /usr/share/zsh/5.0.6/help/compquote
+  /usr/share/zsh/5.0.6/help/comptags
+  /usr/share/zsh/5.0.6/help/comptry
+  /usr/share/zsh/5.0.6/help/compvalues
+  /usr/share/zsh/5.0.6/help/continue
+  /usr/share/zsh/5.0.6/help/dirs
+  /usr/share/zsh/5.0.6/help/disable
+  /usr/share/zsh/5.0.6/help/disown
+  /usr/share/zsh/5.0.6/help/dot
+  /usr/share/zsh/5.0.6/help/echo
+  /usr/share/zsh/5.0.6/help/echotc
+  /usr/share/zsh/5.0.6/help/echoti
+  /usr/share/zsh/5.0.6/help/emulate
+  /usr/share/zsh/5.0.6/help/enable
+  /usr/share/zsh/5.0.6/help/eval
+  /usr/share/zsh/5.0.6/help/exec
+  /usr/share/zsh/5.0.6/help/exit
+  /usr/share/zsh/5.0.6/help/export
+  /usr/share/zsh/5.0.6/help/false
+  /usr/share/zsh/5.0.6/help/fc
+  /usr/share/zsh/5.0.6/help/fg
+  /usr/share/zsh/5.0.6/help/functions
+  /usr/share/zsh/5.0.6/help/getcap
+  /usr/share/zsh/5.0.6/help/getln
+  /usr/share/zsh/5.0.6/help/getopts
+  /usr/share/zsh/5.0.6/help/hash
+  /usr/share/zsh/5.0.6/help/jobs
+  /usr/share/zsh/5.0.6/help/kill
+  /usr/share/zsh/5.0.6/help/let
+  /usr/share/zsh/5.0.6/help/limit
+  /usr/share/zsh/5.0.6/help/log
+  /usr/share/zsh/5.0.6/help/noglob
+  /usr/share/zsh/5.0.6/help/popd
+  /usr/share/zsh/5.0.6/help/print
+  /usr/share/zsh/5.0.6/help/printf
+  /usr/share/zsh/5.0.6/help/pushd
+  /usr/share/zsh/5.0.6/help/pwd
+  /usr/share/zsh/5.0.6/help/read
+  /usr/share/zsh/5.0.6/help/return
+  /usr/share/zsh/5.0.6/help/sched
+  /usr/share/zsh/5.0.6/help/set
+  /usr/share/zsh/5.0.6/help/setcap
+  /usr/share/zsh/5.0.6/help/setopt
+  /usr/share/zsh/5.0.6/help/shift
+  /usr/share/zsh/5.0.6/help/source
+  /usr/share/zsh/5.0.6/help/stat
+  /usr/share/zsh/5.0.6/help/suspend
+  /usr/share/zsh/5.0.6/help/test
+  /usr/share/zsh/5.0.6/help/times
+  /usr/share/zsh/5.0.6/help/trap
+  /usr/share/zsh/5.0.6/help/true
+  /usr/share/zsh/5.0.6/help/ttyctl
+  /usr/share/zsh/5.0.6/help/typeset
+  /usr/share/zsh/5.0.6/help/ulimit
+  /usr/share/zsh/5.0.6/help/umask
+  /usr/share/zsh/5.0.6/help/unhash
+  /usr/share/zsh/5.0.6/help/unlimit
+  /usr/share/zsh/5.0.6/help/unset
+  /usr/share/zsh/5.0.6/help/unsetopt
+  /usr/share/zsh/5.0.6/help/vared
+  /usr/share/zsh/5.0.6/help/wait
+  /usr/share/zsh/5.0.6/help/whence
+  /usr/share/zsh/5.0.6/help/zcompile
+  /usr/share/zsh/5.0.6/help/zformat
+  /usr/share/zsh/5.0.6/help/zftp
+  /usr/share/zsh/5.0.6/help/zle
+  /usr/share/zsh/5.0.6/help/zmodload
+  /usr/share/zsh/5.0.6/help/zparseopts
+  /usr/share/zsh/5.0.6/help/zprof
+  /usr/share/zsh/5.0.6/help/zpty
+  /usr/share/zsh/5.0.6/help/zregexparse
+  /usr/share/zsh/5.0.6/help/zsocket
+  /usr/share/zsh/5.0.6/help/zstyle
+  /usr/share/zsh/5.0.6/help/ztcp
+  /usr/share/zsh/5.0.6/scripts/newuser
+  /usr/share/zsh/htmldoc/zsh.html
+  /usr/share/zsh/htmldoc/zsh_28.html
+  /usr/share/zsh/htmldoc/zsh_29.html
+  /usr/share/zsh/htmldoc/zsh_30.html
+  /usr/share/zsh/htmldoc/zsh_31.html
+  /usr/share/zsh/htmldoc/zsh_33.html
+  /usr/share/zsh/htmldoc/zsh_34.html
+  /usr/share/zsh/htmldoc/zsh_36.html
+  /usr/share/zsh/htmldoc/zsh_37.html
+  /usr/share/zsh/htmldoc/zsh_38.html
+  /usr/share/zsh/htmldoc/zsh_39.html
+  /usr/share/zsh/htmldoc/zsh_41.html
+  /usr/share/zsh/htmldoc/zsh_42.html
+  /usr/share/zsh/htmldoc/zsh_44.html
+  /usr/share/zsh/htmldoc/zsh_45.html
+  /usr/share/zsh/htmldoc/zsh_47.html
+  /usr/share/zsh/htmldoc/zsh_48.html
+  /usr/share/zsh/htmldoc/zsh_abt.html
+  /usr/share/zsh/htmldoc/zsh_toc.html
+
+------------------
+
+Port Notes:
+
+----- version 5.0.6-1 -----
+Updated source with new release. 
+NB: Skipped intermediate releases dues to stability issues.
+Updated zprofile default to be based on base-files version 4.2-3.
+
+----- version 5.0.2-1 -----
+Updated source with new release. 
+NB: Skipped intermediate releases dues to stability issues.
+Updated zprofile default to be based on base-files version 4.1-1.
+
+----- version 4.3.12-1 -----
+Updated source with new release. 
+
+----- version 4.3.11-2 -----
+Rebuild with correct umask
+
+----- version 4.3.11-1 -----
+Updated source with new release. 
+
+----- version 4.3.10-1 -----
+Updated source with new release. 
+
+----- version 4.3.9-1 -----
+Updated source with new release. 
+This has a hack to enable FIFOs as a possible workaround for an issue
+pipes.  I've hacked configure directly for this to enable HAVE_FIFOS
+and disable PATH_DEV_FD.
+
+----- version 4.3.5-1 -----
+Updated source with new release. 
+
+----- version 4.3.4-1 -----
+Updated source with new release. 
+Also fixed zftp using Account (fix given to up stream).
+
+----- version 4.3.2-1 -----
+Updated source with new release. 
+Hacked system.h to define __STDC_ISO_10646__ for Cygwin to make the
+multi-byte code work.
+Also fixed rand48 number gen (fix given to up stream).
+
+----- version 4.3.1-1 -----
+Updated source with new release.   This is a major revision of zsh.
+Also has several base fixes, but was also buggy, so not released for Cygwin.
+
+----- version 4.2.6-1 -----
+Updated source with new release. 
+Several base fixes.
+
+----- version 4.2.5-1 -----
+Updated source with new release. 
+Several base fixes.
+NB: 4.2.5 was never released for Cygwin because it was deemed too buggy.
+
+----- version 4.2.4-1 -----
+Updated source with new release. 
+This contains the base changes for Cygwin, so nolonger need to manually
+run autoconf.  There are also some bug fixes.
+
+----- version 4.2.3-1 -----
+Updated source with new release. 
+added --enable-pcre configure switch.  Also, installed libiconv package
+so configure finds and uses it.  Had to hack the config.h to enable
+HAVE_ICONV and HAVE_LIBICONV because detection logic in configure
+is flawed.  I'm hacking configure.ac to correct this.
+I'm also experimenting with enabling fifos. ... Ok, fifo's don't work
+correctly, so instead of the 'all' invocation, you should do this:
+  ./zsh-4.2.3-1.sh prep
+  ./zsh-4.2.3-1.sh autoconf
+  ./zsh-4.2.3-1.sh conf
+  ./zsh-4.2.3-1.sh build
+This will regenerate the configure scripts, then build.
+Once this gets into the main code you won't have to do this special step.
+
+----- version 4.2.1-1 -----
+Updated source with new release. 
+Base has accepted the Cygwin specific changes to main.c to force text mode,
+as well as several other Cygwin tweaks.
+Updated zprofile default to be based on base-files version 3.2-1, which
+includes chere support.
+
+----- version 4.2.0-2 -----
+Fixed the postinstall to copy the zprofile from the correct place. Also,
+the postinstall is generated to have the correct version number in it, so
+no more having to manually edit it.  Also, added code to main.c which
+hooks into Cygwin's runtime and forces all files opened as O_RDONLY to
+be in text mode.  Hopefully this should fix the running-from-a-textmode-
+mounted-filesystem program.  The Test suite runs clean on both a binmode
+and textmode filesystem, and my own manual tests seem to run Ok.
+
+----- version 4.2.0-1 -----
+Updated the build process, again, with my little dllwrap changes.
+It appears the Zsh Dev team has merged the contents of zshconfig.ac into
+configure.ac (which makes more sense, really), so I've similarly made
+a version of configure.ac (configure.ac.cygwin) which has the dllwrap
+changes for future reference.  Of course configure, itself, is what I
+changed.  Eventually I should change the conf process to run autoconf
+and rebuild the makefiles from configure.ac, but it means the darned
+diff process to create a cygwin patch becomes larger, because of all
+the different files which will be produced as a result of autoconf.
+Better to make configure.ac.cygwin and modify configure for now.
+Other than than, just more other typical Cygwin mods being carried
+forward.  Eventually I should contribute them to the Zsh Dev team.
+
+----- version 4.1.1-3 -----
+Change the build process a little to use gcc instead of dllwrap for creating
+the zsh shared libraries.  This actually is a hack to configure (and
+zshconfig.ac) to set different values for DLLD and DLLDFLAGS for building
+under cygwin.  Look for '^##DLLD' in those files.  Note that the modified
+zshconfig.ac is actually called zshconfig.ac.cygwin.  This is to prevent
+the makefiles from trying to re-invoke autoconf to re-build the configure
+scripts.  This is because the files are updated via patch and the timestamps
+on the files are thus updated and when make is run, it notices that
+zshconfig.ac has changed and try to re-create it's scripts.  It's unfortunate
+patch can't set timestamps on the files it updates.  Oh well.
+The reason for this change is to fix an issue with rebasing the dlls.  Using
+the old method (dllwarp) would create dlls which would break when rebased.
+It has to do with a static symbol being stored with a hardcoded address which
+the dynamic loader uses, but rebase doesn't change!
+The new way generates dlls in a way that doesn't break when rebased.  I
+suspect this will have to be reviewed later, but for now, it seems to work
+and is a minimal change over all.  Also, I should review the configure
+step of the build script.  Perhaps it should be running autoconf...
+
+----- version 4.1.1-2 -----
+Minor fix, move doc to usr/share.
+
+----- version 4.1.1-1 -----
+This is a new release of zsh.  No major Cygwin specific fixes.  However,
+this release does included some Cygwin improvements, complements of the
+Zsh dev team, with a special mention to Felix who contributed better versions
+of my original command completion scripts for some of the Cygwin commands.
+(Hey Felix!  How about doing the rest of them while your at it? :-)
+The old versions, for thore who are curious, are in the
+CYGWIN-PATCHES/oldcomp directory of the source distro.
+Oh, and since Cygwin now supports large file access, and 64-bit types,
+zsh builds with it too.  Also, built with pcre package and now built with
+curses instead of termcap.  See build script for configure options.
+
+----- version 4.0.7-2 -----
+This is just a rebuilding release, based on the new and improve Cygwin-1.5.x
+Since Cygwin now supports large file access, and 64-bit types, zsh builds
+with it too.
+
+----- version 4.0.7-1 -----
+This is a new release of zsh.  This will likely be the last releast of the
+4.0 branch of the code (the next major release being 4.1).  No Cygwin
+specific fixes, but several base fixes.  See ChangeLog for details.
+
+----- version 4.0.6-5 -----
+Regeneration release.
+This is just re-generating the build on a binmode mounted filesystem.
+NB: never mount /tmp as textmode when running patch!
+
+----- version 4.0.6-4 -----
+Bodged release. :)
+My build of -3 incorrecly caused DOS-style files to be released in the
+binary distribution.  cgf made a manual fix and created a -4 release as a
+quick fix.  -5 will correct this.
+
+----- version 4.0.6-3 -----
+Update release.
+Fixed a minor issue concerning CDPATH.  If you put "/" in cdpath you wouldn't
+be able to implicitly cd to any directory in / (ie: "cd bin" wouldn't put you
+in /bin).  The cd_try_chdir() function erroneously inserts "/" between the
+cdpath and the path the user typed.  In this case, it would generate "//bin"
+but that'll be interpreted as part of a host lookup and it'll fail.
+
+----- version 4.0.6-2 -----
+Update release.
+Fixed install so that it doesn't overlay /etc/zprofile if already present.
+Also included sample StartupFiles and Functions in zsh doc directory.
+
+----- version 4.0.6-1 -----
+Update release.
+This is a new release of zsh.
+Minor changes to Doc/Makefile.in and getfpfunc() in exec.c as before.
+Minor fix in Src/Modules/zftp.c to pull in correct in_systm.h header.
+Beyond that, builds out of box.
+Added some Completion commands for some Cygwin specific commands.
+Added a mkzsh script to create the equivalent of cygwin.bat and desktop
+and Program menu icons.  Also, added /etc/zprofile
+
+----- version 4.0.4-1 -----
+Initial release.
+Minor change to Doc/Makefile.in to change options to texi2html.
+Minor change to getfpfunc() in exec.c to allow for read() returning different
+amount of data read as opposed to size that lseek() reported.  This is for
+textmode mounted filesystems, mostly.
+Beyond that, builds out of box.
+
+Cygwin port maintained by: Peter A. Castro <doctor@fruitbat.org>

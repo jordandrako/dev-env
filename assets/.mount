@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Mount C Drive to /
+if [ ! -d "/c" ]; then
+  sudo mkdir /c
+fi
+sudo mount --bind /mnt/c /c
+
+# Mount D drive if exists
+if [ -d "/mnt/d" ]; then
+  if [ ! -d "/d" ]; then sudo mkdir /d; fi
+  sudo mount --bind /mnt/d /d
+fi
