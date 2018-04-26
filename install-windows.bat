@@ -2,30 +2,22 @@
 
 :SETENV
 echo [DEV ENV] Setting environment variables
-set PROFILEPATH "%HOMEDRIVE%%HOMEPATH%"
+set profile "%HOMEDRIVE%\%HOMEPATH%"
 :: Assign all Path variables
-if not exist "%PROFILEPATH%\code" mkdir "%PROFILEPATH%\code"
-setx CODE_DIR "%PROFILEPATH%\code"
+if not exist "%profile%\code" mkdir "%profile%\code"
+setx CODE_DIR "%profile%\code"
 setx GIT_ROOT "%HOMEDRIVE%\Program Files\Git"
 
 :INSTALL
 echo [DEV ENV] Installing
-if exist "%PROFILEPATH%\.babun\*.*" goto COPYCONFIGS
+if exist "%profile%\.babun\*.*" goto COPYCONFIGS
 
-:ASK
-echo [DEV ENV] You should probably install babun separately first, as continuing can take a long time.
-set /p answer=[DEV ENV] Do you want to install anyway (Y / N)?
-if /i "%answer:~,1%" EQU "Y" goto CALLBABUN
-if /i "%answer:~,1%" EQU "N" goto COPYCONFIGS
-goto ASK
-
-:CALLBABUN
-call babun\install.bat
+echo [DEV ENV] You need to install babun separately.
 
 :COPYCONFIGS
 echo [DEV ENV] Copying configs
-if exist "%PROFILEPATH%\.babun\cygwin\home\%USERNAME%\*.*" (
-  xcopy /s/e/h/y home "%PROFILEPATH%\.babun\cygwin\home\%USERNAME%\"
+if exist "%profile%\.babun\cygwin\home\%USERNAME%\*.*" (
+  xcopy /s/e/h/y home "%profile%\.babun\cygwin\home\%USERNAME%\"
 )
 if not exist "%HOMEDRIVE%\cmder" (mkdir "%HOMEDRIVE%\cmder" || goto ERROR)
 xcopy /s/e/h/y cmder "%HOMEDRIVE%\cmder\"
