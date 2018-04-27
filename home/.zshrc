@@ -20,7 +20,7 @@ export MACHINE="$machine"
 
 # Windows settings
 if [[ $machine == "Cygwin" ]]; then
-#  unsetopt PROMPT_SP
+  unsetopt PROMPT_SP
   userprofile="/c/Users/$USER"
 
 # Linux settings
@@ -161,12 +161,16 @@ if [[ $ngrok_installed == true ]]; then
 fi
 
 function start() {
-  if [[ $yarn_installed == true && -a "$PWD/yarn.lock" ]]; then
+  if [[ $yarn_installed == true && ( $1 == "-y" || -a "$PWD/yarn.lock" ) ]]; then
     yarn start
-  elif [[ $npm_installed == true && -a "$PWD/package-lock.json" ]]; then
+  elif [[ $npm_installed == true && ( $1 == "-n" || -a "$PWD/package-lock.json" ) ]]; then
     npm start
+  elif [[ $yarn_installed == true && $1 == "-i" ]]; then
+    yarn && yarn start
+  elif [[ $npm_installed == true && $1 == "-I" ]]; then
+    npm i && npm start
   else
-    echo "Run your install script first"
+    echo "Run your install script first, and the program you want is installed."
+    echo "Force with: -y = yarn, -n = npm. Install and start with: -i = yarn, -I = npm."
   fi
 }
-
