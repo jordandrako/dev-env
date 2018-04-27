@@ -1,6 +1,0 @@
-set const
-set smooth
-set tabsize 2
-set tabstospaces
-# Uncomment to autoindent (breaks pasting)
-#set autoindent
