@@ -1,10 +1,12 @@
 @ECHO OFF
 
-set PROFILEPATH "%HOMEDRIVE%%HOMEPATH%\.babun\cygwin\home\%USERNAME%"
+set profile="%HOMEDRIVE%%HOMEPATH%"
+set babunpath="%profile%\.babun"
+set babunhome="%babunpath%\cygwin\home\%USERNAME%"
 
-REM if exist "%HOMEDRIVE%%HOMEPATH%" (
-  xcopy /s/e/h/y home "%PROFILEPATH%\"
-REM )
+if exist "%babunhome%" (
+  xcopy /s/e/h/y home "%babunhome%\"
+)
 if exist "%HOMEDRIVE%\cmder" (
   xcopy /s/e/h/y cmder "%HOMEDRIVE%\cmder\"
 )
