@@ -9,6 +9,12 @@ fancy_echo() {
 	echo -e "\n\e[1;42m$1\e[0m\n"
 }
 
+fancy_echo "Configuring ssh"
+  if [[ -d ~/.ssh ]]; then
+    chown -R $USER:$GID ~/.ssh
+    chmod -R 600 ~/.ssh
+  fi
+
 fancy_echo "Configuring git"
   # Ask for Git config details
   fancy_echo "What's your first and last name (for git)?"
