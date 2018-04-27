@@ -20,7 +20,7 @@ export MACHINE="$machine"
 
 # Windows settings
 if [[ $machine == "Cygwin" ]]; then
-  unsetopt PROMPT_SP
+#  unsetopt PROMPT_SP
   userprofile="/c/Users/$USER"
 
 # Linux settings
@@ -43,6 +43,13 @@ if command -v npm >/dev/null 2>&1; then
   npm_installed=true
 else
   npm_installed=false
+fi
+
+# Check if yarn is installed
+if command -v yarn >/dev/null 2>&1; then
+  yarn_installed=true
+else
+  yarn_installed=false
 fi
 
 # Check if docker is installed
@@ -133,6 +140,8 @@ fi
 
 # NPM
 if [[ $npm_installed == true ]]; then
+
+  alias ni="npm i"
   alias nig="npm i -g"
   alias nrm="npm rm -g"
 fi
@@ -150,3 +159,14 @@ fi
 if [[ $ngrok_installed == true ]]; then
   alias ngr="ngrok http --host-header=rewrite"
 fi
+
+function start() {
+  if [[ $yarn_installed == true && -a "$PWD/yarn.lock" ]]; then
+    yarn start
+  elif [[ $npm_installed == true && -a "$PWD/package-lock.json" ]]; then
+    npm start
+  else
+    echo "Run your install script first"
+  fi
+}
+
