@@ -6,13 +6,13 @@ successfully() {
 }
 # Echo with color
 fancy_echo() {
-	echo -e "\n\e[1;42m$1\e[0m\n"
+	echo -e "\n\e[1;42m $1 \e[0m\n"
 }
 
 fancy_echo "Configuring ssh"
   if [[ -d ~/.ssh ]]; then
-    chown -R $USER:$GID ~/.ssh
-    chmod -R 600 ~/.ssh
+    successfully chown -R $USER:$GID ~/.ssh
+    successfully chmod -R 600 ~/.ssh
   fi
 
 fancy_echo "Configuring git"
@@ -24,3 +24,8 @@ fancy_echo "Configuring git"
   read gitemail
   git config --global user.name "$gitname"
   git config --global user.email "$gitemail"
+
+if command -v npm >/dev/null 2>&1; then
+fancy_echo "Installing global npm packages"
+    successfully npm i -g npm yarn gulp-cli grunt-cli create-react-app trash-cli eslint tslint typescript ngrok
+fi

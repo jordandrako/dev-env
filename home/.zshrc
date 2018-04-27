@@ -38,6 +38,13 @@ else
   echo "Install git ya git!"
 fi
 
+# Check if npm is installed
+if command -v npm >/dev/null 2>&1; then
+  npm_installed=true
+else
+  npm_installed=false
+fi
+
 # Check if docker is installed
 if command -v docker >/dev/null 2>&1; then
   docker_installed=true
@@ -122,6 +129,12 @@ if [[ $git_installed == true ]]; then
   alias gml="git merge -"
   alias gp="git push"
   alias gpl="git pull"
+fi
+
+# NPM
+if [[ $npm_installed == true ]]; then
+  alias nig="npm i -g"
+  alias nrm="npm rm -g"
 fi
 
 # Docker

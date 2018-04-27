@@ -40,6 +40,10 @@ gml=git merge - $*
 gp=git push $*
 gpl=git pull $*
 
+;= NPM
+nig=npm i -g $*
+nrm=npm rm -g $*
+
 ;= Docker
 dps=docker ps $*
 dpsa=docker ps -a $*
