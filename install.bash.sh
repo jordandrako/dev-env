@@ -12,7 +12,10 @@ fancy_echo() {
 fancy_echo "Configuring ssh"
   if [[ -d ~/.ssh ]]; then
     successfully chown -R $USER:$GID ~/.ssh
-    successfully chmod -R 600 ~/.ssh
+    successfully chmod -R 700 ~/.ssh
+    successfully chmod 644 ~/.ssh/id_rsa.pub
+    successfully chmod 600 ~/.ssh/id_rsa
+    successfully chmod 640 ~/.ssh/authorized_keys
   fi
 
 fancy_echo "Configuring git"
