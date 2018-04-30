@@ -27,7 +27,7 @@ if [[ ! -d ~/.oh-my-zsh ]]; then
   fancy_echo "Run oh-my-zsh installer first 'https://github.com/robbyrussell/oh-my-zsh'"
   exit 1
   else
-  cp -r $initial/home/* ~/
+  cp -a $initial/home/. ~/
 fi
 
 # Configure Cygwin
@@ -66,5 +66,5 @@ git config --global user.email "$gitemail"
 # Install NPM packages
 if command -v npm >/dev/null 2>&1; then
   fancy_echo "Installing global npm packages"
-    successfully npm i -g npm yarn gulp-cli grunt-cli create-react-app trash-cli eslint tslint typescript ngrok
+    successfully npm i -g npm yarn aws-cli gulp-cli grunt-cli create-react-app trash-cli eslint tslint typescript ngrok
 fi
