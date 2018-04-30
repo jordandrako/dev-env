@@ -21,7 +21,7 @@ export MACHINE="$machine"
 # Windows settings
 if [[ $machine == "Cygwin" ]]; then
   unsetopt PROMPT_SP
-  userprofile="/c/Users/$USER"
+  userprofile="c:/Users/$USER"
 
 # Linux settings
 elif [[ $machine == "Linux" ]]; then
