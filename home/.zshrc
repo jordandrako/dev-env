@@ -5,6 +5,9 @@ export ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
+if [[ ! -a $ZSH/themes/cobalt2.zsh-theme ]]; then
+  wget -q https://raw.githubusercontent.com/jordandrako/Cobalt2-iterm/master/cobalt2.zsh-theme -P $ZSH/themes/
+fi
 ZSH_THEME="cobalt2"
 
 # Check system
@@ -21,7 +24,7 @@ export MACHINE="$machine"
 # Windows settings
 if [[ $machine == "Cygwin" ]]; then
   unsetopt PROMPT_SP
-  userprofile="c:/Users/$USER"
+  userprofile="c:/Users/$USERNAME"
 
 # Linux settings
 elif [[ $machine == "Linux" ]]; then

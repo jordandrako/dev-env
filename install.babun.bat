@@ -51,5 +51,5 @@ ECHO [DEV ENV] Terminating due to internal error #%errorlevel%
 EXIT /b %errorlevel%
 
 :END
-echo [DEV ENV] Done. Run install.bash.sh from bash or zsh.
+echo [DEV ENV] Done. Run install.sh from bash or zsh.
 exit /b
