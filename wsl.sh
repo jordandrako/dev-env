@@ -13,11 +13,12 @@ done
 
 # Perform task successfully or print failed
 successfully() {
-	$* || ( echo -e "\n\e[1;5;41mFAILED\e[0m\n" 1>&2 && echo -ne '\007' && exit 1 )
+  $* || ( echo -e "\n\e[1;5;30;41m FAILED \e[0m\n" 1>&2 && echo -ne '\007' && exit 1 )
 }
+
 # Echo with color
 fancy_echo() {
-	echo -e "\n\e[1;42m$1\e[0m\n"
+  echo -e "\n\e[1;30;42m $1 \e[0m\n"
 }
 
 fancy_echo "Updating, installing packages, and setting up environment. This may take a while..."
@@ -106,12 +107,12 @@ fancy_echo "Configuring Zsh"
   # Install Oh-My-Zsh
   successfully curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
   # Install my fork of Cobalt2 zsh theme with glyphs for Fira and Windows
-	successfully curl https://raw.githubusercontent.com/jordandrako/Cobalt2-iterm/master/cobalt2.zsh-theme -o ~/.oh-my-zsh/themes/cobalt2.zsh-theme
+  successfully curl https://raw.githubusercontent.com/jordandrako/Cobalt2-iterm/master/cobalt2.zsh-theme -o ~/.oh-my-zsh/themes/cobalt2.zsh-theme
   # Install oh-my-zsh plugin version of zsh-syntax-highlighting (fish like syntax highlighting for zsh)
-	successfully git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+  successfully git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
   # Copy my .zshrc
-	successfully cp ~/.zshrc ~/.zshrc.bak
-	successfully cp zsh/.zshrc ~/.zshrc
+  successfully cp ~/.zshrc ~/.zshrc.bak
+  successfully cp zsh/.zshrc ~/.zshrc
   # Add mount script to .zprofile
   cat zsh/.zprofile >> ~/.zprofile
 
