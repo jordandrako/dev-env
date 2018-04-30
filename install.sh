@@ -37,7 +37,7 @@ fancy_echo "Configuring cygwin"
     successfully wget rawgit.com/transcode-open/apt-cyg/master/apt-cyg -P /bin/
     chmod +x /bin/apt-cyg
   fi
-  successfully apt-cyg install zsh git gdb dos2unix openssh nano zip unzip bzip2 coreutils gawk grep sed diffutils patchutils tar bash-completion ca-certificates curl rsync
+  successfully apt-cyg install zsh chere git gdb dos2unix openssh nano zip unzip bzip2 coreutils gawk grep sed diffutils patchutils tar bash-completion ca-certificates curl rsync
 fi
 
 # Configure SSH
