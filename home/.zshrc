@@ -85,12 +85,13 @@ export PATH="$USERPROFILE/bin:/usr/local/bin:$PATH"
 source $ZSH/oh-my-zsh.sh
 
 # z plugin
-if [[ -a ~/.z.sh ]]; then
-  . ~/.z.sh
+if [[ -a ~/.bin/z.sh ]]; then
+  . ~/.bin/z.sh
 else
-  wget -q https://raw.githubusercontent.com/rupa/z/master/z.sh -O ~/.z.sh
-  chmod +x ~/.z.sh
-  . ~/.z.sh
+  mkdir -p ~/.bin
+  wget -q https://raw.githubusercontent.com/rupa/z/master/z.sh -O ~/.bin/z.sh
+  chmod +x ~/.bin/z.sh
+  . ~/.bin/z.sh
 fi
 
 # Preferred editor for local and remote sessions
@@ -143,10 +144,17 @@ fi
 
 # NPM
 if [[ $npm_installed == true ]]; then
-
+  alias ns="npm start"
   alias ni="npm i"
   alias nig="npm i -g"
-  alias nrm="npm rm -g"
+  alias nrm="npm rm"
+  alias nrmg="npm rm -g"
+fi
+if [[ $yarn_installed == true ]]; then
+  alias ys="yarn start"
+  alias ya="yarn add"
+  alias yad="yarn add -D"
+  alias yrm="yarn remove"
 fi
 
 # Docker
