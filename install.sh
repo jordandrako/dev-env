@@ -22,14 +22,6 @@ case "${unameOut}" in
     *)          machine="UNKNOWN:${unameOut}"
 esac
 
-# Configure oh-my-zsh
-if [[ ! -d ~/.oh-my-zsh ]]; then
-  fancy_echo "Run oh-my-zsh installer first 'https://github.com/robbyrussell/oh-my-zsh'"
-  exit 1
-  else
-  cp -a $initial/home/. ~/
-fi
-
 # Configure Cygwin
 if [[ $machine == "Cygwin" ]]; then
 fancy_echo "Configuring cygwin"
@@ -38,6 +30,16 @@ fancy_echo "Configuring cygwin"
     chmod +x /bin/apt-cyg
   fi
   successfully apt-cyg install zsh chere git gdb dos2unix openssh nano zip unzip bzip2 coreutils gawk grep sed diffutils patchutils tar bash-completion ca-certificates curl rsync
+fi
+
+# Configure oh-my-zsh
+if [[ ! -d ~/.oh-my-zsh ]]; then
+  wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O ~/install.oh-my-zsh.sh
+  chmod +x ~/install.oh-my-zsh.sh
+  fancy_echo "Run oh-my-zsh installer first '. ~/install.oh-my-zsh.sh'"
+  exit 1
+  else
+  cp -a $initial/home/. ~/
 fi
 
 # Configure SSH

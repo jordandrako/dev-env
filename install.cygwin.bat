@@ -22,14 +22,32 @@ xcopy /s/e/h/y cmder "%HOMEDRIVE%\cmder\"
 if exist "%HOMEDRIVE%\cmder\vendor\conemu-maximus5\ConEmu\wsl\cygwin1.dll" (
   del "%HOMEDRIVE%\cmder\vendor\conemu-maximus5\ConEmu\wsl\cygwin1.dll"
 )
+
+:ASKSSH
 set /p answer=Do you want to copy .ssh config (Y / N)?
 if "%answer:~0,1%"=="Y" GOTO SSH
 if "%answer:~0,1%"=="y" GOTO SSH
-goto END
+goto ASKAWS
 
 :SSH
 if exist "%profile%\.ssh" (
-  xcopy /s/e/h/y/O "%profile%\.ssh" "%cygwinhome%\.ssh\" || goto ERROR
+  if not exist "%cygwinhome%\.ssh" mkdir "%cygwinhome%\.ssh"
+  xcopy /s/e/h/y/O "%profile%\.ssh" "%cygwinhome%\.ssh\"
+)
+goto END
+
+:ASKAWS
+if not exist "%profile%\.aws" (
+  set /p answer=Do you want to copy AWS config (Y / N)?
+  if "%answer:~0,1%"=="Y" GOTO AWS
+  if "%answer:~0,1%"=="y" GOTO AWS
+  goto END
+)
+
+:AWS
+if exist "%profile%\.aws" (
+  if not exist "%cygwinhome%\.aws" mkdir "%cygwinhome%\.aws"
+  xcopy /s/e/h/y/O "%profile%\.aws" "%cygwinhome%\.aws\"
 )
 goto END
 
