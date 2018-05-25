@@ -101,11 +101,11 @@ successfully chmod +x $initial/copy-ssh.sh
 fancy_echo "Do you want your local user (windows) ssh keys in bash?"
 echo -ne '\007'
 while true; do
-  read -p "Copy your windows ssh key? [y/N]" sshYn
+  read -p "Copy your windows ssh key? [Y/n]" sshYn
   case $sshYn in
-    [Yy]* )
+    [Nn]* ) break;;
+    * )
       . $initial/copy-ssh.sh $machine;
       break;;
-    * ) break;;
   esac
 done
