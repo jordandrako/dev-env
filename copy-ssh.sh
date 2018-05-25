@@ -2,7 +2,6 @@
 
 # Check system
 machine=$1
-echo "Machine set as $machine"
 
 if [[ $machine ]]; then
   if [[ $machine == "Cygwin" ]]; then
