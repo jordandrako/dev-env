@@ -15,11 +15,14 @@ fancy_echo() {
 # Check system
 unameOut="$(uname -s)"
 case "${unameOut}" in
-    Linux*)     machine="Linux";;
-    Darwin*)    machine="Mac";;
-    CYGWIN*)    machine="Cygwin";;
-    MINGW*)     machine="MinGw";;
-    *)          machine="UNKNOWN:${unameOut}"
+    Linux*)
+      machine="Linux";;
+    Darwin*)
+      machine="Mac";;
+    CYGWIN*)
+      machine="Cygwin";;
+    *)
+      machine="UNKNOWN:${unameOut}"
 esac
 
 # Configure Cygwin
@@ -29,7 +32,17 @@ fancy_echo "Configuring cygwin"
     successfully wget rawgit.com/transcode-open/apt-cyg/master/apt-cyg -P /bin/
     chmod +x /bin/apt-cyg
   fi
-  successfully apt-cyg install zsh chere git gdb dos2unix openssh nano zip unzip bzip2 coreutils gawk grep sed diffutils patchutils tar bash-completion ca-certificates curl rsync
+  successfully apt-cyg install zsh chere gdb dos2unix openssh nano zip unzip bzip2 coreutils gawk grep sed diffutils patchutils tar bash-completion ca-certificates curl rsync
+elif [[ $machine == "Linux" ]]; then
+  successfully sudo apt install zsh zip unzip
+fi
+
+# Check for NVM
+if [[ ! -d ~/.nvm ]]; then
+  wget https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh -O ~/install.nvm.sh
+    chmod +x ~/install.nvm.sh
+  fancy_echo "Run NVM installer first '. ~/install.nvm.sh'"
+  exit 1
 fi
 
 # Configure oh-my-zsh
@@ -42,31 +55,57 @@ if [[ ! -d ~/.oh-my-zsh ]]; then
   cp -a $initial/home/. ~/
 fi
 
-# Configure SSH
-fancy_echo "Configuring ssh"
-if [[ -d ~/.ssh ]]; then
-  successfully chown -R $USER:$GID ~/.ssh
-  successfully chmod -R 700 ~/.ssh
-  successfully chmod 644 ~/.ssh/id_rsa.pub
-  successfully chmod 600 ~/.ssh/id_rsa
-  if [[ -a ~/.ssh/authorized_keys ]]; then
-    successfully chmod 640 ~/.ssh/authorized_keys
-  fi
-fi
-
 # Configure Git
 fancy_echo "Configuring git"
 # Ask for Git config details
-fancy_echo "What's your first and last name (for git)?"
-read gitname1 gitname2
-gitname="$gitname1 $gitname2"
-fancy_echo "What's your email (for git)?"
-read gitemail
-git config --global user.name "$gitname"
-git config --global user.email "$gitemail"
+echo -ne '\007'
+while true; do
+  read -p "Configure your git user settings? [Y/n]" gitYn
+  case $gitYn in
+    [Nn]* ) break;;
+    * )
+      fancy_echo "What's your first name?";
+      read first_name;
+      fancy_echo "What's your last name?";
+      read last_name;
+      gitname="$first_name $last_name";
+      git config --global user.name "$gitname";
+      fancy_echo "What's your git account email?";
+      read email;
+      git config --global user.email "$email";
+      break;;
+  esac
+done
 
-# Install NPM packages
+# Install NPM packages. Change these packages to your preferred global packages.
+packages="yarn gulp-cli create-react-app trash-cli eslint tslint stylelint typescript ngrok"
+
+fancy_echo "Installing global npm packages"
 if command -v npm >/dev/null 2>&1; then
-  fancy_echo "Installing global npm packages"
-    successfully npm i -g npm yarn aws-cli gulp-cli grunt-cli create-react-app trash-cli eslint tslint typescript ngrok
+  while true; do
+    read -p "Install global npm packages? [Y/n]" npmYn
+    case $npmYn in
+      [Nn]* ) break;;
+      * )
+        successfully npm i -g $packages;
+        break;;
+    esac
+  done
+else
+  printf "No NPM. Run `nvm install --lts` then install these npm packages globally:\n$packages"
 fi
+
+# Configure SSH
+fancy_echo "Configuring SSH"
+successfully chmod +x $initial/copy-ssh.sh
+fancy_echo "Do you want your local user (windows) ssh keys in bash?"
+echo -ne '\007'
+while true; do
+  read -p "Copy your windows ssh key? [y/N]" sshYn
+  case $sshYn in
+    [Yy]* )
+      . $initial/copy-ssh.sh $machine;
+      break;;
+    * ) break;;
+  esac
+done

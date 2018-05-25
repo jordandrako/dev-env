@@ -6,19 +6,32 @@ export ZSH=$HOME/.oh-my-zsh
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 if [[ ! -a $ZSH/themes/cobalt2.zsh-theme ]]; then
-  wget -q https://raw.githubusercontent.com/jordandrako/Cobalt2-iterm/master/cobalt2.zsh-theme -P $ZSH/themes/
+  wget -q https://raw.githubusercontent.com/jordandrako/dev-env/master/cobalt2.zsh-theme -P $ZSH/custom/themes/
 fi
 ZSH_THEME="cobalt2"
 
-# Check system
+# Check system type; code/projects directory
 unameOut="$(uname -s)"
+code_dir=~/code
 case "${unameOut}" in
-    Linux*)     machine="Linux";;
-    Darwin*)    machine="Mac";;
-    CYGWIN*)    machine="Cygwin";;
-    MINGW*)     machine="MinGw";;
-    *)          machine="UNKNOWN:${unameOut}"
+    Linux*)
+      machine="Linux"
+      ;;
+    Darwin*)
+      machine="Mac"
+      ;;
+    CYGWIN*)
+      machine="Cygwin"
+      code_dir=c:/code
+      ;;
+    *)
+      machine="UNKNOWN:${unameOut}"
 esac
+# Check if code directory exists in mnt (wsl)
+if [[ -d /mnt/c/code ]]; then
+  code_dir=/mnt/c/code
+fi
+export CODE_DIR="$code_dir"
 export MACHINE="$machine"
 
 # Windows settings
@@ -35,38 +48,10 @@ export USERPROFILE="$userprofile"
 # Check for some programs
 # Check if git is installed
 if command -v git >/dev/null 2>&1; then
-  git_installed=true
+  git_i=true
 else
-  git_installed=false
+  git_i=false
   echo "Install git ya git!"
-fi
-
-# Check if npm is installed
-if command -v npm >/dev/null 2>&1; then
-  npm_installed=true
-else
-  npm_installed=false
-fi
-
-# Check if yarn is installed
-if command -v yarn >/dev/null 2>&1; then
-  yarn_installed=true
-else
-  yarn_installed=false
-fi
-
-# Check if docker is installed
-if command -v docker >/dev/null 2>&1; then
-  docker_installed=true
-else
-  docker_installed=false
-fi
-
-# Check if ngrok is installed
-if command -v ngrok >/dev/null 2>&1; then
-  ngrok_installed=true
-else
-  ngrok_installed=false
 fi
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
@@ -74,11 +59,19 @@ fi
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 if [[ ! -d $ZSH/custom/plugins/zsh-syntax-highlighting ]]; then
-  if [[ $git_installed == true ]]; then
+  if [[ $git_i == true ]]; then
     git clone -q https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH/custom/plugins/zsh-syntax-highlighting
+    chmod -R 755 $ZSH/custom/plugins/zsh-syntax-highlighting
   fi
 fi
-plugins=(git, ssh-agent, node, zsh-syntax-highlighting)
+plugins=(git, ssh-agent, node, nvm, zsh-syntax-highlighting)
+
+# NVM Config
+export NVM_DIR="$HOME/.nvm"
+# This loads nvm
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+# This loads nvm bash_completion
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 ### User configuration ###
 export PATH="$USERPROFILE/bin:/usr/local/bin:$PATH"
@@ -98,15 +91,8 @@ fi
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='nano'
 else
-  export EDITOR='nano'
+  export EDITOR='code'
 fi
-
-# Code/projects directory
-code_dir=$USERPROFILE/code
-if [[ ! -d $code_dir ]]; then
-  mkdir $USERPROFILE/code
-fi
-export CODE_DIR="$code_dir"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -119,69 +105,11 @@ alias zsource="source ~/.zshrc"
 
 # Directories
 alias coder="cd $CODE_DIR"
-if [[ $machine == "Linux" ]]; then
-  alias rimraf="rm -rf"
-else
-  alias rimraf="trash"
+if [[ $machine !== "Linux" ]]; then
+  alias rm="trash"
 fi
 
-# Git
-if [[ $git_installed == true ]]; then
-  alias gs="git status -s"
-  alias gl="git lg"
-  alias ga="git add"
-  alias gaa="git add --all"
-  alias gac="git commit -am"
-  alias gc="git commit -m"
-  alias go="git checkout"
-  alias gob="git checkout -b"
-  alias gol="git checkout -"
-  alias gm="git merge"
-  alias gml="git merge -"
-  alias gp="git push"
-  alias gpl="git pull"
+# Include alias file
+if [[ -a ~/.zsh-aliases ]]; then
+  . ~/.zsh-aliases
 fi
-
-# NPM
-if [[ $npm_installed == true ]]; then
-  alias ns="npm start"
-  alias ni="npm i"
-  alias nig="npm i -g"
-  alias nrm="npm rm"
-  alias nrmg="npm rm -g"
-fi
-if [[ $yarn_installed == true ]]; then
-  alias ys="yarn start"
-  alias ya="yarn add"
-  alias yad="yarn add -D"
-  alias yrm="yarn remove"
-fi
-
-# Docker
-if [[ $docker_installed == true ]]; then
-  alias dps="docker ps"
-  alias dpsa="docker ps -a"
-  alias drestart="docker restart"
-  alias drestartall="docker restart $(docker ps -a -q)"
-  alias dup="docker-compose up"
-fi
-
-# Ngrok
-if [[ $ngrok_installed == true ]]; then
-  alias ngr="ngrok http --host-header=rewrite"
-fi
-
-function start() {
-  if [[ $yarn_installed == true && ( $1 == "-y" || -a "$PWD/yarn.lock" ) ]]; then
-    yarn start
-  elif [[ $npm_installed == true && ( $1 == "-n" || -a "$PWD/package-lock.json" ) ]]; then
-    npm start
-  elif [[ $yarn_installed == true && $1 == "-i" ]]; then
-    yarn && yarn start
-  elif [[ $npm_installed == true && $1 == "-I" ]]; then
-    npm i && npm start
-  else
-    echo "Run your install script first, and the program you want is installed."
-    echo "Force with: -y = yarn, -n = npm. Install and start with: -i = yarn, -I = npm."
-  fi
-}
