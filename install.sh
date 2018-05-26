@@ -13,16 +13,17 @@ fancy_echo() {
 }
 
 # Check system
-unameOut="$(uname -s)"
-case "${unameOut}" in
-    Linux*)
-      machine="Linux";;
-    Darwin*)
-      machine="Mac";;
-    CYGWIN*)
-      machine="Cygwin";;
-    *)
-      machine="UNKNOWN:${unameOut}"
+case "$(uname -a)" in
+    Linux*Microsoft* )
+      machine="Linux WSL" ;;
+    Linux* )
+      machine="Linux" ;;
+    CYGWIN* )
+      machine="Cygwin" ;;
+    # Darwin* )
+    #   machine="Mac" ;;
+    * )
+      echo "System not supported"; exit 1
 esac
 
 # Configure Cygwin
@@ -33,7 +34,7 @@ fancy_echo "Configuring cygwin"
     chmod +x /bin/apt-cyg
   fi
   successfully apt-cyg install zsh chere gdb dos2unix openssh nano zip unzip bzip2 coreutils gawk grep sed diffutils patchutils tar bash-completion ca-certificates curl rsync
-elif [[ $machine == "Linux" ]]; then
+elif [[ $machine =~ "Linux" ]]; then
   successfully sudo apt install zsh zip unzip
 fi
 
@@ -45,13 +46,14 @@ if [[ ! -d ~/.nvm ]]; then
   exit 1
 fi
 
-# Configure oh-my-zsh
+# Configure oh-my-zsh & home directory
 if [[ ! -d ~/.oh-my-zsh ]]; then
   wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O ~/install.oh-my-zsh.sh
   chmod +x ~/install.oh-my-zsh.sh
   fancy_echo "Run oh-my-zsh installer first '. ~/install.oh-my-zsh.sh'"
   exit 1
-  else
+else
+  fancy_echo "Copying home directory configs"
   cp -a $initial/home/. ~/
 fi
 
@@ -109,3 +111,7 @@ while true; do
       break;;
   esac
 done
+
+if [[ $machine =~ "Linux" ]]; then
+  source ~/.zshrc
+fi

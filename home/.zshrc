@@ -11,37 +11,31 @@ fi
 ZSH_THEME="cobalt2"
 
 # Check system type; code/projects directory
-unameOut="$(uname -s)"
 code_dir=~/code
-case "${unameOut}" in
-    Linux*)
-      machine="Linux"
-      ;;
-    Darwin*)
-      machine="Mac"
-      ;;
-    CYGWIN*)
+case "$(uname -a)" in
+    Linux*Microsoft* )
+      machine="Linux WSL"
+      code_dir=/mnt/c/code ;;
+    Linux* )
+      machine="Linux" ;;
+    CYGWIN* )
       machine="Cygwin"
-      code_dir=c:/code
-      ;;
-    *)
+      code_dir=c:/code ;;
+    * )
       machine="UNKNOWN:${unameOut}"
 esac
-# Check if code directory exists in mnt (wsl)
-if [[ -d /mnt/c/code ]]; then
-  code_dir=/mnt/c/code
-fi
 export CODE_DIR="$code_dir"
 export MACHINE="$machine"
 
-# Windows settings
+userprofile="$HOME"
+# Cygwin settings
 if [[ $machine == "Cygwin" ]]; then
   unsetopt PROMPT_SP
   userprofile="c:/Users/$USERNAME"
 
-# Linux settings
-elif [[ $machine == "Linux" ]]; then
-  userprofile="$HOME"
+# WSL settings
+elif [[ $machine == "Linux WSL" ]]; then
+  unsetopt BG_NICE
 fi
 export USERPROFILE="$userprofile"
 
@@ -105,11 +99,11 @@ alias zsource="source ~/.zshrc"
 
 # Directories
 alias coder="cd $CODE_DIR"
-if [[ $machine !== "Linux" ]]; then
+if [[ ! $machine =~ "Linux" ]]; then
   alias rm="trash"
 fi
 
 # Include alias file
 if [[ -a ~/.zsh-aliases ]]; then
-  . ~/.zsh-aliases
+  source ~/.zsh-aliases
 fi
