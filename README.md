@@ -22,7 +22,8 @@ Clone this repo wherever your store your code projects. Run `git clone https://g
 1.  If you're using CMDER and want my configs there, copy the contents of the cmder directory to your cmder install location, merging the config folder. Then in CMDER open settings, click "Import..." then find the ConEmu.xml file in your config folder. Save settings.
 1.  Launch your shell program, and navigate to the dev-env directory.
 1.  Instal NVM separately: [NVM](https://github.com/creationix/nvm#install-script).
-1.  Install oh-my-zsh separately: [Oh-My-Zsh](https://github.com/robbyrussell/oh-my-zsh#basic-installation)
+1.  Install zsh and oh-my-zsh separately: [Oh-My-Zsh](https://github.com/robbyrussell/oh-my-zsh#basic-installation)
+1.  Restart your shell.
 1.  Run `chmod +x install.sh && ./install.sh`. This script will check for your system and if oh-my-zsh and nvm are installed. Then it'll copy config files from the home directory to your home directory, ask to: 1) configure git user settings, 2) install my most used global npm packages, and 3) ask if you want to copy windows ssh keys to your shell user.
 1.  If you want to copy your existing windows SSH keys/config later, run `./copy-ssh.sh`.
 

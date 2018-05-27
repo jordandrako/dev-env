@@ -6,7 +6,7 @@ machine=$1
 if [[ $machine ]]; then
   if [[ $machine == "Cygwin" ]]; then
     home_dir=/cygdrive/c/Users/$USER
-  elif [[ $machine == "Linux" ]]; then
+  elif [[ $machine == "WSL" ]]; then
     home_dir=/mnt/c/Users/$USER
   fi
 else
