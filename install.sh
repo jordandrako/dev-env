@@ -40,7 +40,7 @@ case "$(uname -a)" in
 esac
 
 # Check for NVM
-if [[ ! -d ~/.nvm ]]; then
+if [[ $machine != "Cygwin" && ! -d ~/.nvm ]]; then
   successfully wget https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh -O ~/install.nvm.sh
   successfully chmod +x ~/install.nvm.sh
   error "Run NVM installer first '. ~/install.nvm.sh'"
