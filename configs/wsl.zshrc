@@ -4,4 +4,6 @@ export CODE_DIR=/mnt/c/code
 export MACHINE="WSL"
 
 alias coder="cd $CODE_DIR"
-alias docker="docker.exe"
+if command -v docker.exe >/dev/null 2>&1; then
+  alias docker="docker.exe"
+fi
