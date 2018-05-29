@@ -1,26 +1,45 @@
 #!/bin/bash
+# Run this script with the path to your windows .ssh folder.
+# Optionally, specify your ssh key name after the path.
 
-# Args/variables
-machine=$1
-user=$2 || $USER
+dos_ssh=$1
 s=~/.ssh
+if [[ $2 ]]; then
+  key_name=$2
+else
+  key_name='id_rsa'
+fi
 
 # Fail if no machine argument passed
-if [[ $machine ]]; then
-  if [[ $machine == "Cygwin" || $machine == "cygwin" ]]; then
-    dos_ssh=/cygdrive/c/Users/$user/.ssh
-  elif [[ $machine == "WSL" || $machine == "wsl" ]]; then
-    dos_ssh=/mnt/c/Users/$user/.ssh
-  fi
-else
-  echo -e "\nYou need to specify your install type (Cygwin | WSL)\n"
+if [[ ! -d $dos_ssh ]]; then
+  echo -e "\nYou need to specify your .ssh directory path when running this script.\nUsually something like: \"./copy-ssh.sh '/<mnt | cygdrive>/c/Users/<USERNAME>/.ssh'\")\n"
+  exit 1
+elif [[ ! -a "$dos_ssh/$key_name" ]]; then
+  echo -e "\nThat doesn't seem to be the correct directory. It should contain a key named '$key_name'.\n"
+
+  while true; do
+    read -p "Would you like specify an alternate key name? [y/n] " yn
+    case $yn in
+      [Nn]* )
+        echo -e "\nExiting.\n";
+        exit 1;;
+      [Yy]* )
+        echo -e "\n";
+        read -p "Enter your key name: " key_name;
+        break;;
+    esac
+  done
+fi
+
+if [[ ! -a $dos_ssh/$key_name ]]; then
+  echo "Can't find the key '$key_name'. Try again."
   exit 1
 fi
 
 # Fail if current user already has .ssh directory configured to prevent
 # overriding users current configs on accident.
 if [[ -d $s ]]; then
-  echo -e "\nSSH directory already exists, delete first then try again.\n"
+  echo -e "\nSSH directory already exists, delete first then try running copy-ssh.sh again.\n"
   exit 1
 fi
 
@@ -32,8 +51,8 @@ dos2unix -q $s/*
 if [[ -d $s ]]; then
   chown -R $USER:$GID $s
   chmod -R 700 $s
-  chmod 644 $s/id_rsa.pub
-  chmod 600 $s/id_rsa
+  chmod 644 $s/$key_name.pub
+  chmod 600 $s/$key_name
   if [[ -a $s/authorized_keys ]]; then
     chmod 640 $s/authorized_keys
   fi

@@ -2,6 +2,11 @@
 
 initial="$PWD"
 config=$initial/configs
+if [[ $1 ]]; then
+  user=$1
+else
+  user=$USER
+fi
 
 # Echo with color
 fancy_echo() {
@@ -21,11 +26,13 @@ successfully() {
 # Check system
 case "$(uname -a)" in
   *Microsoft* )
+    ssh_path="/mnt/c/Users/$user/.ssh";
     machine="WSL" ;;
+  CYGWIN* )
+    ssh_path="/cygdrive/c/Users/$user/.ssh";
+    machine="Cygwin" ;;
   Linux* )
     machine="Linux" ;;
-  CYGWIN* )
-    machine="Cygwin" ;;
   # Darwin* ) SUPPORT MAC LATER
   #   machine="Mac" ;;
   * )
@@ -57,7 +64,7 @@ fi
 # Configure Git
 fancy_echo "Configuring git"
 while true; do
-  read -p "Configure your git user settings? [Y/n]" gitYn
+  read -p "Configure your git user settings? [Y/n] " gitYn
   case $gitYn in
     [Nn]* ) break;;
     * )
@@ -79,7 +86,7 @@ packages="yarn gulp-cli create-react-app trash-cli eslint tslint stylelint types
 
 fancy_echo "Installing global npm packages"
 while true; do
-  read -p "Install global npm packages? [Y/n]" npmYn
+  read -p "Install global npm packages? [Y/n] " npmYn
   case $npmYn in
     [Nn]* ) break;;
     * )
@@ -95,13 +102,13 @@ if [[ $machine == "WSL" || $machine == "Cygwin" ]]; then
   fancy_echo "[Windows ONLY] Do you want your local windows user ssh keys in bash?"
   echo -ne '\007'
   while true; do
-    read -p "Copy your windows ssh key? [Y/n]" sshYn
+    read -p "Copy your windows ssh key? [Y/n] " sshYn
     case $sshYn in
       [Nn]* )
-        echo "OK, you can do this later by running the copy-ssh.sh script";
+        echo "OK, you can do this later by running the copy-ssh.sh script.";
         break;;
       * )
-        . $initial/copy-ssh.sh $machine;
+        . $initial/copy-ssh.sh $ssh_path;
         break;;
     esac
   done
@@ -120,14 +127,17 @@ fi
 
 # WSL Configuration
 if [[ $machine == "WSL" ]]; then
-  successfully sudo apt install dos2unix unix2dos
+  successfully sudo apt update
+  successfully sudo apt install dos2unix
   successfully cat $config/wsl.zshrc >> ~/.zshrc
+  fancy_echo "Done!"
   exit
 fi # End WSL
 
 # Linux Configuration
 if [[ $machine == "Linux" ]]; then
   successfully cat $config/linux.zshrc >> ~/.zshrc
+  fancy_echo "Done!"
   exit
 fi # End Linux
 
@@ -145,5 +155,8 @@ if [[ $machine == "Cygwin" ]]; then
 
   successfully cp $config/.minttyrc ~/
   successfully cat $config/cygwin.zshrc >> ~/.zshrc
+  fancy_echo "Done!"
   exit
 fi # End Cygwin
+
+fancy_echo "Done!"
