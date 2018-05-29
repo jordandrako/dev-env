@@ -115,7 +115,7 @@ if [[ $machine == "WSL" || $machine == "Cygwin" ]]; then
 fi
 
 # Global configuration
-successfully cp $config/.aliases ~/
+successfully cp $config/.aliases.sh ~/
 successfully cp $config/.zshrc ~/
 successfully cp $config/.gitconfig ~/
 ## Z plugin

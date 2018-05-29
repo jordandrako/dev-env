@@ -45,6 +45,6 @@ alias zconf="nano ~/.zshrc"
 alias zsource="source ~/.zshrc"
 
 # Include alias file
-if [[ -a ~/.zsh-aliases ]]; then
-  source ~/.zsh-aliases
+if [[ -a ~/.aliases.sh ]]; then
+  source ~/.aliases.sh
 fi

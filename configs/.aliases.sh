@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 # Check for some programs
 # Check if git is installed
 if command -v git >/dev/null 2>&1; then
