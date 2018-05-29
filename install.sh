@@ -89,21 +89,23 @@ while true; do
 done
 
 # Copy Windows user SSH
-fancy_echo "Copy Windows user SSH"
-successfully chmod +x $initial/copy-ssh.sh
-fancy_echo "[Windows ONLY] Do you want your local windows user ssh keys in bash?"
-echo -ne '\007'
-while true; do
-  read -p "Copy your windows ssh key? [Y/n]" sshYn
-  case $sshYn in
-    [Nn]* )
-      echo "OK, you can do this later by running the copy-ssh.sh script";
-      break;;
-    * )
-      . $initial/copy-ssh.sh $machine;
-      break;;
-  esac
-done
+if [[ $machine == "WSL" || $machine == "Cygwin" ]]; then
+  fancy_echo "Copy Windows user SSH"
+  successfully chmod +x $initial/copy-ssh.sh
+  fancy_echo "[Windows ONLY] Do you want your local windows user ssh keys in bash?"
+  echo -ne '\007'
+  while true; do
+    read -p "Copy your windows ssh key? [Y/n]" sshYn
+    case $sshYn in
+      [Nn]* )
+        echo "OK, you can do this later by running the copy-ssh.sh script";
+        break;;
+      * )
+        . $initial/copy-ssh.sh $machine;
+        break;;
+    esac
+  done
+fi
 
 # Global configuration
 successfully cp $config/.aliases ~/
@@ -118,6 +120,7 @@ fi
 
 # WSL Configuration
 if [[ $machine == "WSL" ]]; then
+  successfully sudo apt install dos2unix unix2dos
   successfully cat $config/wsl.zshrc >> ~/.zshrc
   exit
 fi # End WSL
