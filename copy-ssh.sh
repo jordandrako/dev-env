@@ -1,31 +1,42 @@
 #!/bin/bash
 
-# Check system
+# Args/variables
 machine=$1
+user=$2 || $USER
+s=~/.ssh
 
+# Fail if no machine argument passed
 if [[ $machine ]]; then
-  if [[ $machine == "Cygwin" ]]; then
-    home_dir=/cygdrive/c/Users/$USER
-  elif [[ $machine == "WSL" ]]; then
-    home_dir=/mnt/c/Users/$USER
+  if [[ $machine == "Cygwin" || $machine == "cygwin" ]]; then
+    dos_ssh=/cygdrive/c/Users/$user/.ssh
+  elif [[ $machine == "WSL" || $machine == "wsl" ]]; then
+    dos_ssh=/mnt/c/Users/$user/.ssh
   fi
 else
-  echo "You need to specify your install type (Cygwin | Linux)"
+  echo -e "\nYou need to specify your install type (Cygwin | WSL)\n"
+  exit 1
+fi
+
+# Fail if current user already has .ssh directory configured to prevent
+# overriding users current configs on accident.
+if [[ -d $s ]]; then
+  echo -e "\nSSH directory already exists, delete first then try again.\n"
   exit 1
 fi
 
 # Copy SSH directory
-echo "Copying ssh"
-cp -r "$home_dir/.ssh" ~
+cp -r $dos_ssh ~
+dos2unix -q $s/*
 
 # Configure SSH permissions
-echo "Configuring ssh permissions"
-if [[ -d ~/.ssh ]]; then
-  chown -R $USER:$GID ~/.ssh
-  chmod -R 700 ~/.ssh
-  chmod 644 ~/.ssh/id_rsa.pub
-  chmod 600 ~/.ssh/id_rsa
-  if [[ -a ~/.ssh/authorized_keys ]]; then
-    chmod 640 ~/.ssh/authorized_keys
+if [[ -d $s ]]; then
+  chown -R $USER:$GID $s
+  chmod -R 700 $s
+  chmod 644 $s/id_rsa.pub
+  chmod 600 $s/id_rsa
+  if [[ -a $s/authorized_keys ]]; then
+    chmod 640 $s/authorized_keys
   fi
 fi
+
+echo -e "\nDone copying SSH.\n"
