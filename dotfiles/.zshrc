@@ -42,7 +42,7 @@ fi
 
 # Config
 alias zconf="nano ~/.zshrc"
-alias zsource="source ~/.zshrc"
+alias zsource="source ~/.zshrc && clear"
 
 # Include alias file
 if [[ -a ~/.aliases.sh ]]; then

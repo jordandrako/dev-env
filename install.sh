@@ -1,7 +1,7 @@
 #!/bin/bash
 
 local initial="$PWD"
-local config=$initial/configs
+local config=$initial/dotfiles
 local user ssh_path machine
 if [[ $1 ]]; then
   user=$1

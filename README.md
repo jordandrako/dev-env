@@ -20,12 +20,12 @@ Clone this repo wherever your store your code projects. Run `git clone https://g
 
 ### Windows
 
-1.  If you're using CMDER and want my configs there, copy the contents of the cmder directory to your cmder install location, merging the config folder. Then in CMDER open settings, click "Import..." then find the ConEmu.xml file in your config folder. Save settings.
-1.  (Re)Launch your shell program, and navigate to the dev-env directory.
+1.  (Re)Launch your desired shell program, and navigate to the cloned dev-env directory.
 1.  Run `chmod +x install.sh && ./install.sh`.
     * If your unix username isn't the same as your Windows **user folder** then pass that as an argument: `install.sh MyUserName`.
     * This script will check for your system version and if oh-my-zsh and nvm are installed. Then ask to: 1) configure git user settings, 2) install my most used global npm packages, and 3) ask if you want to copy windows ssh keys to your shell user.
     * If you want to copy your existing windows SSH keys/config later, run `./copy-ssh.sh '/path/to/.ssh'`.
+1.  If you're using CMDER and want my configs there, copy the contents of the cmder directory to your cmder install location, merging the config folder. Then in CMDER open settings, click "Import..." then find the ConEmu.xml file in your cmder config folder. Save settings.
 
 ## Other considerations
 
