@@ -2,9 +2,8 @@
 # Run this script with the path to your windows .ssh folder.
 # Optionally, specify your ssh key name after the path.
 
-local dos_ssh=$1
-local s=~/.ssh
-local key_name
+dos_ssh=$1
+s=~/.ssh
 if [[ $2 ]]; then
   key_name=$2
 else
