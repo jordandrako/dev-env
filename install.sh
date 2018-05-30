@@ -61,6 +61,17 @@ elif [[ ! -d $ZSH/custom/plugins/zsh-syntax-highlighting ]]; then
   successfully chmod -R 755 $ZSH/custom/themes
 fi
 
+# Global configuration
+successfully cp $config/.aliases.sh ~/
+successfully cp $config/.zshrc ~/
+successfully cp $config/.gitconfig ~/
+## Z plugin
+if [[ ! -a ~/.bin/z.sh ]]; then
+  mkdir -p ~/.bin
+  wget -q https://raw.githubusercontent.com/rupa/z/master/z.sh -O ~/.bin/z.sh
+  chmod +x ~/.bin/z.sh
+fi
+
 # Configure Git
 fancy_echo "Configuring git"
 while true; do
@@ -73,6 +84,7 @@ while true; do
       fancy_echo "What's your last name?";
       read last_name;
       gitname="$first_name $last_name";
+      git config --global user.name "$gitname";
       echo ;
       fancy_echo "What's your git account email?";
       read email;
@@ -112,17 +124,6 @@ if [[ $machine == "WSL" || $machine == "Cygwin" ]]; then
         break;;
     esac
   done
-fi
-
-# Global configuration
-successfully cp $config/.aliases.sh ~/
-successfully cp $config/.zshrc ~/
-successfully cp $config/.gitconfig ~/
-## Z plugin
-if [[ ! -a ~/.bin/z.sh ]]; then
-  mkdir -p ~/.bin
-  wget -q https://raw.githubusercontent.com/rupa/z/master/z.sh -O ~/.bin/z.sh
-  chmod +x ~/.bin/z.sh
 fi
 
 # WSL Configuration
