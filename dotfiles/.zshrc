@@ -35,6 +35,15 @@ else
   export EDITOR='code'
 fi
 
+# Color configuration
+# LS_COLOR should contain the LS_COLORS overrides you desire.
+# Override "other writable" color
+LS_COLOR="ow=01;34"
+# Add LS_COLOR to the end of existing LS_COLORS
+LS_COLORS="$LS_COLORS:$LS_COLOR"
+# Re-export LS_COLORS
+export LS_COLORS
+
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
