@@ -44,6 +44,13 @@ else
   cra_i=false
 fi
 
+# Check if tree is installed
+if command -v tree >/dev/null 2>&1; then
+  tree_i=true
+else
+  tree_i=false
+fi
+
 # Aliases
 # Git
 if [[ $git_i == true ]]; then
@@ -103,3 +110,9 @@ fi
 if [[ $ngrok_i == true ]]; then
   alias ngr="ngrok http --host-header=rewrite"
 fi
+
+# Tree
+if [[ $tree_i == tree ]]; then
+  alias tree="tree -I 'node_modules|.git|cache'"
+fi
+
