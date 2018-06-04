@@ -84,11 +84,10 @@ if [[ -a ~/.zshrc ]]; then
   successfully cp ~/.zshrc ~/.zshrc.bak
 fi
 successfully cp $config/.zshrc ~/
-if [[ -a ~/.nano/.nanorc ]]; then
-  successfully cp ~/.nano/.nanorc ~/.nano/.nanorc.bak
+if [[ -a ~/.nanorc ]]; then
+  successfully cp ~/.nanorc ~/.nanorc.bak
 fi
-successfully mkdir -p ~/.nano
-successfully cp $config/.nanorc ~/.nano/
+successfully cp $config/.nanorc ~/
 # Cobalt2 theme
 successfully cp $config/cobalt2.zsh-theme $ZSH/custom/themes
 successfully chmod -R 755 $ZSH/custom/themes
