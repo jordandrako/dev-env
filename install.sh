@@ -26,15 +26,15 @@ successfully() {
 # Check system
 case "$(uname -a)" in
   *Microsoft* )
-    fancy_echo "Configuring WSL";
+    fancy_echo "Now Configuring WSL";
     ssh_path="/mnt/c/Users/$script_user/.ssh";
     machine="WSL" ;;
   CYGWIN* )
-    fancy_echo "Configuring Cygwin";
+    fancy_echo "Now Configuring Cygwin";
     ssh_path="/cygdrive/c/Users/$script_user/.ssh";
     machine="Cygwin" ;;
   Linux* )
-    fancy_echo "Configuring Linux";
+    fancy_echo "Now Configuring Linux";
     machine="Linux" ;;
   # Darwin* ) SUPPORT MAC LATER
   #   machine="Mac" ;;
@@ -76,9 +76,18 @@ else
 fi
 
 # Global configuration
-successfully cp -b $config/.aliases.sh ~/
-successfully cp -b $config/.zshrc ~/
-successfully cp -b $config/.nanorc ~/.nano
+if [[ -a ~/.aliases.sh ]]; then
+  mv ~/.aliases.sh ~/.aliases.sh.bak
+fi
+successfully cp $config/.aliases.sh ~/
+if [[ -a ~/.zshrc ]]; then
+  mv ~/.zshrc ~/.zshrc.bak
+fi
+successfully cp $config/.zshrc ~/
+if [[ -a ~/.nano/.nanorc ]]; then
+  mv ~/.nano/.nanorc ~/.nano/.nanorc.bak
+fi
+successfully cp $config/.nanorc ~/.nano
 # Cobalt2 theme
 successfully mkdir -p $ZSH/custom/themes
 successfully cp $config/cobalt2.zsh-theme $ZSH/custom/themes
@@ -94,10 +103,14 @@ fi
 fancy_echo "Configuring git"
 while true; do
   read -p "Copy this gitconfig? [Y/n] " gitCpYn
+
   case $gitCpYn in
     [Nn]* ) break;;
     * )
-      successfully cp -b $config/.gitconfig ~/
+      if [[ -a ~/.zshrc ]];
+        then mv ~/.zshrc ~/.zshrc.bak;
+      fi;
+      successfully cp $config/.gitconfig ~/;
       break;;
   esac
 done
