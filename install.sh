@@ -45,7 +45,7 @@ esac
 # Check for oh-my-zsh
 ZSH=$ZSH || ~/.oh-my-zsh
 if [[ ! -d $ZSH ]]; then
-  successfully wget https://githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O ~/install.oh-my-zsh.sh
+  successfully wget -q https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O ~/install.oh-my-zsh.sh
   successfully chmod +x ~/install.oh-my-zsh.sh
   error "Ensure zsh is installed and run oh-my-zsh installer first @ '. ~/install.oh-my-zsh.sh'"
   exit 1
@@ -77,19 +77,19 @@ fi
 
 # Global configuration
 if [[ -a ~/.aliases.sh ]]; then
-  mv ~/.aliases.sh ~/.aliases.sh.bak
+  successfully cp ~/.aliases.sh ~/.aliases.sh.bak
 fi
 successfully cp $config/.aliases.sh ~/
 if [[ -a ~/.zshrc ]]; then
-  mv ~/.zshrc ~/.zshrc.bak
+  successfully cp ~/.zshrc ~/.zshrc.bak
 fi
 successfully cp $config/.zshrc ~/
 if [[ -a ~/.nano/.nanorc ]]; then
-  mv ~/.nano/.nanorc ~/.nano/.nanorc.bak
+  successfully cp ~/.nano/.nanorc ~/.nano/.nanorc.bak
 fi
-successfully cp $config/.nanorc ~/.nano
+successfully mkdir -p ~/.nano
+successfully cp $config/.nanorc ~/.nano/
 # Cobalt2 theme
-successfully mkdir -p $ZSH/custom/themes
 successfully cp $config/cobalt2.zsh-theme $ZSH/custom/themes
 successfully chmod -R 755 $ZSH/custom/themes
 ## Z plugin
@@ -107,8 +107,8 @@ while true; do
   case $gitCpYn in
     [Nn]* ) break;;
     * )
-      if [[ -a ~/.zshrc ]];
-        then mv ~/.zshrc ~/.zshrc.bak;
+      if [[ -a ~/.gitconfig ]];
+        then mv ~/.gitconfig ~/.gitconfig.bak;
       fi;
       successfully cp $config/.gitconfig ~/;
       break;;
