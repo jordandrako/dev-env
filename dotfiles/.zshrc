@@ -32,17 +32,12 @@ export Z_DIR="$HOME/.bin"
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='nano'
 else
-  export EDITOR='code'
+  if command -v code >/dev/null 2>&1; then
+    export EDITOR='code'
+  else
+    export EDITOR='nano'
+  fi
 fi
-
-# Color configuration
-# LS_COLOR should contain the LS_COLORS overrides you desire.
-# Override "other writable" color
-LS_COLOR="ow=01;34"
-# Add LS_COLOR to the end of existing LS_COLORS
-LS_COLORS="$LS_COLORS:$LS_COLOR"
-# Re-export LS_COLORS
-export LS_COLORS
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh

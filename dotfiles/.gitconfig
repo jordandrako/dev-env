@@ -10,13 +10,11 @@
   br = branch
   unstage = reset HEAD --
   dc = diff --cached
-
 [push]
   default = matching
 [remote "origin"]
   prune = true
 [core]
-  editor = 'C:\\Program Files\\Microsoft VS Code\\Code.exe' -w
   trustctime = false
   filemode = false
   autocrlf = input

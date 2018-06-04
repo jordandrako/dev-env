@@ -67,6 +67,8 @@ if [[ $git_i == true ]]; then
   alias gml="git merge -"
   alias gp="git push"
   alias gpl="git pull"
+  alias gd="git diff"
+  alias gdc="git diff --cached"
 fi # end Git
 
 # NPM

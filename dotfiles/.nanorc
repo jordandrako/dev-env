@@ -1,0 +1,4 @@
+set autoindent
+set smooth
+set tabsize 2
+set linenumbers

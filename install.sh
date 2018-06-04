@@ -3,9 +3,9 @@
 initial="$PWD"
 config=$initial/dotfiles
 if [[ $1 ]]; then
-  user=$1
+  script_user=$1
 else
-  user=$USER
+  script_user=$USER
 fi
 
 # Echo with color
@@ -26,26 +26,21 @@ successfully() {
 # Check system
 case "$(uname -a)" in
   *Microsoft* )
-    ssh_path="/mnt/c/Users/$user/.ssh";
+    fancy_echo "Configuring WSL";
+    ssh_path="/mnt/c/Users/$script_user/.ssh";
     machine="WSL" ;;
   CYGWIN* )
-    ssh_path="/cygdrive/c/Users/$user/.ssh";
+    fancy_echo "Configuring Cygwin";
+    ssh_path="/cygdrive/c/Users/$script_user/.ssh";
     machine="Cygwin" ;;
   Linux* )
+    fancy_echo "Configuring Linux";
     machine="Linux" ;;
   # Darwin* ) SUPPORT MAC LATER
   #   machine="Mac" ;;
   * )
     error "System Not Supported. Install manually."; exit 1
 esac
-
-# Check for NVM
-if [[ $machine != "Cygwin" && ! -d ~/.nvm ]]; then
-  successfully wget https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh -O ~/install.nvm.sh
-  successfully chmod +x ~/install.nvm.sh
-  error "Run NVM installer first '. ~/install.nvm.sh'"
-  exit 1
-fi
 
 # Check for oh-my-zsh
 ZSH=$ZSH || ~/.oh-my-zsh
@@ -57,14 +52,37 @@ if [[ ! -d $ZSH ]]; then
 elif [[ ! -d $ZSH/custom/plugins/zsh-syntax-highlighting ]]; then
   successfully git clone -q https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH/custom/plugins/zsh-syntax-highlighting
   successfully chmod -R 755 $ZSH/custom/plugins/zsh-syntax-highlighting
-  successfully cp $config/cobalt2.zsh-theme $ZSH/custom/themes
-  successfully chmod -R 755 $ZSH/custom/themes
+fi
+
+
+# Check for NVM
+if [[ $machine != "Cygwin" && ! -d ~/.nvm ]]; then
+  while true; do
+    read -p "No NVM detected. Continue anyway? [Y/n] " nvmYn
+    case $nvmYn in
+      [Nn]* )
+        successfully wget https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh -O ~/install.nvm.sh
+        successfully chmod +x ~/install.nvm.sh
+        error "Run NVM installer first '. ~/install.nvm.sh'"
+        exit 1
+        break;;
+      * )
+        npm_i=false;
+        break;;
+    esac
+  done
+else
+  npm_i=true
 fi
 
 # Global configuration
-successfully cp $config/.aliases.sh ~/
-successfully cp $config/.zshrc ~/
-successfully cp $config/.gitconfig ~/
+successfully cp -b $config/.aliases.sh ~/
+successfully cp -b $config/.zshrc ~/
+successfully cp -b $config/.nanorc ~/.nano
+# Cobalt2 theme
+successfully mkdir -p $ZSH/custom/themes
+successfully cp $config/cobalt2.zsh-theme $ZSH/custom/themes
+successfully chmod -R 755 $ZSH/custom/themes
 ## Z plugin
 if [[ ! -a ~/.bin/z.sh ]]; then
   mkdir -p ~/.bin
@@ -75,8 +93,17 @@ fi
 # Configure Git
 fancy_echo "Configuring git"
 while true; do
-  read -p "Configure your git user settings? [Y/n] " gitYn
-  case $gitYn in
+  read -p "Copy this gitconfig? [Y/n] " gitCpYn
+  case $gitCpYn in
+    [Nn]* ) break;;
+    * )
+      successfully cp -b $config/.gitconfig ~/
+      break;;
+  esac
+done
+while true; do
+  read -p "Configure your git user settings? [Y/n] " gitUserYn
+  case $gitUserYn in
     [Nn]* ) break;;
     * )
       fancy_echo "What's your first name?";
@@ -95,17 +122,18 @@ done
 
 # Install NPM packages. Change these packages to your preferred global packages.
 packages="yarn gulp-cli create-react-app trash-cli eslint tslint stylelint typescript ngrok"
-
-fancy_echo "Installing global npm packages"
-while true; do
-  read -p "Install global npm packages? [Y/n] " npmYn
-  case $npmYn in
-    [Nn]* ) break;;
-    * )
-      successfully npm i -g $packages;
-      break;;
-  esac
-done
+if [[ $npm_i == true ]]; then
+  fancy_echo "Installing global npm packages"
+  while true; do
+    read -p "Install global npm packages? [Y/n] " npmYn
+    case $npmYn in
+      [Nn]* ) break;;
+      * )
+        successfully npm i -g $packages;
+        break;;
+    esac
+  done
+fi
 
 # Copy Windows user SSH
 if [[ $machine == "WSL" || $machine == "Cygwin" ]]; then
@@ -128,8 +156,11 @@ fi
 
 # WSL Configuration
 if [[ $machine == "WSL" ]]; then
-  successfully sudo apt update
-  successfully sudo apt install dos2unix
+  if ! command -v dos2unix >/dev/null 2>&1; then
+    successfully sudo apt update
+    successfully sudo apt install dos2unix
+  fi
+  # successfully sudo apt install dos2unix
   successfully cat $config/wsl.zshrc >> ~/.zshrc
   fancy_echo "Done!"
   exit
@@ -144,8 +175,6 @@ fi # End Linux
 
 # Cygwin configuration
 if [[ $machine == "Cygwin" ]]; then
-  fancy_echo "Configuring cygwin"
-
   # Install apt-cyg to allow easy package installation
   if [[ ! -a /bin/apt-cyg ]]; then
     successfully wget rawgit.com/transcode-open/apt-cyg/master/apt-cyg -P /bin/
