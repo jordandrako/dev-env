@@ -82,13 +82,15 @@ if [[ $npm_i == true ]]; then
   # Create react app
   if [[ $cra_i == true ]]; then
     alias cra="create-react-app"
+    function crats() {
+      create-react-app $1 --scripts-version=react-scripts-ts
+    }
   else
     alias cra="npx create-react-app"
+    function crats() {
+      npx create-react-app $1 --scripts-version=react-scripts-ts
+    }
   fi
-  # CRA typescript
-  function crats() {
-    cra $1 --scripts-version=react-scripts-ts
-  }
 
   # Yarn
   if [[ $yarn_i == true ]]; then
