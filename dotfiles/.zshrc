@@ -32,11 +32,7 @@ export Z_DIR="$HOME/.bin"
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='nano'
 else
-  if command -v code >/dev/null 2>&1; then
-    export EDITOR='code'
-  else
-    export EDITOR='nano'
-  fi
+  export EDITOR='nano'
 fi
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
