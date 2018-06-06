@@ -75,6 +75,7 @@ fi # end Git
 if [[ $npm_i == true ]]; then
   alias ns="npm start"
   alias ni="npm i"
+  alias nid="npm i -D"
   alias ngi="npm i -g"
   alias nrm="npm rm"
   alias nrmg="npm rm -g"

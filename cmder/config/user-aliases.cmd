@@ -14,22 +14,16 @@ vi=vim $*
 cmderr=cd /d "%CMDER_ROOT%"
 
 ;= Directories
-wwwr=cd /d "%USERPROFILE%/www"
-coder=cd /d "%USERPROFILE%/code"
-rimraf=rm -rf
+coder=cd /d "C:\code"
 ..=cd ..
 ...=cd ../..
 ....=cd ../../..
 
-;= SSH
-restartplex=ssh server1 'docker restart Plex'
-
 ;= Git
 gs=git status -s $*
-gsa=git status $*
 gl=git lg $*
 ga=git add $*
-gaa=git add --all $*
+gaa=git add -A $*
 gac=git commit -am $*
 gc=git commit -m $*
 go=git checkout $*
@@ -39,10 +33,26 @@ gm=git merge $*
 gml=git merge - $*
 gp=git push $*
 gpl=git pull $*
+gd=git diff $*
+gdc=git diff --cached $*
 
 ;= NPM
-nig=npm i -g $*
-nrm=npm rm -g $*
+ns=npm start $*
+ni=npm i $*
+nid= npm i -D $*
+ngi=npm i -g $*
+nrm=npm rm $*
+nrmg=npm rm -g $*
+
+;= Create react app
+cra=create-react-app $*
+crats=create-react-app $1 --scripts-version=react-scripts-ts
+
+;= Yarn
+ys=yarn start $*
+ya=yarn add $*
+yad=yarn add -D $*
+yrm=yarn remove $*
 
 ;= Docker
 dps=docker ps $*
