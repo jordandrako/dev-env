@@ -133,7 +133,7 @@ while true; do
 done
 
 # Install NPM packages. Change these packages to your preferred global packages.
-packages="yarn gulp-cli create-react-app trash-cli eslint tslint stylelint typescript ngrok"
+packages="yarn gulp-cli create-react-app trash-cli empty-trash-cli eslint tslint stylelint typescript ngrok"
 if [[ $npm_i == true ]]; then
   fancy_echo "Installing global npm packages"
   while true; do
