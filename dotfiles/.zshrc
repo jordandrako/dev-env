@@ -38,7 +38,6 @@ else
     export EDITOR='nano'
   fi
 fi
-source ~/.nano/.nanorc
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
