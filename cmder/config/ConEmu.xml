@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <key name="Software">
 	<key name="ConEmu">
-		<key name=".Vanilla" modified="2018-05-27 15:09:01" build="180506">
-			<value name="ColorTable00" type="dword" data="00382712"/>
-			<value name="ColorTable01" type="dword" data="00ff8800"/>
-			<value name="ColorTable02" type="dword" data="0000d93a"/>
-			<value name="ColorTable03" type="dword" data="00fffc80"/>
-			<value name="ColorTable04" type="dword" data="008c62ff"/>
-			<value name="ColorTable05" type="dword" data="00ff94fb"/>
-			<value name="ColorTable06" type="dword" data="0000c6ff"/>
+		<key name=".Vanilla" modified="2018-06-06 16:30:08" build="180528">
+			<value name="ColorTable00" type="dword" data="00221100"/>
+			<value name="ColorTable01" type="dword" data="00ffaa82"/>
+			<value name="ColorTable02" type="dword" data="006eda22"/>
+			<value name="ColorTable03" type="dword" data="00a8c721"/>
+			<value name="ColorTable04" type="dword" data="005053ef"/>
+			<value name="ColorTable05" type="dword" data="00ea92c7"/>
+			<value name="ColorTable06" type="dword" data="0067dbad"/>
 			<value name="ColorTable07" type="dword" data="00ffffff"/>
-			<value name="ColorTable08" type="dword" data="00382712"/>
-			<value name="ColorTable09" type="dword" data="00ff8800"/>
-			<value name="ColorTable10" type="dword" data="0000d93a"/>
-			<value name="ColorTable11" type="dword" data="00fffc80"/>
-			<value name="ColorTable12" type="dword" data="008c62ff"/>
-			<value name="ColorTable13" type="dword" data="00ff94fb"/>
-			<value name="ColorTable14" type="dword" data="0000c6ff"/>
+			<value name="ColorTable08" type="dword" data="00221100"/>
+			<value name="ColorTable09" type="dword" data="00ffaa82"/>
+			<value name="ColorTable10" type="dword" data="006eda22"/>
+			<value name="ColorTable11" type="dword" data="00a8c721"/>
+			<value name="ColorTable12" type="dword" data="005053ef"/>
+			<value name="ColorTable13" type="dword" data="00ea92c7"/>
+			<value name="ColorTable14" type="dword" data="0067dbad"/>
 			<value name="ColorTable15" type="dword" data="00ffffff"/>
 			<value name="ColorTable16" type="dword" data="00000000"/>
 			<value name="ColorTable17" type="dword" data="00800000"/>
@@ -55,8 +55,8 @@
 			<value name="ClipboardFirstLine" type="hex" data="01"/>
 			<value name="ClipboardClickPromptPosition" type="hex" data="00"/>
 			<value name="ClipboardDeleteLeftWord" type="hex" data="01"/>
-			<value name="TrueColorerSupport" type="hex" data="01"/>
-			<value name="FadeInactive" type="hex" data="01"/>
+			<value name="TrueColorerSupport" type="hex" data="00"/>
+			<value name="FadeInactive" type="hex" data="00"/>
 			<value name="FadeInactiveLow" type="hex" data="00"/>
 			<value name="FadeInactiveHigh" type="hex" data="C8"/>
 			<value name="ConVisible" type="hex" data="00"/>
@@ -72,7 +72,7 @@
 			<value name="StartType" type="hex" data="02"/>
 			<value name="CmdLine" type="string" data=""/>
 			<value name="StartTasksFile" type="string" data=""/>
-			<value name="StartTasksName" type="string" data="{WSL}"/>
+			<value name="StartTasksName" type="string" data="{zsh}"/>
 			<value name="StartFarFolders" type="hex" data="00"/>
 			<value name="StartFarEditors" type="hex" data="00"/>
 			<value name="StoreTaskbarkTasks" type="hex" data="00"/>
@@ -97,10 +97,10 @@
 			<value name="Multi.SplitWidth" type="hex" data="04"/>
 			<value name="Multi.SplitHeight" type="hex" data="04"/>
 			<value name="KeyboardHooks" type="hex" data="02"/>
-			<value name="FontName" type="string" data="Fira Code Retina"/>
+			<value name="FontName" type="string" data="Dank Mono"/>
 			<value name="FontName2" type="string" data="Consolas"/>
 			<value name="FontAutoSize" type="hex" data="00"/>
-			<value name="FontSize" type="ulong" data="18"/>
+			<value name="FontSize" type="ulong" data="16"/>
 			<value name="FontSizeX" type="ulong" data="0"/>
 			<value name="FontSizeX2" type="ulong" data="0"/>
 			<value name="FontSizeX3" type="ulong" data="0"/>
@@ -109,11 +109,11 @@
 			<value name="FontBold" type="hex" data="00"/>
 			<value name="FontItalic" type="hex" data="00"/>
 			<value name="Monospace" type="hex" data="01"/>
-			<value name="BackGround Image show" type="hex" data="01"/>
-			<value name="BackGround Image" type="string" data="c:\back.bmp"/>
-			<value name="bgImageDarker" type="hex" data="FF"/>
+			<value name="BackGround Image show" type="hex" data="00"/>
+			<value name="BackGround Image" type="string" data="C:\cmder\config\bg.jpg"/>
+			<value name="bgImageDarker" type="hex" data="28"/>
 			<value name="bgImageColors" type="dword" data="ffffffff"/>
-			<value name="bgOperation" type="hex" data="00"/>
+			<value name="bgOperation" type="hex" data="07"/>
 			<value name="bgPluginAllowed" type="hex" data="01"/>
 			<value name="AlphaValue" type="hex" data="FF"/>
 			<value name="AlphaValueSeparate" type="hex" data="00"/>
@@ -123,11 +123,11 @@
 			<value name="ColorKeyValue" type="dword" data="00010101"/>
 			<value name="UseCurrentSizePos" type="hex" data="01"/>
 			<value name="WindowMode" type="dword" data="0000051f"/>
-			<value name="ConWnd Width" type="dword" data="00000061"/>
+			<value name="ConWnd Width" type="dword" data="00000064"/>
 			<value name="ConWnd Height" type="dword" data="00000023"/>
 			<value name="Cascaded" type="hex" data="01"/>
-			<value name="ConWnd X" type="long" data="803"/>
-			<value name="ConWnd Y" type="long" data="319"/>
+			<value name="ConWnd X" type="long" data="335"/>
+			<value name="ConWnd Y" type="long" data="170"/>
 			<value name="16bit Height" type="ulong" data="0"/>
 			<value name="AutoSaveSizePos" type="hex" data="00"/>
 			<value name="IntegralSize" type="hex" data="00"/>
@@ -185,7 +185,7 @@
 			<value name="SendAltPrintScrn" type="hex" data="00"/>
 			<value name="SendPrintScrn" type="hex" data="00"/>
 			<value name="SendCtrlEsc" type="hex" data="00"/>
-			<value name="Min2Tray" type="hex" data="00"/>
+			<value name="Min2Tray" type="hex" data="01"/>
 			<value name="AlwaysShowTrayIcon" type="hex" data="00"/>
 			<value name="SafeFarClose" type="hex" data="01"/>
 			<value name="SafeFarCloseMacro" type="string" data=""/>
@@ -255,11 +255,11 @@
 			<value name="TabRecent" type="hex" data="00"/>
 			<value name="TabDblClick" type="ulong" data="1"/>
 			<value name="TabsOnTaskBar" type="hex" data="00"/>
-			<value name="TaskBarOverlay" type="hex" data="00"/>
+			<value name="TaskBarOverlay" type="hex" data="01"/>
 			<value name="TabCloseMacro" type="string" data=""/>
-			<value name="TabFontFace" type="string" data="Fira Code Retina"/>
+			<value name="TabFontFace" type="string" data="Dank Mono"/>
 			<value name="TabFontCharSet" type="ulong" data="0"/>
-			<value name="TabFontHeight" type="long" data="16"/>
+			<value name="TabFontHeight" type="long" data="14"/>
 			<value name="SaveAllEditors" type="string" data=""/>
 			<value name="ToolbarAddSpace" type="long" data="0"/>
 			<value name="TabConsole" type="string" data="%n"/>
@@ -484,19 +484,19 @@
 			<value name="WndDragKey" type="dword" data="00121101"/>
 			<key name="Tasks" modified="2018-05-27 15:09:01" build="180506">
 				<value name="Count" type="long" data="9"/>
-				<key name="Task1" modified="2018-05-27 15:09:01" build="180506">
-					<value name="Name" type="string" data="{zsh::WSL}"/>
+				<key name="Task1" modified="2018-06-06 16:30:08" build="180528">
+					<value name="Name" type="string" data="{zsh}"/>
 					<value name="GuiArgs" type="string" data=' /icon "%CMDER_ROOT%\icons\cmder_blue.ico"'/>
-					<value name="Cmd1" type="string" data="C:\Windows\System32\wsl.exe ~ -cur_console:p"/>
+					<value name="Cmd1" type="string" data="C:\cygwin64\bin\zsh.exe --login -i -new_console:d:%USERPROFILE%"/>
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 					<value name="Flags" type="dword" data="00000005"/>
 				</key>
-				<key name="Task2" modified="2018-05-27 15:09:01" build="180506">
-					<value name="Name" type="string" data="{zsh::cygwin}"/>
+				<key name="Task2" modified="2018-06-06 16:30:08" build="180528">
+					<value name="Name" type="string" data="{WSL}"/>
 					<value name="GuiArgs" type="string" data=' /icon "%CMDER_ROOT%\icons\cmder_blue.ico"'/>
-					<value name="Cmd1" type="string" data="C:\cygwin64\bin\zsh.exe --login -i -new_console:d:%USERPROFILE%"/>
+					<value name="Cmd1" type="string" data="%windir%\System32\wsl.exe ~ -cur_console:p"/>
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
@@ -540,38 +540,38 @@
 					<value name="Count" type="long" data="1"/>
 					<value name="Cmd2" type="string" data="%CMDER_ROOT%vendor\git-for-windows\usr\bin\mintty.exe /bin/bash -l -new_console"/>
 				</key>
-				<key name="Task7" modified="2018-04-26 14:31:19" build="180422">
+				<key name="Task7" modified="2018-06-06 16:30:08" build="180528">
+					<value name="Name" type="string" data="{bash::babun}"/>
+					<value name="Flags" type="dword" data="00000004"/>
+					<value name="Hotkey" type="dword" data="00000000"/>
+					<value name="GuiArgs" type="string" data=' /icon "%CMDER_ROOT%\icons\cmder_orange.ico"'/>
+					<value name="Active" type="long" data="0"/>
+					<value name="Count" type="long" data="1"/>
+					<value name="Cmd1" type="string" data="%USERPROFILE%\.babun\cygwin\bin\mintty.exe -o Transparency=0 /bin/env CHERE_INVOKING=1 /bin/bash.exe"/>
+				</key>
+				<key name="Task8" modified="2018-06-06 16:30:08" build="180528">
 					<value name="Name" type="string" data="{bash::bash as Admin}"/>
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 					<value name="GuiArgs" type="string" data=' /icon "%CMDER_ROOT%\icons\cmder_orange.ico"'/>
+					<value name="Cmd1" type="string" data='*cmd /c "%GIT_ROOT%\bin\bash.exe" --login -i'/>
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
-					<value name="Cmd1" type="string" data='*cmd /c "%GIT_ROOT%\bin\bash.exe" --login -i'/>
 				</key>
-				<key name="Task8" modified="2018-04-26 14:31:19" build="180422">
+				<key name="Task9" modified="2018-06-06 16:30:08" build="180528">
 					<value name="Name" type="string" data="{bash::bash}"/>
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 					<value name="GuiArgs" type="string" data=' /icon "%CMDER_ROOT%\icons\cmder_orange.ico"'/>
+					<value name="Active" type="long" data="0"/>
+					<value name="Count" type="long" data="1"/>
 					<value name="Cmd1" type="string" data='cmd /c "%GIT_ROOT%\bin\bash.exe" --login -i'/>
-					<value name="Active" type="long" data="0"/>
-					<value name="Count" type="long" data="1"/>
-				</key>
-				<key name="Task9" modified="2018-05-27 15:09:01" build="180506">
-					<value name="Name" type="string" data="{bash::cygwin}"/>
-					<value name="Flags" type="dword" data="00000004"/>
-					<value name="Hotkey" type="dword" data="00000000"/>
-					<value name="GuiArgs" type="string" data=' /icon "%CMDER_ROOT%\icons\cmder_blue.ico"'/>
-					<value name="Active" type="long" data="0"/>
-					<value name="Count" type="long" data="1"/>
-					<value name="Cmd1" type="string" data="C:\cygwin64\bin\bash.exe --login -i -new_console:d:%USERPROFILE%"/>
 				</key>
 			</key>
 			<key name="Apps" modified="2018-01-19 08:18:07" build="171025">
 				<value name="Count" type="long" data="0"/>
 			</key>
-			<key name="Colors" modified="2018-04-17 10:58:58" build="180416">
+			<key name="Colors" modified="2018-06-06 16:30:08" build="180528">
 				<key name="Palette1" modified="2018-04-26 21:35:02" build="180309">
 					<value name="Name" type="string" data="Cobalt2"/>
 					<value name="ExtendColors" type="hex" data="00"/>
@@ -613,7 +613,7 @@
 					<value name="ColorTable30" type="dword" data="0000ffff"/>
 					<value name="ColorTable31" type="dword" data="00ffffff"/>
 				</key>
-				<value name="Count" type="long" data="3"/>
+				<value name="Count" type="long" data="4"/>
 				<key name="Palette2" modified="2018-04-26 21:35:02" build="180309">
 					<value name="Name" type="string" data="Monokai"/>
 					<value name="TextColorIdx" type="hex" data="10"/>
@@ -655,7 +655,48 @@
 					<value name="ColorTable30" type="dword" data="00000000"/>
 					<value name="ColorTable31" type="dword" data="00000000"/>
 				</key>
-				<key name="Palette3" modified="2018-04-26 21:35:02" build="180309">
+				<key name="Palette3" modified="2018-06-06 16:30:08" build="180528">
+					<value name="Name" type="string" data="Night Owl"/>
+					<value name="TextColorIdx" type="hex" data="10"/>
+					<value name="BackColorIdx" type="hex" data="10"/>
+					<value name="PopTextColorIdx" type="hex" data="10"/>
+					<value name="PopBackColorIdx" type="hex" data="10"/>
+					<value name="ColorTable00" type="dword" data="00221100"/>
+					<value name="ColorTable01" type="dword" data="00ffaa82"/>
+					<value name="ColorTable02" type="dword" data="006eda22"/>
+					<value name="ColorTable03" type="dword" data="00a8c721"/>
+					<value name="ColorTable04" type="dword" data="005053ef"/>
+					<value name="ColorTable05" type="dword" data="00ea92c7"/>
+					<value name="ColorTable06" type="dword" data="0067dbad"/>
+					<value name="ColorTable07" type="dword" data="00ffffff"/>
+					<value name="ColorTable08" type="dword" data="00221100"/>
+					<value name="ColorTable09" type="dword" data="00ffaa82"/>
+					<value name="ColorTable10" type="dword" data="006eda22"/>
+					<value name="ColorTable11" type="dword" data="00a8c721"/>
+					<value name="ColorTable12" type="dword" data="005053ef"/>
+					<value name="ColorTable13" type="dword" data="00ea92c7"/>
+					<value name="ColorTable14" type="dword" data="0067dbad"/>
+					<value name="ColorTable15" type="dword" data="00ffffff"/>
+					<value name="ExtendColors" type="hex" data="00"/>
+					<value name="ExtendColorIdx" type="hex" data="00"/>
+					<value name="ColorTable16" type="dword" data="00000000"/>
+					<value name="ColorTable17" type="dword" data="00000000"/>
+					<value name="ColorTable18" type="dword" data="00000000"/>
+					<value name="ColorTable19" type="dword" data="00000000"/>
+					<value name="ColorTable20" type="dword" data="00000000"/>
+					<value name="ColorTable21" type="dword" data="00000000"/>
+					<value name="ColorTable22" type="dword" data="00000000"/>
+					<value name="ColorTable23" type="dword" data="00000000"/>
+					<value name="ColorTable24" type="dword" data="00000000"/>
+					<value name="ColorTable25" type="dword" data="00000000"/>
+					<value name="ColorTable26" type="dword" data="00000000"/>
+					<value name="ColorTable27" type="dword" data="00000000"/>
+					<value name="ColorTable28" type="dword" data="00000000"/>
+					<value name="ColorTable29" type="dword" data="00000000"/>
+					<value name="ColorTable30" type="dword" data="00000000"/>
+					<value name="ColorTable31" type="dword" data="00000000"/>
+				</key>
+				<key name="Palette4" modified="2018-06-06 16:30:08" build="180528">
 					<value name="Name" type="string" data="OneDark"/>
 					<value name="TextColorIdx" type="hex" data="10"/>
 					<value name="BackColorIdx" type="hex" data="10"/>
@@ -677,24 +718,6 @@
 					<value name="ColorTable13" type="dword" data="00f68af4"/>
 					<value name="ColorTable14" type="dword" data="00669ad1"/>
 					<value name="ColorTable15" type="dword" data="00ffffff"/>
-					<value name="ExtendColors" type="hex" data="00"/>
-					<value name="ExtendColorIdx" type="hex" data="00"/>
-					<value name="ColorTable16" type="dword" data="00000000"/>
-					<value name="ColorTable17" type="dword" data="00000000"/>
-					<value name="ColorTable18" type="dword" data="00000000"/>
-					<value name="ColorTable19" type="dword" data="00000000"/>
-					<value name="ColorTable20" type="dword" data="00000000"/>
-					<value name="ColorTable21" type="dword" data="00000000"/>
-					<value name="ColorTable22" type="dword" data="00000000"/>
-					<value name="ColorTable23" type="dword" data="00000000"/>
-					<value name="ColorTable24" type="dword" data="00000000"/>
-					<value name="ColorTable25" type="dword" data="00000000"/>
-					<value name="ColorTable26" type="dword" data="00000000"/>
-					<value name="ColorTable27" type="dword" data="00000000"/>
-					<value name="ColorTable28" type="dword" data="00000000"/>
-					<value name="ColorTable29" type="dword" data="00000000"/>
-					<value name="ColorTable30" type="dword" data="00000000"/>
-					<value name="ColorTable31" type="dword" data="00000000"/>
 				</key>
 			</key>
 			<value name="OneTabPerGroup" type="hex" data="00"/>
@@ -954,7 +977,7 @@
 			</key>
 			<value name="StartCreateDelay" type="ulong" data="100"/>
 			<value name="DefaultTerminalDebugLog" type="hex" data="00"/>
-			<value name="LastMonitor" type="string" data="0,0,2560,1400"/>
+			<value name="LastMonitor" type="string" data="0,0,1920,1040"/>
 			<value name="Restore2ActiveMon" type="hex" data="00"/>
 			<value name="DownShowExOnTopMessage" type="hex" data="00"/>
 			<value name="EnvironmentSet" type="multi">
