@@ -1,10 +1,12 @@
-# Cygwin config
+
+## Cygwin configs
 unsetopt PROMPT_SP
 export CODE_DIR=/cygdrive/c/code
 export MACHINE="Cygwin"
 
 # Nodist
-source /cygdrive/c/Program\ Files\ \(x86\)/Nodist/bin/nodist_bash_profile_content.sh
+nodist_dir="/cygdrive/c/Program Files (x86)/Nodist"
+[[ -d $nodist_dir ]] && source "$nodist_dir/bin/nodist_bash_profile_content.sh"
 
 # Color configuration
 # LS_COLOR should contain the LS_COLORS overrides you desire.
