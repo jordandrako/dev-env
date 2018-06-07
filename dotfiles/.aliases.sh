@@ -28,7 +28,7 @@ fi
 
 # Aliases
 # Git
-if [[ -v git_i ]]; then
+if [[ $git_i ]]; then
   alias gs="git status -s"
   alias gl="git lg"
   alias ga="git add"
@@ -47,7 +47,7 @@ if [[ -v git_i ]]; then
 fi # end Git
 
 # NPM
-if [[ -v npm_i ]]; then
+if [[ $npm_i ]]; then
   alias ns="npm start"
   alias ni="npm i"
   alias nid="npm i -D"
@@ -56,7 +56,7 @@ if [[ -v npm_i ]]; then
   alias nrmg="npm rm -g"
 
   # Create react app
-  if [[ -v cra_i ]]; then
+  if [[ $cra_i ]]; then
     alias cra="create-react-app"
     crats() {
       create-react-app $1 --scripts-version=react-scripts-ts
@@ -69,7 +69,7 @@ if [[ -v npm_i ]]; then
   fi
 
   # Yarn
-  if [[ -v yarn_i ]]; then
+  if [[ $yarn_i ]]; then
     alias ys="yarn start"
     alias ya="yarn add"
     alias yad="yarn add -D"
@@ -78,7 +78,7 @@ if [[ -v npm_i ]]; then
 fi # end NPM
 
 # Docker
-if [[ -v docker_i ]]; then
+if [[ $docker_i ]]; then
   alias dps="docker ps"
   alias dpsa="docker ps -a"
   alias drestart="docker restart"
@@ -87,12 +87,12 @@ if [[ -v docker_i ]]; then
 fi
 
 # Ngrok
-if [[ -v ngrok_i ]]; then
+if [[ $ngrok_i ]]; then
   alias ngr="ngrok http --host-header=rewrite"
 fi
 
 # Tree
-if [[ $tree_i == tree ]]; then
+if [[ $tree_i ]]; then
   alias tree="tree -I 'node_modules|.git|cache'"
 fi
 
