@@ -1,5 +1,6 @@
 #
 # Cobalt2 Theme - https://github.com/wesbos/Cobalt2-iterm
+# Modified by jordandrako - https://github.com/jordandrako/dev-env
 #
 # # README
 #
@@ -71,8 +72,8 @@ prompt_git() {
 
 # Dir: current working directory
 prompt_dir() {
-  prompt_segment blue black '%3~'
-  # prompt_segment blue black "…${PWD: -30}"
+  prompt_segment blue black "%-50<...<%~%<<"
+  # prompt_segment blue black '%1~'
 }
 
 # Status:
@@ -101,8 +102,7 @@ build_prompt() {
 
 PROMPT='%{%f%b%k%}$(build_prompt) '
 # right prompt
-if type "virtualenv_prompt_info" > /dev/null
-then
+if type "virtualenv_prompt_info" > /dev/null; then
   RPROMPT='$(virtualenv_prompt_info)$my_gray%n@%m%{$reset_color%}%'
 else
   RPROMPT='$my_gray%n@%m%{$reset_color%}%'

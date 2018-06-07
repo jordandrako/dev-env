@@ -89,7 +89,7 @@ if [[ -a ~/.nanorc ]]; then
 fi
 successfully cp $config/.nanorc ~/
 # Cobalt2 theme
-successfully cp $config/cobalt2.zsh-theme $ZSH/custom/themes
+successfully cp $config/cobalt2custom.zsh-theme $ZSH/custom/themes
 successfully chmod -R 755 $ZSH/custom/themes
 ## Z plugin
 if [[ ! -a ~/.bin/z.sh ]]; then
