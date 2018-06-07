@@ -1,4 +1,5 @@
-# WSL specific ZSH settings
+
+## WSL configs
 unsetopt BG_NICE
 export CODE_DIR=/mnt/c/code
 export MACHINE="WSL"
@@ -13,6 +14,7 @@ LS_COLORS="$LS_COLORS:$LS_COLOR"
 export LS_COLORS
 
 alias coder="cd $CODE_DIR"
+
 if command -v docker.exe >/dev/null 2>&1; then
   alias docker="docker.exe"
 fi

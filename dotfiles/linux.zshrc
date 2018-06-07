@@ -1,3 +1,5 @@
+
+## Linux configs
 export CODE_DIR=~/code
 export MACHINE="Linux"
 
