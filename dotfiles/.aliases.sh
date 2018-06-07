@@ -5,55 +5,30 @@
 if command -v git >/dev/null 2>&1; then
   git_i=true
 else
-  git_i=false
   echo "Install git ya git!"
 fi
 
 # Check if npm is installed
-if command -v npm >/dev/null 2>&1; then
-  npm_i=true
-else
-  npm_i=false
-fi
+[[ -x "$(command -v npm)" ]] && npm_i=true
 
 # Check if yarn is installed
-if command -v yarn >/dev/null 2>&1; then
-  yarn_i=true
-else
-  yarn_i=false
-fi
+[[ -x "$(command -v yarn)" ]] && yarn_i=true
 
 # Check if docker is installed
-if command -v docker >/dev/null 2>&1; then
-  docker_i=true
-else
-  docker_i=false
-fi
+[[ -x "$(command -v docker)" ]] && docker_i=true
 
 # Check if ngrok is installed
-if command -v ngrok >/dev/null 2>&1; then
-  ngrok_i=true
-else
-  ngrok_i=false
-fi
+[[ -x "$(command -v ngrok)" ]] && ngrok_i=true
 
 # Check if create-react-app is installed
-if command -v create-react-app >/dev/null 2>&1; then
-  cra_i=true
-else
-  cra_i=false
-fi
+[[ -x "$(command -v create-react-app)" ]] && cra_i=true
 
 # Check if tree is installed
-if command -v tree >/dev/null 2>&1; then
-  tree_i=true
-else
-  tree_i=false
-fi
+[[ -x "$(command -v tree)" ]] && tree_i=true
 
 # Aliases
 # Git
-if [[ $git_i == true ]]; then
+if [[ -v git_i ]]; then
   alias gs="git status -s"
   alias gl="git lg"
   alias ga="git add"
@@ -72,7 +47,7 @@ if [[ $git_i == true ]]; then
 fi # end Git
 
 # NPM
-if [[ $npm_i == true ]]; then
+if [[ -v npm_i ]]; then
   alias ns="npm start"
   alias ni="npm i"
   alias nid="npm i -D"
@@ -81,20 +56,20 @@ if [[ $npm_i == true ]]; then
   alias nrmg="npm rm -g"
 
   # Create react app
-  if [[ $cra_i == true ]]; then
+  if [[ -v cra_i ]]; then
     alias cra="create-react-app"
-    function crats() {
+    crats() {
       create-react-app $1 --scripts-version=react-scripts-ts
     }
   else
     alias cra="npx create-react-app"
-    function crats() {
+    crats() {
       npx create-react-app $1 --scripts-version=react-scripts-ts
     }
   fi
 
   # Yarn
-  if [[ $yarn_i == true ]]; then
+  if [[ -v yarn_i ]]; then
     alias ys="yarn start"
     alias ya="yarn add"
     alias yad="yarn add -D"
@@ -103,7 +78,7 @@ if [[ $npm_i == true ]]; then
 fi # end NPM
 
 # Docker
-if [[ $docker_i == true ]]; then
+if [[ -v docker_i ]]; then
   alias dps="docker ps"
   alias dpsa="docker ps -a"
   alias drestart="docker restart"
@@ -112,7 +87,7 @@ if [[ $docker_i == true ]]; then
 fi
 
 # Ngrok
-if [[ $ngrok_i == true ]]; then
+if [[ -v ngrok_i ]]; then
   alias ngr="ngrok http --host-header=rewrite"
 fi
 
