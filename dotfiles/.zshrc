@@ -17,7 +17,11 @@ plugins=(git, ssh-agent, node, nvm, zsh-syntax-highlighting)
 export PATH="$HOME/bin:/usr/local/bin:$PATH"
 source $ZSH/oh-my-zsh.sh
 
-# NVM Config
+# N Init
+export N_PREFIX="$HOME/n"
+[[ -x "$N_PREFIX/bin/n" ]] && [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
+
+# NVM Init
 export NVM_DIR="$HOME/.nvm"
 # This loads nvm
 [[ -s "$NVM_DIR/nvm.sh" ]] && \. "$NVM_DIR/nvm.sh"

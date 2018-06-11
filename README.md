@@ -10,7 +10,7 @@ On Windows, there are scripts to install the environment in your preferred shell
 
 - You need to have your preferred program (babun, cygwin64, WSL) installed already.
   - If using WSL, you should name your user the same as your windows user folder (`C:/Users/<username>`). Otherwise, pass that as an argument to the install script.
-- For WSL, install NVM separately: [NVM](https://github.com/creationix/nvm#install-script).
+- For WSL, install N separately [install n](https://github.com/tj/n#installation) _OR_ NVM separately: [NVM](https://github.com/creationix/nvm#install-script).
 - Install zsh (`apt (or apt-cyg) install zsh`) and oh-my-zsh separately: [Oh-My-Zsh](https://github.com/robbyrussell/oh-my-zsh#basic-installation)
 
 # Install

@@ -51,12 +51,32 @@ if [[ ! -d $ZSH ]]; then
   exit 1
 elif [[ ! -d $ZSH/custom/plugins/zsh-syntax-highlighting ]]; then
   successfully git clone -q https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH/custom/plugins/zsh-syntax-highlighting
-  successfully chmod -R 755 $ZSH/custom/plugins/zsh-syntax-highlighting
+fi
+successfully chmod -R 755 $ZSH/custom/plugins/zsh-syntax-highlighting
+
+# Check for N
+if [[ $machine != "Cygwin" && ! -d $N_PREFIX ]]; then
+  while true; do
+    read -p "n not detected. Continue anyway? [Y/n] " nvmYn
+    case $nvmYn in
+      [Nn]* )
+        successfully wget https://git.io/n-install -O ~/install.n.sh
+        successfully wget https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh -O ~/install.nvm.sh
+        successfully chmod +x ~/install.n.sh
+        error "Run n installer first '. ~/install.n.sh'"
+        exit 1
+        break;;
+      * )
+        n_i=false;
+        break;;
+    esac
+  done
+else
+  n_i=true
 fi
 
-
 # Check for NVM
-if [[ $machine != "Cygwin" && ! -d ~/.nvm ]]; then
+if [[ ! $n_i && $machine != "Cygwin" && ! -d $NVM_DIR ]]; then
   while true; do
     read -p "No NVM detected. Continue anyway? [Y/n] " nvmYn
     case $nvmYn in
@@ -67,29 +87,28 @@ if [[ $machine != "Cygwin" && ! -d ~/.nvm ]]; then
         exit 1
         break;;
       * )
-        npm_i=false;
+        nvm_i=false;
         break;;
     esac
   done
-else
+elif [[ $n_i ]]; then
   npm_i=true
+else
+  npm_i=false
 fi
 
 # Global configuration
-if [[ -a ~/.aliases.sh ]]; then
-  successfully cp ~/.aliases.sh ~/.aliases.sh.bak
-fi
+[[ -a ~/.aliases.sh ]] && successfully cp ~/.aliases.sh ~/.aliases.sh.bak
 successfully cp $config/.aliases.sh ~/
-if [[ -a ~/.zshrc ]]; then
-  successfully cp ~/.zshrc ~/.zshrc.bak
-fi
+
+[[ -a ~/.zshrc ]] && successfully cp ~/.zshrc ~/.zshrc.bak
 successfully cp $config/.zshrc ~/
-if [[ -a ~/.nanorc ]]; then
-  successfully cp ~/.nanorc ~/.nanorc.bak
-fi
+
+[[ -a ~/.nanorc ]] && successfully cp ~/.nanorc ~/.nanorc.bak
 successfully cp $config/.nanorc ~/
+
 # Cobalt2 theme
-successfully cp $config/cobalt2custom.zsh-theme $ZSH/custom/themes
+[[ -d $ZSH && ! -d $ZSH/custom/themes ]] && successfully cp $config/cobalt2custom.zsh-theme $ZSH/custom/themes/
 successfully chmod -R 755 $ZSH/custom/themes
 ## Z plugin
 if [[ ! -a ~/.bin/z.sh ]]; then
