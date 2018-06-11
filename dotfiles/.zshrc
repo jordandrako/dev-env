@@ -19,7 +19,7 @@ source $ZSH/oh-my-zsh.sh
 
 # N Init
 export N_PREFIX="$HOME/n"
-[[ -x "$N_PREFIX/bin/n" ]] && [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
+[[ -x "$N_PREFIX/bin/n" ]] && [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH="$N_PREFIX/bin:$PATH"
 
 # NVM Init
 export NVM_DIR="$HOME/.nvm"
