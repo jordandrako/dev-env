@@ -44,6 +44,7 @@ esac
 
 # Install fish functions
 install_fish() {
+  fancy_echo "Installing fish"
   if [[ $machine == "WSL" || $machine == "Linux" ]]; then
     successfully sudo apt-add-repository ppa:fish-shell/release-2
     successfully sudo apt update
@@ -54,6 +55,7 @@ install_fish() {
 }
 ask_fish() {
   while true; do
+    echo -e "\n "
     read -p "Do you want to install fish? [y/n] " fishYn
     case $fishYn in
       [Yy]* )
@@ -215,6 +217,7 @@ if [[ $machine == "WSL" ]]; then
   fi
   # successfully sudo apt install dos2unix
   successfully cat $config/wsl.zshrc >> ~/.zshrc
+  ask_fish
   fancy_echo "Done!"
   exit
 fi # End WSL
@@ -222,6 +225,7 @@ fi # End WSL
 # Linux Configuration
 if [[ $machine == "Linux" ]]; then
   successfully cat $config/linux.zshrc >> ~/.zshrc
+  ask_fish
   fancy_echo "Done!"
   exit
 fi # End Linux
@@ -238,6 +242,7 @@ if [[ $machine == "Cygwin" ]]; then
 
   successfully cp $config/.minttyrc ~/
   successfully cat $config/cygwin.zshrc >> ~/.zshrc
+  ask_fish
   fancy_echo "Done!"
   exit
 fi # End Cygwin
