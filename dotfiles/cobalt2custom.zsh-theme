@@ -71,8 +71,10 @@ prompt_git() {
 }
 
 # Dir: current working directory
+setopt prompt_subst
 prompt_dir() {
-  prompt_segment blue black "%-50<...<%~%<<"
+  prompt_segment blue black "$( shrink_path -f )"
+  # prompt_segment blue black "%-50<...<%~%<<"
   # prompt_segment blue black '%1~'
 }
 
