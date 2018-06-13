@@ -42,6 +42,28 @@ case "$(uname -a)" in
     error "System Not Supported. Install manually."; exit 1
 esac
 
+# Install fish functions
+install_fish() {
+  if [[ $machine == "WSL" || $machine == "Linux" ]]; then
+    successfully sudo apt-add-repository ppa:fish-shell/release-2
+    successfully sudo apt update
+    successfully sudo apt install fish
+  elif [[ $machine == "Cygwin" ]]; then
+    successfully apt-cyg install fish
+  fi
+}
+ask_fish() {
+  while true; do
+    read -p "Do you want to install fish? [y/n] " fishYn
+    case $fishYn in
+      [Yy]* )
+        install_fish;
+        break;;
+      * ) break;;
+    esac
+  done
+}
+
 # Check for oh-my-zsh
 ZSH=$ZSH || ~/.oh-my-zsh
 if [[ ! -d $ZSH ]]; then
