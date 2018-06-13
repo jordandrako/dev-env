@@ -109,3 +109,7 @@ function dockera
   end
 end
 funcsave dockera
+
+if type -q set_aliases
+  set_aliases
+end
