@@ -43,24 +43,12 @@ case "$(uname -a)" in
 esac
 
 # Install fish functions
-omf() {
-  while true; do
-    echo -e "\n"
-    read -p "Do you want to install oh-my-fish? [y/n] " omfYn
-    case $omfYn in
-      [Yy]* )
-        successfully curl -L https://get.oh-my.fish | fish;
-        break;;
-      * ) break;;
-    esac
-  done
-}
 install_fish() {
   fancy_echo "Installing fish"
   if [[ $machine == "WSL" || $machine == "Linux" ]]; then
     successfully sudo apt-add-repository -yu ppa:fish-shell/release-2 > /dev/null 2>&1
     successfully sudo apt install fish
-    omf
+    successfully cp $config/set_aliases.fish ~/.config/fish/functions/
   elif [[ $machine == "Cygwin" ]]; then
     successfully apt-cyg install fish
   fi
