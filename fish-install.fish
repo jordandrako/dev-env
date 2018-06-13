@@ -1,10 +1,12 @@
+#!/usr/bin/fish
+
 switch (uname -a)
   case '*Microsoft*'
     set machine 'WSL'
-    set CODE_DIR '/mnt/c/code'
+    set -U CODE_DIR '/mnt/c/code'
   case 'Linux*'
     set machine 'Linux'
-    set CODE_DIR '~/code'
+    set -U CODE_DIR '~/code'
   case '*'
     set machine 'UNKNOWN'
 end
@@ -97,7 +99,7 @@ if type -q fisher
 end
 
 function coder
-  cd $CODE_DIR
+  cd "$CODE_DIR"
 end
 funcsave coder
 
