@@ -18,10 +18,10 @@ end
 set N_PREFIX $HOME/n
 function read_n
   while true
-    read -l -P "Add N to path? [y/N] " nYn
+    read -l -P "Add N to path? [y/N] > " nYn
     switch $nYn
       case Y y
-        set -U fish_user_paths $N_PREFIX/bin $fish_user_paths
+        set -U fish_user_paths $N_PATH $fish_user_paths
         return 1
       case '*'
         return 0
@@ -29,8 +29,19 @@ function read_n
     echo -e '\n'
   end
 end
+function find_n
+  set -lx N_PATH $N_PREFIX/bin
+  set -lx paths $fish_user_paths
+  switch $paths
+    case "*$N_PATH"
+      return 1
+    case '*'
+      read_n
+      return 0
+  end
+end
 if test -x $N_PREFIX/bin/n
-  read_n
+  find_n
 end
 
 function read_omf
