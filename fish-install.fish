@@ -130,6 +130,10 @@ function dockera
 end
 funcsave dockera
 
+mkdir -p ~/.config/fish/functions
+cp dotfiles/set_aliases.fish ~/.config/fish/functions/
 if type -q set_aliases
   set_aliases
 end
+
+fancy_echo "Done installing fish!"
