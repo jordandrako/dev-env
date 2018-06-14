@@ -132,7 +132,8 @@ successfully cp $config/.zshrc ~/
 successfully cp $config/.nanorc ~/
 
 # Cobalt2 theme
-[[ -d $ZSH && ! -d $ZSH/custom/themes ]] && successfully cp $config/cobalt2custom.zsh-theme $ZSH/custom/themes/
+[[ -d $ZSH && ! -d $ZSH/custom/themes ]] && mkdir -p $ZSH/custom/themes
+[[ ! -a $ZSH/custom/themes/cobalt2custom.zsh-theme ]] && successfully cp $config/cobalt2custom.zsh-theme $ZSH/custom/themes/
 successfully chmod -R 755 $ZSH/custom/themes
 ## Z plugin
 if [[ ! -a ~/.bin/z.sh ]]; then
@@ -213,7 +214,7 @@ fi
 if [[ $machine == "WSL" ]]; then
   if ! command -v dos2unix >/dev/null 2>&1; then
     successfully sudo apt update
-    successfully sudo apt install dos2unix
+    successfully sudo apt install dos2unix make
   fi
   # successfully sudo apt install dos2unix
   successfully cat $config/wsl.zshrc >> ~/.zshrc
@@ -239,6 +240,8 @@ if [[ $machine == "Cygwin" ]]; then
   fi
 
   successfully apt-cyg install chere gdb dos2unix openssh nano zip unzip bzip2 coreutils gawk grep sed diffutils patchutils tar bash-completion ca-certificates curl rsync
+
+  successfully apt-cyg remove git
 
   successfully cp $config/.minttyrc ~/
   successfully cat $config/cygwin.zshrc >> ~/.zshrc
