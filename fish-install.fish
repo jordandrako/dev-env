@@ -1,5 +1,9 @@
 #!/usr/bin/fish
 
+function fancy_echo
+  echo -e "\n\e[1;30;42m $argv \e[0m\n"
+end
+
 switch (uname -a)
   case '*Microsoft*'
     set machine 'WSL'
