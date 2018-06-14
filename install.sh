@@ -48,7 +48,8 @@ install_fish() {
   if [[ $machine == "WSL" || $machine == "Linux" ]]; then
     successfully sudo apt-add-repository -yu ppa:fish-shell/release-2 > /dev/null 2>&1
     successfully sudo apt install fish
-    successfully cp $config/set_aliases.fish ~/.config/fish/functions/
+    successfully chmod +x $initial/fish-install.fish && \
+    fancy_echo "Fish is now installed. Run fish-install.fish for more fish config."
   elif [[ $machine == "Cygwin" ]]; then
     successfully apt-cyg install fish
   fi
@@ -56,7 +57,7 @@ install_fish() {
 ask_fish() {
   while true; do
     echo -e "\n "
-    read -p "Do you want to install fish? [y/n] " fishYn
+    read -p "Do you want to install fish? [y/n] > " fishYn
     case $fishYn in
       [Yy]* )
         install_fish;
@@ -81,7 +82,7 @@ successfully chmod -R 755 $ZSH/custom/plugins/zsh-syntax-highlighting
 # Check for N
 if [[ $machine != "Cygwin" && ! -d $N_PREFIX ]]; then
   while true; do
-    read -p "n not detected. Continue anyway? [Y/n] " nvmYn
+    read -p "n not detected. Continue anyway? [Y/n] > " nvmYn
     case $nvmYn in
       [Nn]* )
         successfully wget https://git.io/n-install -O ~/install.n.sh
@@ -102,7 +103,7 @@ fi
 # Check for NVM
 if [[ ! $n_i && $machine != "Cygwin" && ! -d $NVM_DIR ]]; then
   while true; do
-    read -p "No NVM detected. Continue anyway? [Y/n] " nvmYn
+    read -p "No NVM detected. Continue anyway? [Y/n] > " nvmYn
     case $nvmYn in
       [Nn]* )
         successfully wget https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh -O ~/install.nvm.sh
@@ -145,7 +146,7 @@ fi
 # Configure Git
 fancy_echo "Configuring git"
 while true; do
-  read -p "Copy this gitconfig? [Y/n] " gitCpYn
+  read -p "Copy this gitconfig? [Y/n] > " gitCpYn
 
   case $gitCpYn in
     [Nn]* ) break;;
@@ -158,7 +159,7 @@ while true; do
   esac
 done
 while true; do
-  read -p "Configure your git user settings? [Y/n] " gitUserYn
+  read -p "Configure your git user settings? [Y/n] > " gitUserYn
   case $gitUserYn in
     [Nn]* ) break;;
     * )
@@ -181,7 +182,7 @@ packages="yarn gulp-cli create-react-app trash-cli empty-trash-cli eslint tslint
 if [[ $npm_i == true ]]; then
   fancy_echo "Installing global npm packages"
   while true; do
-    read -p "Install global npm packages? [Y/n] " npmYn
+    read -p "Install global npm packages? [Y/n] > " npmYn
     case $npmYn in
       [Nn]* ) break;;
       * )
@@ -198,7 +199,7 @@ if [[ $machine == "WSL" || $machine == "Cygwin" ]]; then
   fancy_echo "[Windows ONLY] Do you want your local windows user ssh keys in bash?"
   echo -ne '\007'
   while true; do
-    read -p "Copy your windows ssh key? [Y/n] " sshYn
+    read -p "Copy your windows ssh key? [Y/n] > " sshYn
     case $sshYn in
       [Nn]* )
         echo "OK, you can do this later by running the copy-ssh.sh script.";
