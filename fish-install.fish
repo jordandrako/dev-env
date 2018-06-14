@@ -46,10 +46,12 @@ end
 
 function read_omf
   while true
-    read -l -P "Install oh my fish [y/N] " ohmyfishYn
+    read -l -P "Install oh my fish [y/N] > " ohmyfishYn
     switch $ohmyfishYn
       case Y y
+        fancy_echo "This will launch fish for you when complete. \n To continue the install script type 'exit' once fish is running."
         curl -L https://get.oh-my.fish | fish
+        fancy_echo "Rerun this script to omf theme."
         return 1
       case '*'
         return 0
@@ -63,7 +65,7 @@ end
 
 function read_theme
   while true
-    read -l -P "Install oh my fish theme? [Y/n] " themeYn
+    read -l -P "Install oh my fish theme? [Y/n] > " themeYn
     switch $themeYn
       case '' Y y
         omf install agnoster
@@ -81,10 +83,11 @@ end
 
 function read_fisherman
   while true
-    read -l -P "Install fisherman [y/N] " fishermanYn
+    read -l -P "Install fisherman [y/N] > " fishermanYn
     switch $fishermanYn
       case Y y
         curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs https://git.io/fisher
+        fancy_echo "Rerun this script to install plugins."
         return 1
       case '*'
         return 0
@@ -98,7 +101,7 @@ end
 
 function read_plugins
   while true
-    read -l -P "Install fisher plugins [Y/n] " pluginsYn
+    read -l -P "Install fisherman plugins? [Y/n] > " pluginsYn
     switch $pluginsYn
       case '' Y y
         fisher z edc/bass
