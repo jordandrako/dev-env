@@ -6,6 +6,9 @@
 #
 # In order for this theme to render correctly, you will need a
 # [Powerline-patched font](https://gist.github.com/1595572).
+
+setopt prompt_subst
+
 ##
 ### Segment drawing
 # A few utility functions to make it easy and re-usable to draw segmented prompts
@@ -71,7 +74,6 @@ prompt_git() {
 }
 
 # Dir: current working directory
-setopt prompt_subst
 prompt_dir() {
   prompt_segment blue black "$( shrink_path -f )"
   # prompt_segment blue black "%-50<...<%~%<<"
