@@ -3,6 +3,7 @@
 unsetopt BG_NICE
 export CODE_DIR=/mnt/c/code
 export MACHINE="WSL"
+echo -e "Welcome $USER! | Machine: $MACHINE | Shell: $SHELL\n"
 
 # Color configuration
 # LS_COLOR should contain the LS_COLORS overrides you desire.
