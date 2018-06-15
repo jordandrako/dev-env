@@ -1,12 +1,9 @@
 #!/bin/bash
 
 initial="$PWD"
+initial_path="$PATH"
 config=$initial/dotfiles
-if [[ $1 ]]; then
-  script_user=$1
-else
-  script_user=$USER
-fi
+script_user=${1:-$USER}
 
 # Echo with color
 fancy_echo() {
@@ -48,13 +45,14 @@ install_fish() {
   if [[ $machine == "WSL" || $machine == "Linux" ]]; then
     successfully sudo apt-add-repository -yu ppa:fish-shell/release-2 > /dev/null 2>&1
     successfully sudo apt install fish
-    successfully chmod +x $initial/fish-install.fish && \
-    fancy_echo "Fish is now installed. Run fish-install.fish for more fish config."
+    successfully chmod +x $initial/fish-config.fish && \
+    fancy_echo "Fish is now installed. Run fish-config.fish for more fish config."
   elif [[ $machine == "Cygwin" ]]; then
     successfully apt-cyg install fish
   fi
 }
 ask_fish() {
+  [[ -x "$(command -v fish)" ]] && fish_i=true
   while true; do
     echo -e "\n "
     read -p "Do you want to install fish? [y/n] > " fishYn
@@ -65,6 +63,14 @@ ask_fish() {
       * ) break;;
     esac
   done
+}
+
+check_npm() {
+  if [[ -x $(command -v npm) ]]; then
+    npm_i=true
+  else
+    npm_i=false
+  fi
 }
 
 # Check for oh-my-zsh
@@ -82,11 +88,12 @@ successfully chmod -R 755 $ZSH/custom/plugins/zsh-syntax-highlighting
 # Check for N
 if [[ $machine != "Cygwin" && ! -d $N_PREFIX ]]; then
   while true; do
-    read -p "n not detected. Continue anyway? [Y/n] > " nvmYn
-    case $nvmYn in
+    read -p "n not detected. Continue anyway? [Y/n] > " nYn
+    case $nYn in
       [Nn]* )
-        successfully wget https://git.io/n-install -O ~/install.n.sh
-        successfully wget https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh -O ~/install.nvm.sh
+        successfully cp $config/install.n.sh ~/
+        successfully wget https://git.io/n-install -O ~/tmp.n.sh
+        successfully cat ~/tmp.n.sh >> ~/install.n.sh
         successfully chmod +x ~/install.n.sh
         error "Run n installer first '. ~/install.n.sh'"
         exit 1
@@ -96,31 +103,9 @@ if [[ $machine != "Cygwin" && ! -d $N_PREFIX ]]; then
         break;;
     esac
   done
-else
-  n_i=true
 fi
 
-# Check for NVM
-if [[ ! $n_i && $machine != "Cygwin" && ! -d $NVM_DIR ]]; then
-  while true; do
-    read -p "No NVM detected. Continue anyway? [Y/n] > " nvmYn
-    case $nvmYn in
-      [Nn]* )
-        successfully wget https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh -O ~/install.nvm.sh
-        successfully chmod +x ~/install.nvm.sh
-        error "Run NVM installer first '. ~/install.nvm.sh'"
-        exit 1
-        break;;
-      * )
-        nvm_i=false;
-        break;;
-    esac
-  done
-elif [[ $n_i ]]; then
-  npm_i=true
-else
-  npm_i=false
-fi
+check_npm
 
 # Global configuration
 [[ -a ~/.aliases.sh ]] && successfully cp ~/.aliases.sh ~/.aliases.sh.bak
