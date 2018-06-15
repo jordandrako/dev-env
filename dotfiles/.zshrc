@@ -21,18 +21,6 @@ source $ZSH/oh-my-zsh.sh
 export N_PREFIX="$HOME/.bin/n"
 [[ -x "$N_PREFIX/bin/n" ]] && [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH="$N_PREFIX/bin:$PATH"
 
-# NVM Init
-export NVM_DIR="$HOME/.nvm"
-nvm() {
-  if [[ -d $NVM_DIR ]]; then
-    [[ -s "$NVM_DIR/nvm.sh" ]] && \. "$NVM_DIR/nvm.sh"
-    [[ -s "$NVM_DIR/bash_completion" ]] && \. "$NVM_DIR/bash_completion"
-    echo "NVM loaded, run last command again."
-  else
-    echo "NVM not installed"
-  fi
-}
-
 # z plugin
 export Z_DIR="$HOME/.bin"
 loadz() {
