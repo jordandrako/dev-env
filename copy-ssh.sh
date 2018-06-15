@@ -4,11 +4,7 @@
 
 dos_ssh=$1
 s=~/.ssh
-if [[ $2 ]]; then
-  key_name=$2
-else
-  key_name='id_rsa'
-fi
+key_name=${2:-'id_rsa'}
 
 # Fail if no machine argument passed
 if [[ ! -d $dos_ssh ]]; then

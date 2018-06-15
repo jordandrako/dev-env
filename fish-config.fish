@@ -15,7 +15,7 @@ switch (uname -a)
     set machine 'UNKNOWN'
 end
 
-set N_PREFIX $HOME/n
+set N_PREFIX $HOME/.bin/n
 function read_n
   while true
     read -l -P "Add N to path? [y/N] > " nYn
