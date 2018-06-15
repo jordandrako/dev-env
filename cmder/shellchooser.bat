@@ -29,33 +29,29 @@ IF ERRORLEVEL ==1 GOTO WSL
 
 :CMDERPOWERSHELL
 powershell -ExecutionPolicy Bypass -NoLogo -NoProfile -NoExit -Command "Invoke-Expression '. ''C:\cmder\vendor\profile.ps1'''"
-goto FALLBACK
+goto EXIT
 
 :CMDERCMD
 SET CMDER_ROOT=C:\cmder
 IF EXIST %CMDER_ROOT% (
   cmd /k "%CMDER_ROOT%\vendor\init.bat"
 )
-goto FALLBACK
+goto EXIT
 
 :CYGBASH
 C:\cygwin64\bin\bash.exe
-goto FALLBACK
+goto EXIT
 
 :CYGZSH
 C:\cygwin64\bin\bash.exe /bin/xhere /bin/zsh
-goto FALLBACK
-
-:FALLBACK
-ECHO Something went wrong, falling back to WSL.
-ECHO.
-goto WSL
+goto EXIT
 
 :WSL
 %windir%\System32\wsl.exe ~
 
+:EXIT
 CLS
-ECHO You choice didn't work.
+ECHO Shell exited.
 ECHO.
 ECHO Switch or exit?
 ECHO [1] Switch
