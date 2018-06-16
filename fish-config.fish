@@ -1,6 +1,8 @@
 #!/usr/bin/fish
 
-function fancy_echo
+set initial $PWD
+
+function green
   echo -e "\n\e[1;30;42m $argv \e[0m\n"
 end
 
@@ -20,9 +22,9 @@ function read_omf
     read -l -P "Install oh my fish [y/N] > " ohmyfishYn
     switch $ohmyfishYn
       case Y y
-        fancy_echo "This will launch fish for you when complete. \n To continue the install script type 'exit' once fish is running."
+        green "This will launch fish for you when complete. \n To continue the install script type 'exit' once fish is running."
         curl -L https://get.oh-my.fish | fish
-        fancy_echo "Rerun this script to omf theme."
+        green "Rerun this script to install omf theme."
         return 1
       case '*'
         return 0
@@ -58,7 +60,7 @@ function read_fisherman
     switch $fishermanYn
       case Y y
         curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs https://git.io/fisher
-        fancy_echo "Rerun this script to install plugins."
+        green "Rerun this script to install plugins."
         return 1
       case '*'
         return 0
@@ -115,4 +117,5 @@ switch $LS_COLORS
     set -Ux LS_COLORS "$LS_COLORS:ow=01;34"
 end
 
-fancy_echo "Done installing fish!"
+cp $initial/dotfiles/config.fish ~/.config/fish/
+green "Done installing fish!"
