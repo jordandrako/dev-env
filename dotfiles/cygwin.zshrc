@@ -18,4 +18,5 @@ LS_COLORS="$LS_COLORS:$LS_COLOR"
 # Re-export LS_COLORS
 export LS_COLORS
 
+alias apt="apt-cyg"
 alias coder="cd $CODE_DIR"
