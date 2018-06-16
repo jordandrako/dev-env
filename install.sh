@@ -5,9 +5,14 @@ initial_path="$PATH"
 config=$initial/dotfiles
 script_user=${1:-$USER}
 
-# Echo with color
-fancy_echo() {
+# Green background echo
+green() {
   echo -e "\n\e[1;30;42m $1 \e[0m\n"
+}
+
+# Yellow background echo
+info() {
+  echo -e "\n\e[1;30;43m $1 \e[0m\n"
 }
 
 # Error echo
@@ -16,55 +21,48 @@ error() {
 }
 
 # Perform task successfully or print failed
-successfully() {
-  $* || ( error "FAILED" )
+try() {
+  ( $* && success=true ) || ( success=false && error "FAILED: $*" )
 }
 
-# Check system
-case "$(uname -a)" in
-  *Microsoft* )
-    fancy_echo "Now Configuring WSL";
-    ssh_path="/mnt/c/Users/$script_user/.ssh";
-    machine="WSL" ;;
-  CYGWIN* )
-    fancy_echo "Now Configuring Cygwin";
-    ssh_path="/cygdrive/c/Users/$script_user/.ssh";
-    machine="Cygwin" ;;
-  Linux* )
-    fancy_echo "Now Configuring Linux";
-    machine="Linux" ;;
-  # Darwin* ) SUPPORT MAC LATER
-  #   machine="Mac" ;;
-  * )
-    error "System Not Supported. Install manually."; exit 1
-esac
+# Ask with blue background.
+# Pass question and options: `ask "question" "yes/no" readVarName`
+ask() {
+  [[ ! $1 ]] && error "You must pass a question to ask!"
+  question=$1
+  options=${2:-"y/n"}
+  echo -e "\n\e[1;30;44m $question \e[0m" && echo "[$options] > "
+  [[ $3 ]] && read $3
+}
 
 # Install fish functions
 install_fish() {
-  fancy_echo "Installing fish"
+  green "Installing fish"
   if [[ $machine == "WSL" || $machine == "Linux" ]]; then
-    successfully sudo apt-add-repository -yu ppa:fish-shell/release-2 > /dev/null 2>&1
-    successfully sudo apt install fish
-    successfully chmod +x $initial/fish-config.fish && \
-    fancy_echo "Fish is now installed. Run fish-config.fish for more fish config."
+    try sudo apt-add-repository -yu ppa:fish-shell/release-2 > /dev/null 2>&1
+    try sudo apt install fish && \
+    try chmod +x $initial/fish-config.fish && \
+    info "Fish is now installed. Run fish-config.fish for more fish config."
   elif [[ $machine == "Cygwin" ]]; then
-    successfully apt-cyg install fish
+    try apt-cyg install fish
   fi
 }
+
 ask_fish() {
-  [[ -x "$(command -v fish)" ]] && fish_i=true
-  while true; do
-    echo -e "\n "
-    read -p "Do you want to install fish? [y/n] > " fishYn
-    case $fishYn in
-      [Yy]* )
-        install_fish;
-        break;;
-      * ) break;;
-    esac
-  done
+  if [[ ! -x "$(command -v fish)" ]]; then
+    while true; do
+      ask "Do you want to install fish?" "y/n" fishYn
+      case $fishYn in
+        [Yy]* )
+          install_fish;
+          break;;
+        * ) break;;
+      esac
+    done
+  fi
 }
 
+# Check if npm is installed
 check_npm() {
   if [[ -x $(command -v npm) ]]; then
     npm_i=true
@@ -73,54 +71,71 @@ check_npm() {
   fi
 }
 
+# Check system
+case "$(uname -a)" in
+  *Microsoft* )
+    green "Now Configuring WSL";
+    ssh_path="/mnt/c/Users/$script_user/.ssh";
+    machine="WSL" ;;
+  CYGWIN* )
+    green "Now Configuring Cygwin";
+    ssh_path="/cygdrive/c/Users/$script_user/.ssh";
+    machine="Cygwin" ;;
+  Linux* )
+    green "Now Configuring Linux";
+    machine="Linux" ;;
+  # Darwin* ) TODO: SUPPORT MAC LATER
+  #   machine="Mac" ;;
+  * )
+    error "System Not Supported. Install manually.";
+    exit 1;;
+esac
+
 # Check for oh-my-zsh
-ZSH=$ZSH || ~/.oh-my-zsh
+ZSH=${ZSH:-~/.oh-my-zsh}
 if [[ ! -d $ZSH ]]; then
-  successfully wget -q https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O ~/install.oh-my-zsh.sh
-  successfully chmod +x ~/install.oh-my-zsh.sh
+  try wget -q https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O ~/install.oh-my-zsh.sh
+  try chmod +x ~/install.oh-my-zsh.sh
   error "Ensure zsh is installed and run oh-my-zsh installer first @ '. ~/install.oh-my-zsh.sh'"
   exit 1
 elif [[ ! -d $ZSH/custom/plugins/zsh-syntax-highlighting ]]; then
-  successfully git clone -q https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH/custom/plugins/zsh-syntax-highlighting
+  try git clone -q https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH/custom/plugins/zsh-syntax-highlighting
 fi
-successfully chmod -R 755 $ZSH/custom/plugins/zsh-syntax-highlighting
+try chmod -R 755 $ZSH/custom/plugins/zsh-syntax-highlighting
 
 # Check for N
 if [[ $machine != "Cygwin" && ! -d $N_PREFIX ]]; then
   while true; do
-    read -p "n not detected. Continue anyway? [Y/n] > " nYn
+    try cp $config/install.n.sh ~/
+    try wget -q https://git.io/n-install -O ~/tmp.n.sh
+    try cat ~/tmp.n.sh >> ~/install.n.sh
+    try chmod +x ~/install.n.sh
+    ask "N not detected. Continue anyway?" "Y/n" nYn
     case $nYn in
       [Nn]* )
-        successfully cp $config/install.n.sh ~/
-        successfully wget https://git.io/n-install -O ~/tmp.n.sh
-        successfully cat ~/tmp.n.sh >> ~/install.n.sh
-        successfully chmod +x ~/install.n.sh
-        error "Run n installer first '. ~/install.n.sh'"
-        exit 1
+        error "Run N installer '~/install.n.sh'";
         break;;
       * )
-        n_i=false;
+        info "You can install N later by running '~/install.n.sh'";
         break;;
     esac
   done
 fi
 
-check_npm
-
 # Global configuration
-[[ -a ~/.aliases.sh ]] && successfully cp ~/.aliases.sh ~/.aliases.sh.bak
-successfully cp $config/.aliases.sh ~/
+[[ -a ~/.aliases.sh ]] && try cp ~/.aliases.sh ~/.aliases.sh.bak
+try cp $config/.aliases.sh ~/
 
-[[ -a ~/.zshrc ]] && successfully cp ~/.zshrc ~/.zshrc.bak
-successfully cp $config/.zshrc ~/
+[[ -a ~/.zshrc ]] && try cp ~/.zshrc ~/.zshrc.bak
+try cp $config/.zshrc ~/
 
-[[ -a ~/.nanorc ]] && successfully cp ~/.nanorc ~/.nanorc.bak
-successfully cp $config/.nanorc ~/
+[[ -a ~/.nanorc ]] && try cp ~/.nanorc ~/.nanorc.bak
+try cp $config/.nanorc ~/
 
 # Cobalt2 theme
 [[ -d $ZSH && ! -d $ZSH/custom/themes ]] && mkdir -p $ZSH/custom/themes
-[[ ! -a $ZSH/custom/themes/cobalt2custom.zsh-theme ]] && successfully cp $config/cobalt2custom.zsh-theme $ZSH/custom/themes/
-successfully chmod -R 755 $ZSH/custom/themes
+[[ ! -a $ZSH/custom/themes/cobalt2custom.zsh-theme ]] && try cp $config/cobalt2custom.zsh-theme $ZSH/custom/themes/
+try chmod -R 755 $ZSH/custom/themes
 ## Z plugin
 if [[ ! -a ~/.bin/z.sh ]]; then
   mkdir -p ~/.bin
@@ -129,34 +144,29 @@ if [[ ! -a ~/.bin/z.sh ]]; then
 fi
 
 # Configure Git
-fancy_echo "Configuring git"
 while true; do
-  read -p "Copy this gitconfig? [Y/n] > " gitCpYn
-
+  ask "Copy this gitconfig?" "Y/n" gitCpYn
   case $gitCpYn in
     [Nn]* ) break;;
     * )
       if [[ -a ~/.gitconfig ]];
         then mv ~/.gitconfig ~/.gitconfig.bak;
       fi;
-      successfully cp $config/.gitconfig ~/;
+      try cp $config/.gitconfig ~/;
       break;;
   esac
 done
 while true; do
-  read -p "Configure your git user settings? [Y/n] > " gitUserYn
+  ask "Configure your git user settings?" "Y/n" gitUserYn
   case $gitUserYn in
     [Nn]* ) break;;
     * )
-      fancy_echo "What's your first name?";
-      read first_name;
-      fancy_echo "What's your last name?";
-      read last_name;
+      ask "What's your first name?" "First Name" first_name;
+      ask "What's your last name?" "Last Name" last_name;
       gitname="$first_name $last_name";
       git config --global user.name "$gitname";
       echo ;
-      fancy_echo "What's your git account email?";
-      read email;
+      ask "What's your git account email?" "email" email;
       git config --global user.email "$email";
       break;;
   esac
@@ -164,14 +174,15 @@ done
 
 # Install NPM packages. Change these packages to your preferred global packages.
 packages="yarn gulp-cli create-react-app trash-cli empty-trash-cli eslint tslint stylelint typescript ngrok"
+check_npm
 if [[ $npm_i == true ]]; then
-  fancy_echo "Installing global npm packages"
   while true; do
-    read -p "Install global npm packages? [Y/n] > " npmYn
+    ask  "Install global npm packages?" "Y/n" npmYn
     case $npmYn in
       [Nn]* ) break;;
       * )
-        successfully npm i -g $packages;
+        green "Installing global npm packages";
+        try npm i -g $packages;
         break;;
     esac
   done
@@ -179,18 +190,16 @@ fi
 
 # Copy Windows user SSH
 if [[ $machine == "WSL" || $machine == "Cygwin" ]]; then
-  fancy_echo "Copy Windows user SSH"
-  successfully chmod +x $initial/copy-ssh.sh
-  fancy_echo "[Windows ONLY] Do you want your local windows user ssh keys in bash?"
-  echo -ne '\007'
+  green "[Windows ONLY] Copy user SSH"
+  try chmod +x $initial/copy-ssh.sh
   while true; do
-    read -p "Copy your windows ssh key? [Y/n] > " sshYn
+    ask "Copy your windows ssh key?" "y/N" sshYn
     case $sshYn in
-      [Nn]* )
-        echo "OK, you can do this later by running the copy-ssh.sh script.";
+      [Yy]* )
+        try . $initial/copy-ssh.sh $ssh_path;
         break;;
       * )
-        . $initial/copy-ssh.sh $ssh_path;
+        info "You can copy ssh later by running '. path/to/dev-env/copy-ssh.sh path/to/.ssh'"
         break;;
     esac
   done
@@ -199,41 +208,43 @@ fi
 # WSL Configuration
 if [[ $machine == "WSL" ]]; then
   if ! command -v dos2unix >/dev/null 2>&1; then
-    successfully sudo apt update
-    successfully sudo apt install dos2unix make
+    try sudo apt update
+    try sudo apt install dos2unix make
   fi
-  # successfully sudo apt install dos2unix
-  successfully cat $config/wsl.zshrc >> ~/.zshrc
+  # try sudo apt install dos2unix
+  try cat $config/wsl.zshrc >> ~/.zshrc
   ask_fish
-  fancy_echo "Done!"
-  exit
+  green "Done!"
+  exit 0
 fi # End WSL
 
 # Linux Configuration
 if [[ $machine == "Linux" ]]; then
-  successfully cat $config/linux.zshrc >> ~/.zshrc
+  try cat $config/linux.zshrc >> ~/.zshrc
   ask_fish
-  fancy_echo "Done!"
-  exit
+  green "Done!"
+  exit 0
 fi # End Linux
 
 # Cygwin configuration
 if [[ $machine == "Cygwin" ]]; then
   # Install apt-cyg to allow easy package installation
   if [[ ! -a /bin/apt-cyg ]]; then
-    successfully wget rawgit.com/transcode-open/apt-cyg/master/apt-cyg -P /bin/
+    try wget rawgit.com/transcode-open/apt-cyg/master/apt-cyg -P /bin/
     chmod +x /bin/apt-cyg
   fi
 
-  successfully apt-cyg install chere gdb dos2unix openssh nano zip unzip bzip2 coreutils gawk grep sed diffutils patchutils tar bash-completion ca-certificates curl rsync
+  try apt-cyg install chere gdb dos2unix openssh nano zip unzip bzip2 coreutils gawk grep sed diffutils patchutils tar bash-completion ca-certificates curl rsync
 
-  successfully apt-cyg remove git
+  # Remove cygwin's version of git since it's well supported.
+  try apt-cyg remove git
 
-  successfully cp $config/.minttyrc ~/
-  successfully cat $config/cygwin.zshrc >> ~/.zshrc
+  try cp $config/.minttyrc ~/
+  try cat $config/cygwin.zshrc >> ~/.zshrc
   ask_fish
-  fancy_echo "Done!"
-  exit
+  green "Done!"
+  exit 0
 fi # End Cygwin
 
-fancy_echo "Done!"
+echo -ne '\007'
+green "Done!"
