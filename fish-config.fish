@@ -6,42 +6,13 @@ end
 
 switch (uname -a)
   case '*Microsoft*'
-    set machine 'WSL'
-    set -U CODE_DIR '/mnt/c/code'
+    set -Ux MACHINE 'WSL'
+    set -Ux CODE_DIR '/mnt/c/code'
   case 'Linux*'
-    set machine 'Linux'
-    set -U CODE_DIR '~/code'
+    set -Ux MACHINE 'Linux'
+    set -Ux CODE_DIR '~/code'
   case '*'
-    set machine 'UNKNOWN'
-end
-
-set N_PREFIX $HOME/.bin/n
-function read_n
-  while true
-    read -l -P "Add N to path? [y/N] > " nYn
-    switch $nYn
-      case Y y
-        set -U fish_user_paths $N_PATH $fish_user_paths
-        return 1
-      case '*'
-        return 0
-    end
-    echo -e '\n'
-  end
-end
-function find_n
-  set -lx N_PATH $N_PREFIX/bin
-  set -lx paths $fish_user_paths
-  switch $paths
-    case "*$N_PATH"
-      return 1
-    case '*'
-      read_n
-      return 0
-  end
-end
-if test -x $N_PREFIX/bin/n
-  find_n
+    set -Ux MACHINE 'UNKNOWN'
 end
 
 function read_omf
@@ -104,7 +75,7 @@ function read_plugins
     read -l -P "Install fisherman plugins? [Y/n] > " pluginsYn
     switch $pluginsYn
       case '' Y y
-        fisher z edc/bass
+        fisher z edc/bass fnm
         return 1
       case '*'
         return 0
@@ -122,7 +93,7 @@ end
 funcsave coder
 
 function dockera
-  if $machine == 'WSL'
+  if $MACHINE == 'WSL'
     docker.exe $argv
   else
     docker $argv
@@ -134,6 +105,14 @@ mkdir -p ~/.config/fish/functions
 cp dotfiles/set_aliases.fish ~/.config/fish/functions/
 if type -q set_aliases
   set_aliases
+end
+
+# Colors for windows directories
+switch $LS_COLORS
+  case '*ow=01;34*'
+    set -Ux LS_COLORS "$LS_COLORS"
+  case '*'
+    set -Ux LS_COLORS "$LS_COLORS:ow=01;34"
 end
 
 fancy_echo "Done installing fish!"
