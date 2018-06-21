@@ -26,7 +26,7 @@ export Z_DIR="$HOME/.bin"
 z() {
   if [[ -d $Z_DIR ]]; then
     [[ -s "$Z_DIR/z.sh" ]] && \. "$Z_DIR/z.sh"
-    echo "Z loaded, run last command again."
+		echo $fg[blue] "Z loaded, run last command again."
   else
     echo "Z not installed"
   fi
