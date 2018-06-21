@@ -24,7 +24,7 @@ export N_PREFIX="$HOME/.bin/n"
 # z plugin
 export Z_DIR="$HOME/.bin"
 loadz() {
-  if [[ -d $NVM_DIR ]]; then
+  if [[ -d $Z_DIR ]]; then
     [[ -s "$Z_DIR/z.sh" ]] && \. "$Z_DIR/z.sh"
     echo "Z loaded, run last command again."
   else
