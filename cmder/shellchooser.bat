@@ -2,16 +2,17 @@
 
 :TOP
 CLS
+set shellchoice=Shell
 ECHO Choose a shell:
-ECHO "[1] WSL"
-ECHO "[2] Cygwin ZSH"
-ECHO "[3] Cygwin Fish"
-ECHO "[4] Cygwin Bash"
-ECHO "[5] CMDER options"
-ECHO "[6] More options"
+ECHO [1] WSL
+ECHO [2] Cygwin ZSH
+ECHO [3] Cygwin Fish
+ECHO [4] Cygwin Bash
+ECHO [5] CMDER options
+ECHO [6] More options
 ECHO.
-ECHO "[7] Restart hyper elevated"
-ECHO "[8] Exit"
+ECHO [7] Restart hyper elevated
+ECHO [8] Exit
 ECHO.
 
 CHOICE /N /C:12345678 /D 1 /T 10 /M "> "
@@ -28,11 +29,11 @@ IF ERRORLEVEL ==1 GOTO WSL
 :CMDER
 CLS
 ECHO Choose a shell:
-ECHO "[1] CMDER cmd"
-ECHO "[2] CMDER PowerShell"
-ECHO "[3] <- Go back"
+ECHO [1] CMDER cmd
+ECHO [2] CMDER PowerShell
+ECHO [3] ^<- Go back
 ECHO.
-ECHO "[4] Exit"
+ECHO [4] Exit
 ECHO.
 
 CHOICE /N /C:1234 /D 1 /T 10 /M "> "
@@ -45,11 +46,11 @@ IF ERRORLEVEL ==1 GOTO CMDERCMD
 :OTHER
 CLS
 ECHO Choose a shell:
-ECHO "[1] cmd"
-ECHO "[2] PowerShell"
-ECHO "[3] <- Go back"
+ECHO [1] cmd
+ECHO [2] PowerShell
+ECHO [3] ^<- Go back
 ECHO.
-ECHO "[4] Exit"
+ECHO [4] Exit
 ECHO.
 
 CHOICE /N /C:1234 /D 1 /T 10 /M "> "
@@ -60,10 +61,12 @@ IF ERRORLEVEL ==2 PowerShell
 IF ERRORLEVEL ==1 cmd
 
 :CMDERPOWERSHELL
+set shellchoice=CMDER PowerShell
 powershell -ExecutionPolicy Bypass -NoLogo -NoProfile -NoExit -Command "Invoke-Expression '. ''C:\cmder\vendor\profile.ps1'''"
 goto EXIT
 
 :CMDERCMD
+set shellchoice=CMDER cmd
 SET CMDER_ROOT=C:\cmder
 IF EXIST %CMDER_ROOT% (
   cmd /k "%CMDER_ROOT%\vendor\init.bat"
@@ -71,23 +74,27 @@ IF EXIST %CMDER_ROOT% (
 goto EXIT
 
 :CYGBASH
+set shellchoice=Cygwin Bash
 C:\cygwin64\bin\bash.exe /bin/xhere /bin/bash ~
 goto EXIT
 
 :CYGFISH
+set shellchoice=Cygwin Fish
 C:\cygwin64\bin\bash.exe /bin/xhere /bin/fish ~
 goto EXIT
 
 :CYGZSH
+set shellchoice=Cygwin ZSH
 C:\cygwin64\bin\bash.exe /bin/xhere /bin/zsh ~
 goto EXIT
 
 :WSL
+set shellchoice=WSL
 %windir%\System32\wsl.exe ~
 
 :EXIT
 CLS
-ECHO Shell exited.
+ECHO %shellchoice% exited.
 ECHO.
 ECHO Switch or exit?
 ECHO [1] Switch
