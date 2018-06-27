@@ -1,5 +1,5 @@
 function fish_greeting
-  echo -e "Welcome $USER | Machine: $MACHINE"
+  echo -e "Welcome $USER! | Machine: $MACHINE"
 end
 
 # SSH-Agent
