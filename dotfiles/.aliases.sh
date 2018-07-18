@@ -103,6 +103,11 @@ fi
 if [[ $hassio_i ]]; then
   alias conf="cd /config"
   alias ha="hassio ha"
-  alias re="hassio ha check && hassio ha restart"
   alias logs="hassio ha logs"
+  restart() {
+    echo "Running config check..."
+    hassio ha check && \
+    echo "Config check passed. Restarting..." && \
+    hassio ha restart $*
+  }
 fi

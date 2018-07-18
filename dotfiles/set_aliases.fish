@@ -156,8 +156,11 @@ function ha
   hassio ha $argv
 end
 
-function re
-  hassio ha check; and hassio ha restart $argv
+function restart
+  echo "Running config check..."
+  hassio ha check
+  and echo "Config check passed. Restarting..."
+  and hassio ha restart $argv
 end
 
 function logs
@@ -189,6 +192,6 @@ function set_aliases
   end
 
   if type -q hassio
-    funcsave conf ha re logs
+    funcsave conf ha restart logs
   end
 end
