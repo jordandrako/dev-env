@@ -147,6 +147,20 @@ function treef
 end
 # end Tree
 
+# Hassio
+function ha
+  hassio ha $argv
+end
+
+function re
+  hassio ha restart $argv
+end
+
+function logs
+  hassio ha logs $argv
+end
+# end Hassio
+
 function set_aliases
   if type -q git
     funcsave gs gl ga gaa gac gc go gob gol gm gml gp gpl gd gdc
@@ -168,5 +182,9 @@ function set_aliases
   end
   if type -q tree
     funcsave treef
+  end
+
+  if type -q hassio
+    funcsave ha re logs
   end
 end

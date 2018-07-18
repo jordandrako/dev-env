@@ -26,6 +26,9 @@ fi
 # Check if tree is installed
 [[ -x "$(command -v tree)" ]] && tree_i=true
 
+# Check if on hassio
+[[ -x "$(command -v hassio)" ]] && hassio_i=true
+
 # Aliases
 # Git
 if [[ $git_i ]]; then
@@ -96,3 +99,9 @@ if [[ $tree_i ]]; then
   alias tree="tree -I 'node_modules|.git|cache'"
 fi
 
+# Hassio
+if [[ $hassio_i ]]; then
+  alias ha="hassio ha"
+  alias re="hassio ha restart"
+  alias logs="hassio ha logs"
+fi
