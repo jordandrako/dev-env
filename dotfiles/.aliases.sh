@@ -101,6 +101,7 @@ fi
 
 # Hassio
 if [[ $hassio_i ]]; then
+  alias conf="cd /config"
   alias ha="hassio ha"
   alias re="hassio ha restart"
   alias logs="hassio ha logs"

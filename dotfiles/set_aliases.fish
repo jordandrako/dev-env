@@ -148,6 +148,10 @@ end
 # end Tree
 
 # Hassio
+function conf
+  cd /config $argv
+end
+
 function ha
   hassio ha $argv
 end
@@ -185,6 +189,6 @@ function set_aliases
   end
 
   if type -q hassio
-    funcsave ha re logs
+    funcsave conf ha re logs
   end
 end
