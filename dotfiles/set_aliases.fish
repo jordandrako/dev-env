@@ -157,7 +157,7 @@ function ha
 end
 
 function re
-  hassio ha restart $argv
+  hassio ha check; and hassio ha restart $argv
 end
 
 function logs
