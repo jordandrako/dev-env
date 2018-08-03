@@ -21,10 +21,11 @@ coder=cd /d "C:\code"
 
 ;= Git
 gs=git status -s $*
+gss=git status $*
 gl=git lg $*
 ga=git add $*
 gaa=git add -A $*
-gac=git commit -am $*
+gac=git add -A && git commit -am $*
 gc=git commit -m $*
 go=git checkout $*
 gob=git checkout -b $*
@@ -57,7 +58,7 @@ yrm=yarn remove $*
 ;= Docker
 dps=docker ps $*
 dpsa=docker ps -a $*
-dre=docker restart $*
+drestart=docker restart $*
 dup=docker-compose up $*
 
 ;= Ngrok

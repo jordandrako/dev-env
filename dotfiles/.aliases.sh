@@ -33,6 +33,7 @@ fi
 # Git
 if [[ $git_i ]]; then
   alias gs="git status -s"
+  alias gss="git status"
   alias gl="git lg"
   alias ga="git add"
   alias gaa="git add -A"
