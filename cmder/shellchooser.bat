@@ -51,14 +51,6 @@ set shellchoice=CMDER PowerShell
 powershell -ExecutionPolicy Bypass -NoLogo -NoProfile -NoExit -Command "Invoke-Expression '. ''C:\cmder\vendor\profile.ps1'''"
 goto EXIT
 
-:CMDERCMD
-set shellchoice=CMDER cmd
-SET CMDER_ROOT=C:\cmder
-IF EXIST %CMDER_ROOT% (
-  cmd /k "%CMDER_ROOT%\vendor\init.bat"
-)
-goto EXIT
-
 :CYGBASH
 set shellchoice=Cygwin Bash
 C:\cygwin64\bin\bash.exe /bin/xhere /bin/bash ~
@@ -67,6 +59,14 @@ goto EXIT
 :CYGFISH
 set shellchoice=Cygwin Fish
 C:\cygwin64\bin\bash.exe /bin/xhere /bin/fish ~
+goto EXIT
+
+:CMDERCMD
+set shellchoice=CMDER cmd
+SET CMDER_ROOT=C:\cmder
+IF EXIST %CMDER_ROOT% (
+  cmd /k "%CMDER_ROOT%\vendor\init.bat"
+)
 goto EXIT
 
 :CYGZSH
