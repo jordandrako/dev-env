@@ -29,6 +29,9 @@ fi
 # Check if on hassio
 [[ -x "$(command -v hassio)" ]] && hassio_i=true
 
+# Check if on rush
+[[ -x "$(command -v rush)" ]] && rush_i=true
+
 # Aliases
 # Git
 if [[ $git_i ]]; then
@@ -111,4 +114,13 @@ if [[ $hassio_i ]]; then
     echo "Config check passed. Restarting..." && \
     hassio ha restart $*
   }
+fi
+
+# Rush
+if [[ $rush_i ]]; then
+  alias rb="rush build"
+  alias rrb="rush rebuild"
+  alias rbt="rush build -t"
+  alias rbf="rush build -t office-ui-fabric-react"
+  alias rbti="rush build -t fabric-website-internal"
 fi
