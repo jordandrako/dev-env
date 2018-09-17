@@ -135,7 +135,7 @@ try cp $config/.nanorc ~/
 # Cobalt2 theme
 [[ -d $ZSH && ! -d $ZSH/custom/themes ]] && mkdir -p $ZSH/custom/themes
 try cp $config/cobalt2custom.zsh-theme $ZSH/custom/themes/
-try chmod -R 755 $ZSH/custom/themes
+try chmod 755 $ZSH/custom/themes/cobalt2custom.zsh-theme
 ## Z plugin
 if [[ ! -a ~/.bin/z.sh ]]; then
   mkdir -p ~/.bin
