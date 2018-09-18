@@ -121,6 +121,6 @@ if [[ $rush_i ]]; then
   alias rb="rush build"
   alias rrb="rush rebuild"
   alias rbt="rush build -t"
-  alias rbf="rush build -t office-ui-fabric-react"
+  alias rbtf="rush build -t office-ui-fabric-react"
   alias rbti="rush build -t fabric-website-internal"
 fi
