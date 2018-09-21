@@ -63,3 +63,10 @@ dup=docker-compose up $*
 
 ;= Ngrok
 ngr=ngrok http --host-header=rewrite $1
+
+;= Rush
+rb=rush build $*
+rrb=rush rebuild $*
+rbt=rush build -t $*
+rbtf=rush build -t office-ui-fabric-react $*
+rbti=rush build -t fabric-website-internal $*
