@@ -4,20 +4,21 @@
 CLS
 set shellchoice=Shell
 ECHO Choose a shell:
-ECHO [1] WSL
-ECHO [2] Cygwin ZSH
-ECHO [3] CMDER cmd
+ECHO [1]  WSL
+ECHO [2]  Cygwin ZSH
+ECHO [3]* CMDER cmd
 ECHO ---
-ECHO [4] Cygwin Fish
-ECHO [5] Cygwin Bash
-ECHO [6] CMDER powershell
-ECHO [7] More options
+ECHO [4]  Cygwin Fish
+ECHO [5]  Cygwin Bash
+ECHO [6]  CMDER powershell
+ECHO [7]  More options
 ECHO ---
-ECHO [8] Restart hyper elevated
-ECHO [9] Exit
+ECHO [8]  Restart hyper elevated
+ECHO [9]  Exit
+ECHO (*^)  Default option
 ECHO.
 
-CHOICE /N /C:123456789 /D 1 /T 10 /M "> "
+CHOICE /N /C:123456789 /D 3 /T 10 /M "> "
 CLS
 IF ERRORLEVEL ==9 GOTO end
 IF ERRORLEVEL ==8 powershell -Command "Start-Process hyper -Verb RunAs"
@@ -31,12 +32,13 @@ IF ERRORLEVEL ==1 GOTO WSL
 
 :OTHER
 CLS
-ECHO Choose a shell:
-ECHO [1] cmd
-ECHO [2] PowerShell
-ECHO [3] ^<- Go back
-ECHO.
-ECHO [4] Exit
+ECHO Choose a shell (more options^):
+ECHO [1]* cmd
+ECHO [2]  PowerShell
+ECHO [3]  ^<- Go back
+ECHO ---
+ECHO [4]  Exit
+ECHO (*^)  Default option
 ECHO.
 
 CHOICE /N /C:1234 /D 1 /T 10 /M "> "
