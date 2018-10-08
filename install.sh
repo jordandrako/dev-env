@@ -173,7 +173,7 @@ while true; do
 done
 
 # Install NPM packages. Change these packages to your preferred global packages.
-packages="yarn gulp-cli create-react-app trash-cli empty-trash-cli eslint tslint stylelint typescript ngrok"
+packages="yarn gulp-cli create-react-app trash-cli empty-trash-cli typescript ngrok"
 check_npm
 if [[ $npm_i == true ]]; then
   while true; do
