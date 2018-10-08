@@ -9,14 +9,5 @@ echo -e "Welcome $USER! | Machine: $MACHINE\n"
 nodist_dir="/cygdrive/c/Program Files (x86)/Nodist"
 [[ -a "$nodist_dir/bin/nodist_bash_profile_content.sh" ]] && source "$nodist_dir/bin/nodist_bash_profile_content.sh"
 
-# Color configuration
-# LS_COLOR should contain the LS_COLORS overrides you desire.
-# Override "other writable" color
-LS_COLOR="ow=01;34"
-# Add LS_COLOR to the end of existing LS_COLORS
-LS_COLORS="$LS_COLORS:$LS_COLOR"
-# Re-export LS_COLORS
-export LS_COLORS
-
 alias apt="apt-cyg"
 alias coder="cd $CODE_DIR"

@@ -50,3 +50,12 @@ alias zsource="clear && source ~/.zshrc"
 
 # Include alias file
 [[ -s ~/.aliases.sh ]] && source ~/.aliases.sh
+
+# Color configuration
+# LS_COLOR should contain the LS_COLORS overrides you desire.
+# Override "other writable" color
+OTHER_WRITABLE="ow=01;34"
+# Add OTHER_WRITABLE to the end of existing LS_COLORS
+LS_COLORS="$LS_COLORS:$OTHER_WRITABLE"
+# Re-export LS_COLORS
+export LS_COLORS
