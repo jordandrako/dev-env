@@ -68,8 +68,9 @@ esac
 install_fish() {
   green "Installing fish"
   if [[ $machine == "WSL" || $machine == "Linux" ]]; then
-    try sudo apt-add-repository -yu ppa:fish-shell/release-2 > /dev/null 2>&1
-    try sudo apt install fish && \
+    try sudo apt update && try sudo apt install fish -y || \
+    try sudo apt-add-repository -yu ppa:fish-shell/release-2 > /dev/null 2>&1 && \
+    try sudo apt install fish -y && \
     try chmod +x $initial/fish-config.fish && \
     info "Fish is now installed. Run fish-config.fish for more fish config."
   elif [[ $machine == "Cygwin" ]]; then
