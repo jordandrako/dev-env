@@ -60,6 +60,20 @@ end
 function gdc
   git diff --cached $argv
 end
+
+function gf
+  if [ (git status -s | wc -l) -lt 1 ]
+    echo "No changes."
+  else if [ $argv[3] ]
+    echo "Too many arguments."
+  else if [ ! $argv[1] ]
+    echo "You must specify a commit message!"
+  else if begin [ $argv[2] ]; and [ (git ls-remote --heads origin $argv[2] | wc -l) -lt 1 ]; end
+    echo "Branch \"$argv[2]\" does not exist on remote origin."
+  else
+    git add -A; and git commit -m "$argv[1]"; and [ $argv[2] ]; and git push origin $argv[2]
+  end
+end
 # end Git
 
 # NPM
@@ -170,7 +184,7 @@ end
 
 function set_aliases
   if type -q git
-    funcsave gs gl ga gaa gac gc go gob gol gm gml gp gpl gd gdc
+    funcsave gs gl ga gaa gac gc go gob gol gm gml gp gpl gd gdc gf
   end
   if type -q npm
     funcsave ns ni nid ngi nrm nrmg
