@@ -37,6 +37,7 @@ gpl=git pull $*
 gd=git diff $*
 gdc=git diff --cached $*
 gf=git add -A && git commit -m $* && git push
+test=echo $*
 
 ;= NPM
 ns=npm start $*
