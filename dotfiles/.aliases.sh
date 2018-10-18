@@ -51,6 +51,21 @@ if [[ $git_i ]]; then
   alias gpl="git pull"
   alias gd="git diff"
   alias gdc="git diff --cached"
+
+  # Git finish
+  gf() {
+    if [[ $(git status -s | wc -l) -lt 1 ]]; then
+      echo "No changes." && exit 0
+    fi
+    if [[ ! $1 ]]; then
+      echo "You must specify a commit message!" && exit 0
+    fi
+    if [[ $2 && $(git ls-remote --heads origin $2 | wc -l) == 0 ]]; then
+      echo "Branch \"$2\" does not exist on remote origin." && exit 0
+    fi
+
+    git add -A && git commit -m "$1" && [[ $2 ]] && git push origin $2
+  }
 fi # end Git
 
 # NPM
