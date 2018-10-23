@@ -137,12 +137,6 @@ try cp $config/.nanorc ~/
 [[ -d $ZSH && ! -d $ZSH/custom/themes ]] && mkdir -p $ZSH/custom/themes
 try cp $config/cobalt2custom.zsh-theme $ZSH/custom/themes/
 try chmod 755 $ZSH/custom/themes/cobalt2custom.zsh-theme
-## Z plugin
-if [[ ! -a ~/.bin/z.sh ]]; then
-  mkdir -p ~/.bin
-  wget -q https://raw.githubusercontent.com/rupa/z/master/z.sh -O ~/.bin/z.sh
-  chmod +x ~/.bin/z.sh
-fi
 
 # Configure Git
 while true; do

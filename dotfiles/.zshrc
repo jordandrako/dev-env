@@ -21,17 +21,6 @@ source $ZSH/oh-my-zsh.sh
 export N_PREFIX="$HOME/.bin/n"
 [[ -x "$N_PREFIX/bin/n" ]] && [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH="$N_PREFIX/bin:$PATH"
 
-# z plugin
-export Z_DIR="$HOME/.bin"
-z() {
-  if [[ -d $Z_DIR ]]; then
-    [[ -s "$Z_DIR/z.sh" ]] && \. "$Z_DIR/z.sh"
-		echo $fg[blue] "Z loaded, run last command again."
-  else
-    echo "Z not installed"
-  fi
-}
-
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='nano'
