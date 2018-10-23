@@ -3,10 +3,11 @@
 :TOP
 CLS
 set shellchoice=Shell
+set CYGHOME=/home/%USERNAME%
 ECHO Choose a shell:
-ECHO [1]  WSL
+ECHO [1]* WSL
 ECHO [2]  Cygwin ZSH
-ECHO [3]* CMDER cmd
+ECHO [3]  CMDER cmd
 ECHO ---
 ECHO [4]  Cygwin Fish
 ECHO [5]  Cygwin Bash
@@ -18,7 +19,7 @@ ECHO [9]  Exit
 ECHO (*^)  Default option
 ECHO.
 
-CHOICE /N /C:123456789 /D 3 /T 10 /M "> "
+CHOICE /N /C:123456789 /D 1 /T 10 /M "> "
 CLS
 IF ERRORLEVEL ==9 GOTO end
 IF ERRORLEVEL ==8 powershell -Command "Start-Process hyper -Verb RunAs"
@@ -64,13 +65,15 @@ powershell -ExecutionPolicy Bypass -NoLogo -NoProfile -NoExit -Command "Invoke-E
 goto EXIT
 
 :CYGBASH
+set HOME=%CYGHOME%
 set shellchoice=Cygwin Bash
-C:\cygwin64\bin\bash.exe /bin/xhere /bin/bash ~
+C:\cygwin64\bin\bash.exe /bin/xhere /bin/bash
 goto EXIT
 
 :CYGFISH
+set HOME=%CYGHOME%
 set shellchoice=Cygwin Fish
-C:\cygwin64\bin\bash.exe /bin/xhere /bin/fish ~
+C:\cygwin64\bin\bash.exe /bin/xhere /bin/fish
 goto EXIT
 
 :CMDERCMD
@@ -82,13 +85,14 @@ IF EXIST %CMDER_ROOT% (
 goto EXIT
 
 :CYGZSH
+set HOME=%CYGHOME%
 set shellchoice=Cygwin ZSH
-C:\cygwin64\bin\bash.exe /bin/xhere /bin/zsh ~
+C:\cygwin64\bin\bash.exe /bin/xhere /bin/zsh
 goto EXIT
 
 :WSL
 set shellchoice=WSL
-%windir%\System32\wsl.exe ~
+%windir%\System32\wsl.exe
 
 :EXIT
 CLS
