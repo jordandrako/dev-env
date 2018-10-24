@@ -4,32 +4,31 @@
 CLS
 set shellchoice=Shell
 set CYGHOME=/home/%USERNAME%
+SET CMDER_ROOT=C:\cmder
 ECHO Choose a shell:
 ECHO [1]* WSL
 ECHO [2]  Cygwin ZSH
 ECHO [3]  CMDER cmd
 ECHO ---
-ECHO [4]  Cygwin Fish
-ECHO [5]  Cygwin Bash
-ECHO [6]  CMDER powershell
-ECHO [7]  More options
+ECHO [4]  Cygwin Bash
+ECHO [5]  CMDER powershell
+ECHO [6]  More options
 ECHO ---
-ECHO [8]  Restart hyper elevated
-ECHO [9]  Exit
+ECHO [7]  Restart hyper elevated
+ECHO [8]  Exit
 ECHO (*^)  Default option
 ECHO.
 
-CHOICE /N /C:123456789 /D 1 /T 10 /M "> "
+CHOICE /N /C:12345678 /D 1 /T 10 /M "> "
 CLS
-IF ERRORLEVEL ==9 GOTO end
-IF ERRORLEVEL ==8 powershell -Command "Start-Process hyper -Verb RunAs"
-IF ERRORLEVEL ==7 GOTO OTHER
-IF ERRORLEVEL ==6 GOTO CMDERPOWERSHELL
-IF ERRORLEVEL ==5 GOTO CYGBASH
-IF ERRORLEVEL ==4 GOTO CYGFISH
+IF ERRORLEVEL ==8 GOTO end
+IF ERRORLEVEL ==7 powershell -Command "Start-Process hyper -Verb RunAs"
+IF ERRORLEVEL ==6 GOTO OTHER
+IF ERRORLEVEL ==5 GOTO CMDERPOWERSHELL
+IF ERRORLEVEL ==4 GOTO CYGBASH
 IF ERRORLEVEL ==3 GOTO CMDERCMD
 IF ERRORLEVEL ==2 GOTO CYGZSH
-IF ERRORLEVEL ==1 GOTO WSL
+IF ERRORLEVEL ==1 GOTO LAUNCHWSL
 
 :OTHER
 CLS
@@ -70,15 +69,8 @@ set shellchoice=Cygwin Bash
 C:\cygwin64\bin\bash.exe /bin/xhere /bin/bash
 goto EXIT
 
-:CYGFISH
-set HOME=%CYGHOME%
-set shellchoice=Cygwin Fish
-C:\cygwin64\bin\bash.exe /bin/xhere /bin/fish
-goto EXIT
-
 :CMDERCMD
 set shellchoice=CMDER cmd
-SET CMDER_ROOT=C:\cmder
 IF EXIST %CMDER_ROOT% (
   cmd /k "%CMDER_ROOT%\vendor\init.bat"
 )
@@ -90,9 +82,9 @@ set shellchoice=Cygwin ZSH
 C:\cygwin64\bin\bash.exe /bin/xhere /bin/zsh
 goto EXIT
 
-:WSL
+:LAUNCHWSL
 set shellchoice=WSL
-%windir%\System32\wsl.exe
+wsl
 
 :EXIT
 CLS

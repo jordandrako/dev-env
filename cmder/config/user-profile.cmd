@@ -11,3 +11,5 @@ call "%GIT_INSTALL_ROOT%/cmd/start-ssh-agent.cmd"
 :: you can add your plugins to the cmder path like so
 :: set "PATH=%CMDER_ROOT%\vendor\whatever;%PATH%"
 
+:: Base directory for code projects.
+set "CODE_DIR=C:\code"

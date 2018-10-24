@@ -14,7 +14,7 @@ vi=vim $*
 cmderr=cd /d "%CMDER_ROOT%"
 
 ;= Directories
-coder=cd /d "C:\code"
+coder=cd /d "%CODE_DIR%"
 ..=cd ..
 ...=cd ../..
 ....=cd ../../..
@@ -45,6 +45,7 @@ nid= npm i -D $*
 ngi=npm i -g $*
 nrm=npm rm $*
 nrmg=npm rm -g $*
+nsfi=cd /d "%CODE_DIR%\ui-fabric-website-internal\apps\fabric-website-internal" && npm start
 
 ;= Create react app
 cra=create-react-app $*
