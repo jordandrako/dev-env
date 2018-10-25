@@ -11,4 +11,4 @@ nodist_dir="/cygdrive/c/Program Files (x86)/Nodist"
 
 alias apt="apt-cyg"
 alias coder="cd $CODE_DIR"
-alias nsfi="cd $CODE_DIR && cd ui-fabric-website-internal/apps/"
+alias nsfi="cd $CODE_DIR && cd ui-fabric-website-internal/apps/fabric-website-internal && npm start"
