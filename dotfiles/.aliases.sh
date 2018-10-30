@@ -79,12 +79,12 @@ if [[ $npm_i ]]; then
   if [[ $cra_i ]]; then
     alias cra="create-react-app"
     crats() {
-      create-react-app $1 --scripts-version=react-scripts-ts
+      create-react-app $1 --typescript
     }
   else
     alias cra="npx create-react-app"
     crats() {
-      npx create-react-app $1 --scripts-version=react-scripts-ts
+      npx create-react-app $1 --typescript
     }
   fi
 

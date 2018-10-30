@@ -113,7 +113,11 @@ end
 function crats
   set name $argv[1]
   set --erase argv[1]
-  cra $name --scripts-version=react-scripts-ts $argv
+  if type -q create-react-app
+    create-react-app $name --typescript $argv
+  else
+    npx create-react-app $name --typescript $argv
+  end
 end
 # end Create react app
 

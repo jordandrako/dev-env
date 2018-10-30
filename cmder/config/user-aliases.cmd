@@ -49,7 +49,7 @@ nsfi=cd /d "%CODE_DIR%\ui-fabric-website-internal\apps\fabric-website-internal" 
 
 ;= Create react app
 cra=create-react-app $*
-crats=create-react-app $1 --scripts-version=react-scripts-ts
+crats=create-react-app $1 --typescript
 
 ;= Yarn
 ys=yarn start $*
