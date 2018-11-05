@@ -5,7 +5,7 @@ export ZSH=$HOME/.oh-my-zsh
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(ssh-agent, zsh-syntax-highlighting, shrink-path)
+plugins=(ssh-agent, zsh-nvm, zsh-syntax-highlighting, shrink-path)
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -17,9 +17,13 @@ ZSH_THEME="cobalt2custom"
 export PATH="$HOME/bin:/usr/local/bin:$PATH"
 source $ZSH/oh-my-zsh.sh
 
-# N Init
+## Custom Plugins
+# N: Alternative to nvm
 export N_PREFIX="$HOME/.bin/n"
 [[ -x "$N_PREFIX/bin/n" ]] && [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH="$N_PREFIX/bin:$PATH"
+
+# fzf: Fuzzy completion
+[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
