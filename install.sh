@@ -53,7 +53,9 @@ case "$(uname -a)" in
   CYGWIN* )
     green "Now Configuring Cygwin";
     ssh_path="/cygdrive/c/Users/$script_user/.ssh";
-    machine="Cygwin" ;;
+    machine="Cygwin" ;
+    echo "WORKAROUND: Temporarily installing Cygwin's git.";
+    apt-cyg install git;;
   Linux* )
     green "Now Configuring Linux";
     machine="Linux" ;;
@@ -99,10 +101,18 @@ if [[ ! -d $ZSH ]]; then
   try chmod +x ~/install.oh-my-zsh.sh
   error "Ensure zsh is installed and run oh-my-zsh installer first @ '. ~/install.oh-my-zsh.sh'"
   exit 1
-elif [[ ! -d $ZSH/custom/plugins/zsh-syntax-highlighting ]]; then
-  try git clone -q https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH/custom/plugins/zsh-syntax-highlighting
+else
+  # zsh-syntax-highlighting plugin
+  if [[ ! -d $ZSH/custom/plugins/zsh-syntax-highlighting ]]; then
+    try git clone -q https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH/custom/plugins/zsh-syntax-highlighting
+  fi
+
+  # zsh-nvm plugin
+  if [[ ! -d $ZSH/custom/plugins/zsh-nvm ]]; then
+    try git clone -q https://github.com/lukechilds/zsh-nvm $ZSH/custom/plugins/zsh-nvm
+  fi
 fi
-try chmod -R 755 $ZSH/custom/plugins/zsh-syntax-highlighting
+try chmod -R 755 $ZSH/custom/plugins/zsh-syntax-highlighting $ZSH/custom/plugins/zsh-nvm
 
 # Check for N
 if [[ $machine != "Cygwin" && ! -d $N_PREFIX ]]; then
@@ -132,6 +142,13 @@ try cp $config/.zshrc ~/
 
 [[ -a ~/.nanorc ]] && try cp ~/.nanorc ~/.nanorc.bak
 try cp $config/.nanorc ~/
+
+# fzf plugin
+if [[ ! -f ~/.fzf.zsh ]]; then
+  [[ -d ~/.fzf ]] && try rm -rf ~/.fzf
+  try git clone -q --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+  try ~/.fzf/install --no-bash --no-fish --no-update-rc --key-bindings --completion
+fi
 
 # Cobalt2 theme
 [[ -d $ZSH && ! -d $ZSH/custom/themes ]] && mkdir -p $ZSH/custom/themes
