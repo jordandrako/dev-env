@@ -1,40 +1,7 @@
 #!/bin/zsh
 
-# Check for some programs
-# Check if git is installed
-if command -v git >/dev/null 2>&1; then
-  git_i=true
-else
-  echo "Install git ya git!"
-fi
-
-# Check if npm is installed
-[[ -x "$(command -v npm)" ]] && npm_i=true
-
-# Check if yarn is installed
-[[ -x "$(command -v yarn)" ]] && yarn_i=true
-
-# Check if docker is installed
-[[ -x "$(command -v docker)" ]] && docker_i=true
-
-# Check if ngrok is installed
-[[ -x "$(command -v ngrok)" ]] && ngrok_i=true
-
-# Check if create-react-app is installed
-[[ -x "$(command -v create-react-app)" ]] && cra_i=true
-
-# Check if tree is installed
-[[ -x "$(command -v tree)" ]] && tree_i=true
-
-# Check if on hassio
-[[ -x "$(command -v hassio)" ]] && hassio_i=true
-
-# Check if on rush
-[[ -x "$(command -v rush)" ]] && rush_i=true
-
-# Aliases
 # Git
-if [[ $git_i ]]; then
+if [[ -x "$(command -v git)" ]]; then
   alias gs="git status -s"
   alias gss="git status"
   alias gl="git lg"
@@ -64,10 +31,13 @@ if [[ $git_i ]]; then
       git add -A && git commit -m "$1" && [[ $2 ]] && git push origin $2
     fi
   }
-fi # end Git
+else
+  echo "Install git ya git!"
+fi
+
 
 # NPM
-if [[ $npm_i ]]; then
+if [[ -x "$(command -v npm)" ]]; then
   alias ns="npm start"
   alias ni="npm i"
   alias nid="npm i -D"
@@ -75,30 +45,30 @@ if [[ $npm_i ]]; then
   alias nrm="npm rm"
   alias nrmg="npm rm -g"
 
-  # Create react app
-  if [[ $cra_i ]]; then
-    alias cra="create-react-app"
-    crats() {
-      create-react-app $1 --typescript
-    }
-  else
-    alias cra="npx create-react-app"
-    crats() {
-      npx create-react-app $1 --typescript
-    }
-  fi
-
   # Yarn
-  if [[ $yarn_i ]]; then
+  if [[ -x "$(command -v yarn)" ]]; then
     alias ys="yarn start"
     alias ya="yarn add"
     alias yad="yarn add -D"
     alias yrm="yarn remove"
   fi
-fi # end NPM
+
+  # Create react app
+  if [[ -x "$(command -v create-react-app)" ]]; then
+    alias cra="create-react-app"
+    crats() {
+      create-react-app $1 --typescript
+    }
+  elif [[ -x "$(command -v npx)" ]]; then
+    alias cra="npx create-react-app"
+    crats() {
+      npx create-react-app $1 --typescript
+    }
+  fi
+fi
 
 # Docker
-if [[ $docker_i ]]; then
+if [[ -x "$(command -v docker)" ]]; then
   alias dps="docker ps"
   alias dpsa="docker ps -a"
   alias drestart="docker restart"
@@ -107,17 +77,22 @@ if [[ $docker_i ]]; then
 fi
 
 # Ngrok
-if [[ $ngrok_i ]]; then
+if [[ -x "$(command -v ngrok)" ]]; then
   alias ngr="ngrok http --host-header=rewrite"
 fi
 
-# Tree
-if [[ $tree_i ]]; then
+# create-react-app
+if [[ -x "$(command -v create-react-app)" ]]; then
+  cra_i=true
+fi
+
+# tree
+if [[ -x "$(command -v tree)" ]]; then
   alias tree="tree -I 'node_modules|.git|cache'"
 fi
 
-# Hassio
-if [[ $hassio_i ]]; then
+# hassio
+if [[ -x "$(command -v hassio)" ]]; then
   alias conf="cd /config"
   alias ha="hassio ha"
   alias logs="hassio ha logs"
@@ -130,7 +105,7 @@ if [[ $hassio_i ]]; then
 fi
 
 # Rush
-if [[ $rush_i ]]; then
+if [[ -x "$(command -v rush)" ]]; then
   alias rb="rush build"
   alias rrb="rush rebuild"
   alias rbt="rush build -t"
