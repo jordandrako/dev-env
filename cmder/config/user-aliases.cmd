@@ -15,6 +15,7 @@ cmderr=cd /d "%CMDER_ROOT%"
 
 ;= Directories
 coder=cd /d "%CODE_DIR%"
+la=ls -la $*
 ..=cd ..
 ...=cd ../..
 ....=cd ../../..
