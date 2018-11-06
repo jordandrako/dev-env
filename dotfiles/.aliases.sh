@@ -19,16 +19,46 @@ if [[ -x "$(command -v git)" ]]; then
   alias gd="git diff"
   alias gdc="git diff --cached"
 
-  # Git finish
+  # Git finish. USAGE: gf "Commit message" [remote-branch]
   gf() {
     if [[ $(git status -s | wc -l) -lt 1 ]]; then
       echo "No changes."
     elif [[ ! $1 ]]; then
-      echo "You must specify a commit message!"
+      echo "You must specify a commit message! USAGE: gf \"Commit message\" [remote-branch]"
     elif [[ $2 && $(git ls-remote --heads origin $2 | wc -l) == 0 ]]; then
       echo "Branch \"$2\" does not exist on remote origin."
     else
       git add -A && git commit -m "$1" && [[ $2 ]] && git push origin $2
+    fi
+  }
+
+  # Git WIP (Work-In-Progress). USAGE: wip [-l (--local: don't push)]
+  # WARNING: WIP branches are not a replacement for stash!
+  # They are deleted if '--local' is NOT used OR it is ran again the same day.
+  gwip() {
+    date=`date +%Y-%m-%d`
+    time=`date +%H:%M:%S`
+    originalBranch=`git symbolic-ref --short -q HEAD` || "(unnamed branch)"
+    if [[ $1 && $1 == '-l' || $1 && $1 == '--local' ]]; then
+      isLocal=true
+    fi
+    wipBranch="$originalBranch--WIP_$date"
+
+    if [[ $(git status -s | wc -l) -lt 1 ]]; then
+      echo "No changes."
+    else
+      # If wipBranch exists already, delete it before making new WIP branch.
+      if [[ `git branch --list $wipBranch | wc -l` -gt 0 ]]; then
+        git branch -D $wipBranch
+      fi
+
+      git checkout -b $wipBranch
+      git add -A && git commit -m "$WIP_$date-$time" --no-verify
+      [[ $isLocal != true ]] && git push --force -u origin $wipBranch
+      git checkout $originalBranch
+      git merge --squash --no-commit $wipBranch
+      git reset --
+      [[ $isLocal != true ]] && git branch -D $wipBranch
     fi
   }
 else
