@@ -52,3 +52,13 @@ OTHER_WRITABLE="ow=01;34"
 LS_COLORS="$LS_COLORS:$OTHER_WRITABLE"
 # Re-export LS_COLORS
 export LS_COLORS
+
+# Source OS specific configs
+case `uname -a` in
+  *Microsoft* )
+    [[ -s ~/.wsl.zsh ]] && source ~/.wsl.zsh;;
+  CYGWIN* )
+    [[ -s ~/.cygwin.zsh ]] && source ~/.cygwin.zsh;;
+  Linux* )
+    [[ -s ~/.linux.zsh ]] && source ~/.linux.zsh;;
+esac
