@@ -143,6 +143,15 @@ try cp $config/.zshrc ~/
 [[ -a ~/.nanorc ]] && try cp ~/.nanorc ~/.nanorc.bak
 try cp $config/.nanorc ~/
 
+[[ -a ~/.wsl.zsh ]] && try cp ~/.wsl.zsh ~/.wsl.zsh.ba
+[[ $machine == "WSL" ]] && try cp $config/.wsl.zsh ~/
+
+[[ -a ~/.cygwin.zsh ]] && try cp ~/.cygwin.zsh ~/.cygwin.zsh.bak
+[[ $machine == "Cygwin" ]] && try cp $config/.cygwin.zsh ~/
+
+[[ -a ~/.linux.zsh ]] && try cp ~/.linux.zsh ~/.linux.zsh.bak
+[[ $machine == "Linux" ]] && try cp $config/.linux.zsh ~/
+
 # fzf plugin
 if [[ ! -f ~/.fzf.zsh ]]; then
   [[ -d ~/.fzf ]] && try rm -rf ~/.fzf
@@ -223,17 +232,12 @@ if [[ $machine == "WSL" ]]; then
     try sudo apt update
     try sudo apt install dos2unix make
   fi
-  # try sudo apt install dos2unix
-  try cat $config/wsl.zshrc >> ~/.zshrc
-  ask_fish
   green "Done!"
   exit 0
 fi # End WSL
 
 # Linux Configuration
 if [[ $machine == "Linux" ]]; then
-  try cat $config/linux.zshrc >> ~/.zshrc
-  ask_fish
   green "Done!"
   exit 0
 fi # End Linux
@@ -252,8 +256,6 @@ if [[ $machine == "Cygwin" ]]; then
   try apt-cyg remove git
 
   try cp $config/.minttyrc ~/
-  try cat $config/cygwin.zshrc >> ~/.zshrc
-  ask_fish
   green "Done!"
   exit 0
 fi # End Cygwin
