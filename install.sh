@@ -35,6 +35,23 @@ ask() {
   [[ $3 ]] && read $3
 }
 
+# Copy Windows user SSH
+copy_ssh() {
+  green "[Windows ONLY] Copy user SSH"
+  try chmod +x $initial/copy-ssh.sh
+  while true; do
+    ask "Copy your windows ssh key?" "y/N" sshYn
+    case $sshYn in
+      [Yy]* )
+        try . $initial/copy-ssh.sh $ssh_path;
+        break;;
+      * )
+        info "You can copy ssh later by running '. path/to/dev-env/copy-ssh.sh path/to/.ssh'"
+        break;;
+    esac
+  done
+}
+
 # Check if npm is installed
 check_npm() {
   if [[ -x $(command -v npm) ]]; then
@@ -115,7 +132,7 @@ fi
 try chmod -R 755 $ZSH/custom/plugins/zsh-syntax-highlighting $ZSH/custom/plugins/zsh-nvm
 
 # Check for N
-if [[ $machine != "Cygwin" && ! -d $N_PREFIX ]]; then
+if [[ $machine != "Cygwin" && ! -x "$(command -v n)" ]]; then
   while true; do
     try cp $config/install.n.sh ~/
     try wget -q https://git.io/n-install -O ~/tmp.n.sh
@@ -203,24 +220,7 @@ if [[ $npm_i == true ]]; then
       [Nn]* ) break;;
       * )
         green "Installing global npm packages";
-        try npm i -g $packages;
-        break;;
-    esac
-  done
-fi
-
-# Copy Windows user SSH
-if [[ $machine == "WSL" || $machine == "Cygwin" ]]; then
-  green "[Windows ONLY] Copy user SSH"
-  try chmod +x $initial/copy-ssh.sh
-  while true; do
-    ask "Copy your windows ssh key?" "y/N" sshYn
-    case $sshYn in
-      [Yy]* )
-        try . $initial/copy-ssh.sh $ssh_path;
-        break;;
-      * )
-        info "You can copy ssh later by running '. path/to/dev-env/copy-ssh.sh path/to/.ssh'"
+        try npm i -g $packages || info "Retrying with sudo" && try sudo npm i -g $packages;
         break;;
     esac
   done
@@ -228,10 +228,11 @@ fi
 
 # WSL Configuration
 if [[ $machine == "WSL" ]]; then
-  if ! command -v dos2unix >/dev/null 2>&1; then
+  if [[ ! -x $(command -v dos2unix) ]]; then
     try sudo apt update
     try sudo apt install dos2unix make
   fi
+  copy_ssh
   green "Done!"
   exit 0
 fi # End WSL
@@ -256,6 +257,7 @@ if [[ $machine == "Cygwin" ]]; then
   try apt-cyg remove git
 
   try cp $config/.minttyrc ~/
+  copy_ssh
   green "Done!"
   exit 0
 fi # End Cygwin
