@@ -49,7 +49,7 @@ if [[ -x "$(command -v git)" ]]; then
     else
       # If wipBranch exists already, delete it before making new WIP branch.
       if [[ `git branch --list $wipBranch | wc -l` -gt 0 ]]; then
-        git branch -D $wipBranch
+        git del $wipBranch
       fi
 
       git checkout -b $wipBranch
@@ -57,8 +57,8 @@ if [[ -x "$(command -v git)" ]]; then
       [[ $isLocal != true ]] && git push --force -u origin $wipBranch
       git checkout $originalBranch
       git merge --squash --no-commit $wipBranch
-      git reset --
-      [[ $isLocal != true ]] && git branch -D $wipBranch
+      git unstage
+      [[ $isLocal != true ]] && git del $wipBranch
     fi
   }
 else
