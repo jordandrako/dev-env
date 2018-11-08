@@ -11,7 +11,7 @@
   unstage = reset HEAD --
   dc = diff --cached
 [push]
-  default = matching
+  default = simple
 [remote "origin"]
   prune = true
 [core]
