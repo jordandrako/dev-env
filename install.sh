@@ -1,9 +1,9 @@
 #!/bin/bash
 
 initial="$PWD"
-initial_path="$PATH"
 config=$initial/dotfiles
 script_user=${1:-$USER}
+npm_packages="yarn gulp-cli create-react-app trash-cli empty-trash-cli typescript ngrok"
 
 # Green background echo
 green() {
@@ -35,9 +35,110 @@ ask() {
   [[ $3 ]] && read $3
 }
 
+# Source the .zshrc file and exit.
+success() {
+  green "Done! Restart zsh or run source ~/.zshrc"
+  exit 0
+}
+
+# Install NPM packages. Installs from $npm_packages variable at the top of the file.
+npm_install() {
+  if [[ -x $(command -v npm) ]]; then
+    green "Installing global npm packages"
+    try npm i -g $npm_packages || ( info "Retrying with sudo" && try sudo npm i -g $npm_packages )
+  else
+    error "Couldn't find NPM, install packages manually."
+  fi
+}
+
+ask_npm() {
+  while true; do
+    echo $npm_packages
+    ask "Install the above global npm packages?" "y/N" npmYn
+    case $npmYn in
+      [yY]* )
+        try npm_install;
+        break;;
+      * ) break;;
+    esac
+  done
+}
+
+# Configure Git
+git_global() {
+  while true; do
+    ask "Configure your git user settings?" "y/N" gitUserYn
+    case $gitUserYn in
+      [Nn]* ) break;;
+      * )
+        ask "What's your first name?" "First Name" first_name;
+        ask "What's your last name?" "Last Name" last_name;
+        gitname="$first_name $last_name";
+        try git config --global user.name "$gitname";
+        echo ;
+        ask "What's your git account email?" "email" email;
+        try git config --global user.email "$email";
+        break;;
+    esac
+  done
+}
+
+git_config() {
+  while true; do
+    ask "Copy this gitconfig?" "y/N" gitCpYn
+    case $gitCpYn in
+      [Yy]* )
+        if [[ -a ~/.gitconfig ]];
+          then mv ~/.gitconfig ~/.gitconfig.bak;
+        fi;
+        try cp $config/.gitconfig ~/;
+        git_global;
+        break;;
+      * ) break;;
+    esac
+  done
+}
+
+# Check system
+case "$(uname -a)" in
+  *Microsoft* )
+    green "Now Configuring WSL";
+    ssh_path="/mnt/c/Users/$script_user/.ssh";
+    WSL=true;;
+  CYGWIN* )
+    green "Now Configuring Cygwin";
+    ssh_path="/cygdrive/c/Users/$script_user/.ssh";
+    CYGWIN=true
+    info "WORKAROUND: Temporarily installing Cygwin's git."
+    try apt-cyg install git > /dev/null 2>&1 ;;
+  Linux* )
+    green "Now Configuring Linux";
+    LINUX=true;;
+  # Darwin* ) @TODO: SUPPORT MAC LATER
+  #   machine="Mac" ;;
+  * )
+    error "System Not Supported. Install manually.";
+    exit 1;;
+esac
+
+# Simplify installing packages between different systems.
+install() {
+  [[ ! $* ]] && error "You must pass packges to try to install."
+  if [[ $CYGWIN == true ]]; then
+    try apt-cyg install $* > /dev/null
+  else
+    try sudo apt-get -qq update > /dev/null && try sudo apt-get -qq install $* -y > /dev/null
+  fi
+}
+
 # Copy Windows user SSH
 copy_ssh() {
   green "[Windows ONLY] Copy user SSH"
+
+  if [[ ! $CYGWIN == true && ! -x $(command -v dos2unix) ]]; then
+    try install dos2unix make
+  fi
+
   try chmod +x $initial/copy-ssh.sh
   while true; do
     ask "Copy your windows ssh key?" "y/N" sshYn
@@ -52,48 +153,17 @@ copy_ssh() {
   done
 }
 
-# Check if npm is installed
-check_npm() {
-  if [[ -x $(command -v npm) ]]; then
-    npm_i=true
-  else
-    npm_i=false
-  fi
-}
-
-# Check system
-case "$(uname -a)" in
-  *Microsoft* )
-    green "Now Configuring WSL";
-    ssh_path="/mnt/c/Users/$script_user/.ssh";
-    machine="WSL" ;;
-  CYGWIN* )
-    green "Now Configuring Cygwin";
-    ssh_path="/cygdrive/c/Users/$script_user/.ssh";
-    machine="Cygwin" ;
-    echo "WORKAROUND: Temporarily installing Cygwin's git.";
-    apt-cyg install git;;
-  Linux* )
-    green "Now Configuring Linux";
-    machine="Linux" ;;
-  # Darwin* ) TODO: SUPPORT MAC LATER
-  #   machine="Mac" ;;
-  * )
-    error "System Not Supported. Install manually.";
-    exit 1;;
-esac
-
 # Install fish functions
 install_fish() {
   green "Installing fish"
-  if [[ $machine == "WSL" || $machine == "Linux" ]]; then
-    try sudo apt update && try sudo apt install fish -y || \
+  if [[ $CYGWIN == true ]]; then
+    try install fish
+  else
+    try install fish || \
     try sudo apt-add-repository -yu ppa:fish-shell/release-2 > /dev/null 2>&1 && \
-    try sudo apt install fish -y && \
+    try install fish && \
     try chmod +x $initial/fish-config.fish && \
     info "Fish is now installed. Run fish-config.fish for more fish config."
-  elif [[ $machine == "Cygwin" ]]; then
-    try apt-cyg install fish
   fi
 }
 
@@ -103,7 +173,7 @@ ask_fish() {
       ask "Do you want to install fish?" "y/n" fishYn
       case $fishYn in
         [Yy]* )
-          install_fish;
+          try install_fish;
           break;;
         * ) break;;
       esac
@@ -131,43 +201,15 @@ else
 fi
 try chmod -R 755 $ZSH/custom/plugins/zsh-syntax-highlighting $ZSH/custom/plugins/zsh-nvm
 
-# Check for N
-if [[ $machine != "Cygwin" && ! -x "$(command -v n)" ]]; then
-  while true; do
-    try cp $config/install.n.sh ~/
-    try wget -q https://git.io/n-install -O ~/tmp.n.sh
-    try cat ~/tmp.n.sh >> ~/install.n.sh
-    try chmod +x ~/install.n.sh
-    ask "N not detected. Continue anyway?" "Y/n" nYn
-    case $nYn in
-      [Nn]* )
-        error "Run N installer '~/install.n.sh'";
-        break;;
-      * )
-        info "You can install N later by running '~/install.n.sh'";
-        break;;
-    esac
-  done
-fi
-
 # Global configuration
-[[ -a ~/.aliases.sh ]] && try cp ~/.aliases.sh ~/.aliases.sh.bak
-try cp $config/.aliases.sh ~/
-
 [[ -a ~/.zshrc ]] && try cp ~/.zshrc ~/.zshrc.bak
 try cp $config/.zshrc ~/
 
+[[ -a ~/.aliases.sh ]] && try cp ~/.aliases.sh ~/.aliases.sh.bak
+try cp $config/.aliases.sh ~/
+
 [[ -a ~/.nanorc ]] && try cp ~/.nanorc ~/.nanorc.bak
 try cp $config/.nanorc ~/
-
-[[ -a ~/.wsl.zsh ]] && try cp ~/.wsl.zsh ~/.wsl.zsh.ba
-[[ $machine == "WSL" ]] && try cp $config/.wsl.zsh ~/
-
-[[ -a ~/.cygwin.zsh ]] && try cp ~/.cygwin.zsh ~/.cygwin.zsh.bak
-[[ $machine == "Cygwin" ]] && try cp $config/.cygwin.zsh ~/
-
-[[ -a ~/.linux.zsh ]] && try cp ~/.linux.zsh ~/.linux.zsh.bak
-[[ $machine == "Linux" ]] && try cp $config/.linux.zsh ~/
 
 # fzf plugin
 if [[ ! -f ~/.fzf.zsh ]]; then
@@ -181,86 +223,53 @@ fi
 try cp $config/cobalt2custom.zsh-theme $ZSH/custom/themes/
 try chmod 755 $ZSH/custom/themes/cobalt2custom.zsh-theme
 
-# Configure Git
-while true; do
-  ask "Copy this gitconfig?" "Y/n" gitCpYn
-  case $gitCpYn in
-    [Nn]* ) break;;
-    * )
-      if [[ -a ~/.gitconfig ]];
-        then mv ~/.gitconfig ~/.gitconfig.bak;
-      fi;
-      try cp $config/.gitconfig ~/;
-      break;;
-  esac
-done
-while true; do
-  ask "Configure your git user settings?" "Y/n" gitUserYn
-  case $gitUserYn in
-    [Nn]* ) break;;
-    * )
-      ask "What's your first name?" "First Name" first_name;
-      ask "What's your last name?" "Last Name" last_name;
-      gitname="$first_name $last_name";
-      git config --global user.name "$gitname";
-      echo ;
-      ask "What's your git account email?" "email" email;
-      git config --global user.email "$email";
-      break;;
-  esac
-done
-
-# Install NPM packages. Change these packages to your preferred global packages.
-packages="yarn gulp-cli create-react-app trash-cli empty-trash-cli typescript ngrok"
-check_npm
-if [[ $npm_i == true ]]; then
-  while true; do
-    ask  "Install global npm packages?" "Y/n" npmYn
-    case $npmYn in
-      [Nn]* ) break;;
-      * )
-        green "Installing global npm packages";
-        try npm i -g $packages || info "Retrying with sudo" && try sudo npm i -g $packages;
-        break;;
-    esac
-  done
-fi
-
 # WSL Configuration
-if [[ $machine == "WSL" ]]; then
-  if [[ ! -x $(command -v dos2unix) ]]; then
-    try sudo apt update
-    try sudo apt install dos2unix make
-  fi
+if [[ $WSL == true ]]; then
+  [[ -a ~/.wsl.zsh ]] && try cp ~/.wsl.zsh ~/.wsl.zsh.ba
+  try cp $config/.wsl.zsh ~/
+
+  git_config
+  ask_npm
   copy_ssh
-  green "Done!"
-  exit 0
+  success
 fi # End WSL
 
 # Linux Configuration
-if [[ $machine == "Linux" ]]; then
-  green "Done!"
-  exit 0
+if [[ $LINUX == true ]]; then
+  [[ -a ~/.linux.zsh ]] && try cp ~/.linux.zsh ~/.linux.zsh.bak
+  try cp $config/.linux.zsh ~/
+
+  git_config
+  ask_npm
+  success
 fi # End Linux
 
 # Cygwin configuration
-if [[ $machine == "Cygwin" ]]; then
+if [[ $CYGWIN == true ]]; then
+  [[ -a ~/.cygwin.zsh ]] && try cp ~/.cygwin.zsh ~/.cygwin.zsh.bak
+  try cp $config/.cygwin.zsh ~/
+
+  [[ -a ~/.minttyrc ]] && try cp ~/.minttyrc ~/.minttyrc.bak
+  try cp $config/.minttyrc ~/
+
   # Install apt-cyg to allow easy package installation
   if [[ ! -a /bin/apt-cyg ]]; then
     try wget rawgit.com/transcode-open/apt-cyg/master/apt-cyg -P /bin/
     chmod +x /bin/apt-cyg
   fi
 
-  try apt-cyg install chere gdb dos2unix openssh nano zip unzip bzip2 coreutils gawk grep sed diffutils patchutils tar bash-completion ca-certificates curl rsync
+  try install chere gdb dos2unix openssh nano zip unzip bzip2 coreutils gawk grep sed diffutils patchutils tar bash-completion ca-certificates curl rsync
 
-  # Remove cygwin's version of git since it's well supported.
-  try apt-cyg remove git
+  git_config
+  ask_npm
 
-  try cp $config/.minttyrc ~/
+  # Remove cygwin's version of git since it isn't well supported.
+  info "Removing Cygwin's git."
+  try apt-cyg remove git > /dev/null
+
   copy_ssh
-  green "Done!"
-  exit 0
+  success
 fi # End Cygwin
 
 echo -ne '\007'
-green "Done!"
+success
