@@ -10,6 +10,7 @@
   br = branch
   unstage = reset HEAD --
   undo = reset HEAD~ --
+  NUKE = reset HEAD --hard
   dc = diff --cached
 [push]
   default = simple
