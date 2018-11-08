@@ -9,6 +9,7 @@
   st = status -sb
   br = branch
   unstage = reset HEAD --
+  undo = reset HEAD~ --
   dc = diff --cached
 [push]
   default = simple
