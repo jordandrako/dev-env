@@ -9,7 +9,11 @@ end
 switch (uname -a)
   case '*Microsoft*'
     set -Ux MACHINE 'WSL'
-    set -Ux CODE_DIR '/mnt/c/code'
+    if type -d /c
+      set -Ux CODE_DIR '/c/code'
+    else
+      set -Ux CODE_DIR '/mnt/c/code'
+    end
   case 'Linux*'
     set -Ux MACHINE 'Linux'
     set -Ux CODE_DIR '~/code'

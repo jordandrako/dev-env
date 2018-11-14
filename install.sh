@@ -113,7 +113,7 @@ git_config() {
 share_fonts() {
   green "Configuring Windows Fonts."
   [[ -a /etc/fonts/local.conf ]] && try sudo cp /etc/fonts/local.conf /etc/fonts/local.conf.bak
-  try sudo cp $config/local.conf /etc/fonts/local.conf
+  [[ -d /c ]] && try sudo cp $config/local.root.conf /etc/fonts/local.conf || try sudo cp $config/local.mnt.conf /etc/fonts/local.conf
 }
 
 ask_fonts() {
@@ -154,7 +154,7 @@ ask_xserver() {
 case "$(uname -a)" in
   *Microsoft* )
     green "Now Configuring WSL";
-    ssh_path="/mnt/c/Users/$script_user/.ssh";
+    [[ -d /c ]] && ssh_path="/c/Users/$script_user/.ssh" || ssh_path="/mnt/c/Users/$script_user/.ssh";
     WSL=true;;
   CYGWIN* )
     green "Now Configuring Cygwin";
