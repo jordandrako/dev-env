@@ -14,3 +14,5 @@ fi
 
 [[ -x "$(command -v lsb_release)" ]] && [[ `lsb_release -sd | wc -l` -gt 0 ]] && OS="| OS: `lsb_release -sd`"
 echo -e "Welcome $USER! | Machine: $MACHINE $OS\n"
+
+[[ -s ~/.xsrv.zsh ]] && source ~/.xsrv.zsh
