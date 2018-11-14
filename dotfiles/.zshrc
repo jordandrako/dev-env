@@ -62,3 +62,6 @@ case `uname -a` in
   Linux* )
     [[ -s ~/.linux.zsh ]] && source ~/.linux.zsh;;
 esac
+
+# Source NPM configs
+[[ -s ~/.npm.nosudo.zsh ]] && source ~/.npm.nosudo.zsh

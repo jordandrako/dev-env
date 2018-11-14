@@ -4,6 +4,7 @@ initial="$PWD"
 config=$initial/dotfiles
 script_user=${1:-$USER}
 npm_packages="yarn gulp-cli create-react-app trash-cli empty-trash-cli typescript ngrok"
+NPM_ATTEMPTED=false
 
 # Green background echo
 green() {
@@ -41,11 +42,21 @@ success() {
   exit 0
 }
 
+npm_nosudo() {
+  # Permanent configs
+  [[ -a ~/.npmrc ]] && try cp ~/.npmrc ~/.npmrc.bak
+  try npm config set prefix '~/.npm-global'
+  [[ -a ~/.npm.nosudo.zsh ]] && try cp ~/.npm.nosudo.zsh ~/.npm.nosudo.zsh.bak
+
+  # Runtime config
+  export PATH=~/.npm-global/bin:$PATH
+}
+
 # Install NPM packages. Installs from $npm_packages variable at the top of the file.
 npm_install() {
   if [[ -x $(command -v npm) ]]; then
     green "Installing global npm packages"
-    try npm i -g $npm_packages || ( info "Retrying with sudo" && try sudo npm i -g $npm_packages )
+    try npm i -g $npm_packages || ( [[ $NPM_ATTEMPTED == false ]] && NPM_ATTEMPTED=true && info "Setting up global npm without sudo." && try npm_nosudo && try npm_install )
   else
     error "Couldn't find NPM, install packages manually."
   fi
@@ -53,7 +64,7 @@ npm_install() {
 
 ask_npm() {
   while true; do
-    info $npm_packages
+    info "$npm_packages"
     ask "Install the above global npm packages?" "y/N" npmYn
     case $npmYn in
       [yY]* )
