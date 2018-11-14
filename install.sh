@@ -99,6 +99,27 @@ git_config() {
   done
 }
 
+xserver_config() {
+  green "Configuring XServer: dbus and environment variables."
+  [[ -a /etc/sudoers.d/dbus ]] && try sudo cp /etc/sudoers.d/dbus ~/sudoers.dbus.bak
+  try sudo rm /etc/sudoers.d/dbus && echo "$USER ALL = (root) NOPASSWD: /etc/init.d/dbus" | sudo EDITOR='tee -a' visudo -f /etc/sudoers.d/dbus
+  [[ -a ~/.xsrv.zsh ]] && try cp ~/.xsrv.zsh ~/.xsrv.zsh.bak
+  try cp $config/.xsrv.zsh ~/
+}
+
+ask_xserver() {
+  while true; do
+    echo $npm_package
+    ask "Configure XServer for GUI applications?" "y/N" xYn
+    case $xYn in
+      [yY]* )
+        try xserver_config;
+        break;;
+      * ) break;;
+    esac
+  done
+}
+
 # Check system
 case "$(uname -a)" in
   *Microsoft* )
@@ -179,27 +200,6 @@ ask_fish() {
       esac
     done
   fi
-}
-
-xserver_config() {
-  green "Configuring XServer: dbus and environment variables."
-  [[ -a /etc/sudoers.d/dbus ]] && try sudo cp /etc/sudoers.d/dbus ~/sudoers.dbus.bak
-  try sudo rm /etc/sudoers.d/dbus && echo "$USER ALL = (root) NOPASSWD: /etc/init.d/dbus" | sudo EDITOR='tee -a' visudo -f /etc/sudoers.d/dbus
-  [[ -a ~/.xsrv.zsh ]] && try cp ~/.xsrv.zsh ~/.xsrv.zsh.bak
-  try cp $config/.xsrv.zsh ~/.xsrv.zsh
-}
-
-ask_xserver() {
-  while true; do
-    echo $npm_package
-    ask "Configure XServer for GUI applications?" "y/N" xYn
-    case $xYn in
-      [yY]* )
-        try xserver_config;
-        break;;
-      * ) break;;
-    esac
-  done
 }
 
 # Check for oh-my-zsh
