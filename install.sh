@@ -228,6 +228,8 @@ if [[ $WSL == true ]]; then
   [[ -a ~/.wsl.zsh ]] && try cp ~/.wsl.zsh ~/.wsl.zsh.ba
   try cp $config/.wsl.zsh ~/
 
+  try install lsb-release
+
   git_config
   ask_npm
   copy_ssh
@@ -238,6 +240,8 @@ fi # End WSL
 if [[ $LINUX == true ]]; then
   [[ -a ~/.linux.zsh ]] && try cp ~/.linux.zsh ~/.linux.zsh.bak
   try cp $config/.linux.zsh ~/
+
+  try install lsb-release
 
   git_config
   ask_npm
