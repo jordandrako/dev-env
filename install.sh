@@ -110,6 +110,25 @@ git_config() {
   done
 }
 
+share_fonts() {
+  green "Configuring Windows Fonts."
+  [[ -a /etc/fonts/local.conf ]] && try sudo cp /etc/fonts/local.conf /etc/fonts/local.conf.bak
+  try sudo cp $config/local.conf /etc/fonts/local.conf
+}
+
+ask_fonts() {
+  while true; do
+    echo $npm_package
+    ask "Share Windows fonts for GUI applications?" "y/N" fontsYn
+    case $fontsYn in
+      [yY]* )
+        try share_fonts;
+        break;;
+      * ) break;;
+    esac
+  done
+}
+
 xserver_config() {
   green "Configuring XServer: dbus and environment variables."
   [[ -a /etc/sudoers.d/dbus ]] && try sudo cp /etc/sudoers.d/dbus ~/sudoers.dbus.bak
@@ -120,11 +139,11 @@ xserver_config() {
 
 ask_xserver() {
   while true; do
-    echo $npm_package
     ask "Configure XServer for GUI applications?" "y/N" xYn
     case $xYn in
       [yY]* )
         try xserver_config;
+        try ask_fonts;
         break;;
       * ) break;;
     esac
