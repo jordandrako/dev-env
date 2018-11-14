@@ -18,6 +18,7 @@ if [[ -x "$(command -v git)" ]]; then
   alias gpl="git pull"
   alias gd="git diff"
   alias gdc="git diff --cached"
+  alias git-NUKE="git reset --hard HEAD && git clean -fdq"
 
   # Git finish. USAGE: gf "Commit message" [remote-branch]
   gf() {

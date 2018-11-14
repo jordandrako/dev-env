@@ -38,6 +38,7 @@ gpl=git pull $*
 gd=git diff $*
 gdc=git diff --cached $*
 gf=git add -A && git commit -m $* && git push
+git-NUKE=git reset --hard HEAD && git clean -fdq
 
 ;= NPM
 ns=npm start $*
