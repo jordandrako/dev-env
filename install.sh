@@ -53,7 +53,7 @@ npm_install() {
 
 ask_npm() {
   while true; do
-    echo $npm_packages
+    info $npm_packages
     ask "Install the above global npm packages?" "y/N" npmYn
     case $npmYn in
       [yY]* )
@@ -181,6 +181,27 @@ ask_fish() {
   fi
 }
 
+xserver_config() {
+  green "Configuring XServer: dbus and environment variables."
+  [[ -a /etc/sudoers.d/dbus ]] && try sudo cp /etc/sudoers.d/dbus ~/sudoers.dbus.bak
+  try sudo rm /etc/sudoers.d/dbus && echo "$USER ALL = (root) NOPASSWD: /etc/init.d/dbus" | sudo EDITOR='tee -a' visudo -f /etc/sudoers.d/dbus
+  [[ -a ~/.xsrv.zsh ]] && try cp ~/.xsrv.zsh ~/.xsrv.zsh.bak
+  try cp $config/.xsrv.zsh ~/.xsrv.zsh
+}
+
+ask_xserver() {
+  while true; do
+    echo $npm_package
+    ask "Configure XServer for GUI applications?" "y/N" xYn
+    case $xYn in
+      [yY]* )
+        try xserver_config;
+        break;;
+      * ) break;;
+    esac
+  done
+}
+
 # Check for oh-my-zsh
 ZSH=${ZSH:-~/.oh-my-zsh}
 if [[ ! -d $ZSH ]]; then
@@ -225,12 +246,13 @@ try chmod 755 $ZSH/custom/themes/cobalt2custom.zsh-theme
 
 # WSL Configuration
 if [[ $WSL == true ]]; then
-  [[ -a ~/.wsl.zsh ]] && try cp ~/.wsl.zsh ~/.wsl.zsh.ba
+  [[ -a ~/.wsl.zsh ]] && try cp ~/.wsl.zsh ~/.wsl.zsh.bak
   try cp $config/.wsl.zsh ~/
 
   try install lsb-release
 
   git_config
+  ask_xserver
   ask_npm
   copy_ssh
   success
