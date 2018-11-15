@@ -130,9 +130,7 @@ ask_fonts() {
 }
 
 xserver_config() {
-  green "Configuring XServer: dbus and environment variables."
-  [[ -a /etc/sudoers.d/dbus ]] && try sudo cp /etc/sudoers.d/dbus ~/sudoers.dbus.bak
-  try sudo rm /etc/sudoers.d/dbus && echo "$USER ALL = (root) NOPASSWD: /etc/init.d/dbus" | sudo EDITOR='tee -a' visudo -f /etc/sudoers.d/dbus
+  green "Configuring XServer."
   [[ -a ~/.xsrv.zsh ]] && try cp ~/.xsrv.zsh ~/.xsrv.zsh.bak
   try cp $config/.xsrv.zsh ~/
 }
