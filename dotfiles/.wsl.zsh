@@ -3,7 +3,7 @@
 ## WSL configs
 unsetopt BG_NICE
 export MACHINE="WSL"
-[[ -d /c/code ]] && export CODE_DIR=/c/code || export CODE_DIR=/mnt/c/code
+[[ -d /c && -z "$(ls -a /c)" ]] && export CODE_DIR=/c/code || export CODE_DIR=/mnt/c/code
 
 alias coder="cd $CODE_DIR"
 alias nsfi="cd $CODE_DIR && cd ui-fabric-website-internal/apps/fabric-website-internal && npm start"

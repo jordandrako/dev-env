@@ -113,7 +113,7 @@ git_config() {
 share_fonts() {
   green "Configuring Windows Fonts."
   [[ -a /etc/fonts/local.conf ]] && try sudo cp /etc/fonts/local.conf /etc/fonts/local.conf.bak
-  [[ -d /c ]] && try sudo cp $config/local.root.conf /etc/fonts/local.conf || try sudo cp $config/local.mnt.conf /etc/fonts/local.conf
+  [[ -d /c && -z "$(ls -a /c)" ]] && try sudo cp $config/local.root.conf /etc/fonts/local.conf || try sudo cp $config/local.mnt.conf /etc/fonts/local.conf
 }
 
 ask_fonts() {
