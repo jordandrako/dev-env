@@ -202,57 +202,20 @@ copy_ssh() {
   done
 }
 
-# Install fish functions
-install_fish() {
-  green "Installing fish"
-  if [[ $CYGWIN == true ]]; then
-    try install fish
-  else
-    try install fish || \
-    try sudo apt-add-repository -yu ppa:fish-shell/release-2 > /dev/null 2>&1 && \
-    try install fish && \
-    try chmod +x $initial/fish-config.fish && \
-    info "Fish is now installed. Run fish-config.fish for more fish config."
-  fi
-}
-
-ask_fish() {
-  if [[ ! -x "$(command -v fish)" ]]; then
-    while true; do
-      ask "Do you want to install fish?" "y/n" fishYn
-      case $fishYn in
-        [Yy]* )
-          try install_fish;
-          break;;
-        * ) break;;
-      esac
-    done
-  fi
-}
-
-# Check for oh-my-zsh
-ZSH=${ZSH:-~/.oh-my-zsh}
-if [[ ! -d $ZSH ]]; then
-  try wget -q https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O ~/install.oh-my-zsh.sh
-  try chmod +x ~/install.oh-my-zsh.sh
-  error "Ensure zsh is installed and run oh-my-zsh installer first @ '. ~/install.oh-my-zsh.sh'"
-  exit 1
-else
-  # zsh-syntax-highlighting plugin
-  if [[ ! -d $ZSH/custom/plugins/zsh-syntax-highlighting ]]; then
-    try git clone -q https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH/custom/plugins/zsh-syntax-highlighting
-  fi
-
-  # zsh-nvm plugin
-  if [[ ! -d $ZSH/custom/plugins/zsh-nvm ]]; then
-    try git clone -q https://github.com/lukechilds/zsh-nvm $ZSH/custom/plugins/zsh-nvm
-  fi
+# Check for antibody
+if [[ ! -x "$(command -v antibody)" ]]; then
+  try curl -sL git.io/antibody | sh -s
 fi
-try chmod -R 755 $ZSH/custom/plugins/zsh-syntax-highlighting $ZSH/custom/plugins/zsh-nvm
 
 # Global configuration
 [[ -a ~/.zshrc ]] && try cp ~/.zshrc ~/.zshrc.bak
 try cp $config/.zshrc ~/
+
+[[ -a ~/.theme.zsh ]] && try cp ~/.theme.zsh ~/.theme.zsh.bak
+try cp $config/.theme.zsh ~/
+
+[[ -a ~/.key-bindings.zsh ]] && try cp ~/.key-bindings.zsh ~/.key-bindings.zsh.bak
+try cp $config/.key-bindings.zsh ~/
 
 [[ -a ~/.aliases.sh ]] && try cp ~/.aliases.sh ~/.aliases.sh.bak
 try cp $config/.aliases.sh ~/
@@ -268,9 +231,9 @@ if [[ ! -f ~/.fzf.zsh ]]; then
 fi
 
 # Cobalt2 theme
-[[ -d $ZSH && ! -d $ZSH/custom/themes ]] && mkdir -p $ZSH/custom/themes
-try cp $config/cobalt2custom.zsh-theme $ZSH/custom/themes/
-try chmod 755 $ZSH/custom/themes/cobalt2custom.zsh-theme
+# [[ -d $ZSH && ! -d $ZSH/custom/themes ]] && mkdir -p $ZSH/custom/themes
+# try cp $config/cobalt2custom.zsh-theme $ZSH/custom/themes/
+# try chmod 755 $ZSH/custom/themes/cobalt2custom.zsh-theme
 
 # WSL Configuration
 if [[ $WSL == true ]]; then
