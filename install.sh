@@ -211,9 +211,6 @@ fi
 [[ -a ~/.zshrc ]] && try cp ~/.zshrc ~/.zshrc.bak
 try cp $config/.zshrc ~/
 
-[[ -a ~/.theme.zsh ]] && try cp ~/.theme.zsh ~/.theme.zsh.bak
-try cp $config/.theme.zsh ~/
-
 [[ -a ~/.key-bindings.zsh ]] && try cp ~/.key-bindings.zsh ~/.key-bindings.zsh.bak
 try cp $config/.key-bindings.zsh ~/
 
