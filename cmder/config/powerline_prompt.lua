@@ -21,12 +21,13 @@ function lambda_prompt_filter()
 	if promptValue == promptValueFolder then
 		cwd =  get_folder_name(cwd)
 	end
-    prompt = "\x1b[30;44m {cwd} {git}{hg}\n\x1b[1;30;36m{lamb} \x1b[0m"
+    prompt = "{cwd} {git}{hg} \x1b[0m"
     new_value = string.gsub(prompt, "{cwd}", cwd)
-    clink.prompt.value = string.gsub(new_value, "{lamb}", "λ")
+    clink.prompt.value = string.gsub(new_value, "{lamb}", "❯")
 end
 
-local arrowSymbol = ""
+local arrowSymbol = "❯"
+-- local arrowSymbol = ""
 local branchSymbol = ""
 
 --- copied from clink.lua
@@ -179,13 +180,13 @@ function colorful_git_prompt_filter()
 
     -- Colors for git status
     local colors = {
-        clean = "\x1b[34;42m"..arrowSymbol.."\x1b[30;42m ",
-        dirty = "\x1b[34;43m"..arrowSymbol.."\x1b[30;43m ",
+        clean = "\x1b[35m"..arrowSymbol.."\x1b[32m ",
+        dirty = "\x1b[35m"..arrowSymbol.."\x1b[31m ",
     }
 
     local closingcolors = {
-        clean = " \x1b[32;40m"..arrowSymbol,
-        dirty = "± \x1b[33;40m"..arrowSymbol,
+        clean = " \x1b[35m"..arrowSymbol,
+        dirty = " \x1b[35m"..arrowSymbol,
     }
 
     local git_dir = get_git_dir()
@@ -202,14 +203,14 @@ function colorful_git_prompt_filter()
                 closingcolor = closingcolors.dirty
             end
 
-            --clink.prompt.value = string.gsub(clink.prompt.value, "{git}", color.."  "..branch..closingcolor)
-            clink.prompt.value = string.gsub(clink.prompt.value, "{git}", color.." "..branchSymbol.." "..branch..closingcolor)
+            -- clink.prompt.value = string.gsub(clink.prompt.value, "{git}", color.."  "..branch..closingcolor)
+            clink.prompt.value = string.gsub(clink.prompt.value, "{git}", color..branch..closingcolor)
             return false
         end
     end
 
     -- No git present or not in git file
-    clink.prompt.value = string.gsub(clink.prompt.value, "{git}", "\x1b[34;40m"..arrowSymbol)
+    clink.prompt.value = string.gsub(clink.prompt.value, "{git}", "\x1b[35m"..arrowSymbol)
     return false
 end
 
