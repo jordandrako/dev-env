@@ -21,13 +21,12 @@ function lambda_prompt_filter()
 	if promptValue == promptValueFolder then
 		cwd =  get_folder_name(cwd)
 	end
-    prompt = "{cwd} {git}{hg} \x1b[0m"
+    prompt = "\x1b[34m{cwd}\x1b[0m {git}{hg} \x1b[0m"
     new_value = string.gsub(prompt, "{cwd}", cwd)
     clink.prompt.value = string.gsub(new_value, "{lamb}", "❯")
 end
 
 local arrowSymbol = "❯"
--- local arrowSymbol = ""
 local branchSymbol = ""
 
 --- copied from clink.lua
