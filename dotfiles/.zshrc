@@ -52,8 +52,20 @@ antibody bundle marzocchi/zsh-notify
 antibody bundle buonomo/yarn-completion
 
 # Theme
+SPACESHIP_CHAR_SYMBOL="❯ "
+SPACESHIP_PROMPT_ORDER=(
+  dir
+  line_sep
+  jobs
+  exit_code
+  char
+)
+
+SPACESHIP_RPROMPT_ORDER=(
+  git
+)
+
 antibody bundle denysdovhan/spaceship-prompt
-antibody bundle jackharrisonsherlock/common
 
 # Color configuration
 [[ -s ~/.dircolors ]] && eval $(dircolors -b $HOME/.dircolors)
