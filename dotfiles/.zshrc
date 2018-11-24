@@ -1,57 +1,81 @@
-# Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
+# Enable autocompletions
+autoload -Uz compinit
+typeset -i updated_at=$(date +'%j' -r ~/.zcompdump 2>/dev/null || stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)
+if [ $(date +'%j') != $updated_at ]; then
+  compinit -i
+else
+  compinit -C -i
+fi
+zmodload -i zsh/complist
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(ssh-agent, zsh-nvm, zsh-syntax-highlighting, shrink-path)
+# Save history so we get auto suggestions
+HISTFILE=$HOME/.zsh_history
+HISTSIZE=100000
+SAVEHIST=$HISTSIZE
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-ZSH_THEME="cobalt2custom"
+# Options
+setopt auto_cd # cd by typing directory name if it's not a command
+setopt auto_list # automatically list choices on ambiguous completion
+setopt auto_menu # automatically use menu completion
+setopt always_to_end # move cursor to end if word had one match
+setopt hist_ignore_all_dups # remove older duplicate entries from history
+setopt hist_reduce_blanks # remove superfluous blanks from history items
+setopt inc_append_history # save history entries as soon as they are entered
+setopt share_history # share history between different instances
+setopt correct_all # autocorrect commands
+setopt interactive_comments # allow comments in interactive shells
 
-### User configuration ###
+# Improve autocompletion style
+zstyle ':completion:*' menu select # select completions with arrow keys
+zstyle ':completion:*' group-name '' # group results by category
+zstyle ':completion:::::' completer _expand _complete _ignored _approximate # enable approximate matches for completion
+
+# Customize PATH
 export PATH="$HOME/bin:/usr/local/bin:$PATH"
-source $ZSH/oh-my-zsh.sh
 
 ## Custom Plugins
-# N: Alternative to nvm
-export N_PREFIX="$HOME/.bin/n"
-[[ -x "$N_PREFIX/bin/n" ]] && [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH="$N_PREFIX/bin:$PATH"
-
 # fzf: Fuzzy completion
 [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
 
-# Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='nano'
-else
-  export EDITOR='nano'
-fi
+## Antibody
+source <(antibody init)
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
+# Plugins
+antibody bundle djui/alias-tips
+antibody bundle caarlos0/zsh-open-github-pr
+antibody bundle robbyrussell/oh-my-zsh path:plugins/ssh-agent
+antibody bundle zdharma/fast-syntax-highlighting
+antibody bundle zsh-users/zsh-autosuggestions
+antibody bundle zsh-users/zsh-history-substring-search
+antibody bundle zsh-users/zsh-completions
+antibody bundle marzocchi/zsh-notify
+antibody bundle buonomo/yarn-completion
 
-# Config
+# Theme
+SPACESHIP_CHAR_SYMBOL="❯ "
+SPACESHIP_PROMPT_ORDER=(
+  dir
+  line_sep
+  jobs
+  exit_code
+  char
+)
+
+SPACESHIP_RPROMPT_ORDER=(
+  git
+)
+
+antibody bundle denysdovhan/spaceship-prompt
+
+# Color configuration
+[[ -s ~/.dircolors ]] && eval $(dircolors -b $HOME/.dircolors)
+
+# Aliases
 alias zconf="nano ~/.zshrc"
 alias zsource="clear && source ~/.zshrc"
 
 # Include alias file
 [[ -s ~/.aliases.sh ]] && source ~/.aliases.sh
-
-# Color configuration
-# LS_COLOR should contain the LS_COLORS overrides you desire.
-# Override "other writable" color
-OTHER_WRITABLE="ow=01;34"
-# Add OTHER_WRITABLE to the end of existing LS_COLORS
-LS_COLORS="$LS_COLORS:$OTHER_WRITABLE"
-# Re-export LS_COLORS
-export LS_COLORS
 
 # Source OS specific configs
 case `uname -a` in
