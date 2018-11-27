@@ -38,47 +38,57 @@ export PATH="$HOME/bin:/usr/local/bin:$PATH"
 [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
 
 ## Antibody
-source <(antibody init)
+if [[ -x `command -v antibody` ]]; then
+  source <(antibody init)
 
-# Plugins
-antibody bundle djui/alias-tips
-antibody bundle caarlos0/zsh-open-github-pr
-antibody bundle robbyrussell/oh-my-zsh path:plugins/ssh-agent
-antibody bundle zdharma/fast-syntax-highlighting
-antibody bundle zsh-users/zsh-autosuggestions
-antibody bundle zsh-users/zsh-history-substring-search
-antibody bundle zsh-users/zsh-completions
-antibody bundle marzocchi/zsh-notify
-antibody bundle buonomo/yarn-completion
+  # Plugins
+  antibody bundle caarlos0/zsh-mkc
+  antibody bundle caarlos0/zsh-git-sync
+  antibody bundle caarlos0/zsh-open-github-pr
+  antibody bundle robbyrussell/oh-my-zsh path:plugins/ssh-agent
+  antibody bundle zdharma/fast-syntax-highlighting
+  antibody bundle zsh-users/zsh-autosuggestions
+  antibody bundle zsh-users/zsh-history-substring-search
+  antibody bundle zsh-users/zsh-completions
+  antibody bundle marzocchi/zsh-notify
+  antibody bundle buonomo/yarn-completion
+  antibody bundle luismayta/zsh-docker-compose-aliases
+  antibody bundle Tarrasch/zsh-colors
+  antibody bundle gko/ssh-connect
 
-# Theme
-SPACESHIP_CHAR_SYMBOL="❯ "
-SPACESHIP_CHAR_SYMBOL_ROOT="# "
-SPACESHIP_PROMPT_ORDER=(
-  dir
-  line_sep
-  jobs
-  exit_code
-  char
-)
+  # Plugins with dependencies
+  [[ -x `command -v python` ]] && antibody bundle djui/alias-tips
 
-SPACESHIP_RPROMPT_ORDER=(
-  git
-)
+  # Customize Theme
+  SPACESHIP_CHAR_SYMBOL="❯ "
+  SPACESHIP_CHAR_SYMBOL_ROOT="# "
+  SPACESHIP_PROMPT_ORDER=(
+    dir
+    line_sep
+    jobs
+    exit_code
+    char
+  )
 
-antibody bundle denysdovhan/spaceship-prompt
+  SPACESHIP_RPROMPT_ORDER=(
+    git
+  )
 
-# Color configuration
+  # Load Theme
+  antibody bundle denysdovhan/spaceship-prompt
+fi # End Antibody
+
+## Color configuration
 [[ -s ~/.dircolors ]] && eval $(dircolors -b $HOME/.dircolors)
 
-# Aliases
+## Aliases
 alias zconf="nano ~/.zshrc"
 alias zsource="clear && source ~/.zshrc"
 
 # Include alias file
 [[ -s ~/.aliases.sh ]] && source ~/.aliases.sh
 
-# Source OS specific configs
+## OS specific configs
 case `uname -a` in
   *Microsoft* )
     [[ -s ~/.wsl.zsh ]] && source ~/.wsl.zsh;;
