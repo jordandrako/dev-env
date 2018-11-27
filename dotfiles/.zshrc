@@ -53,6 +53,7 @@ antibody bundle buonomo/yarn-completion
 
 # Theme
 SPACESHIP_CHAR_SYMBOL="❯ "
+SPACESHIP_CHAR_SYMBOL_ROOT="# "
 SPACESHIP_PROMPT_ORDER=(
   dir
   line_sep
