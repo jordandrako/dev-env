@@ -100,3 +100,6 @@ esac
 
 # Source NPM configs
 [[ -s ~/.npm.nosudo.zsh ]] && source ~/.npm.nosudo.zsh
+
+# Source RVM
+[[ -s ~/.rvm/scripts/rvm ]] && source ~/.rvm/scripts/rvm
