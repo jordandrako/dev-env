@@ -37,6 +37,9 @@ export PATH="$HOME/bin:/usr/local/bin:$PATH"
 # fzf: Fuzzy completion
 [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
 
+# RVM: Ruby version manager
+[[ -s ~/.rvm/scripts/rvm ]] && source ~/.rvm/scripts/rvm
+
 ## Antibody
 if [[ -x `command -v antibody` ]]; then
   source <(antibody init)
@@ -100,6 +103,3 @@ esac
 
 # Source NPM configs
 [[ -s ~/.npm.nosudo.zsh ]] && source ~/.npm.nosudo.zsh
-
-# Source RVM
-[[ -s ~/.rvm/scripts/rvm ]] && source ~/.rvm/scripts/rvm
