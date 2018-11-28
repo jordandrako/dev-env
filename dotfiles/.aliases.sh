@@ -141,6 +141,7 @@ fi
 
 # Docker
 if [[ -x `command -v docker` ]]; then
+  docker_i=true
   alias dl="docker logs"
   alias dps="docker ps"
   alias dpsa="docker ps -a"
@@ -177,7 +178,7 @@ if [[ -x `command -v hassio` ]]; then
 fi
 
 # Hass (docker)
-if [[ -x `command -v docker` && `docker ps -q -f name=hass` && ! `docker ps -aq -f status=exited -f name=hass` ]]; then
+if [[ docker_i && `docker ps -q -f name=hass` && ! `docker ps -aq -f status=exited -f name=hass` ]]; then
   alias hass_conf="cd ~/.config/docker-configs/hass"
   alias hass_check="docker exec -it hass python -m homeassistant -c /config --script check_config"
   alias hass_logs="docker logs hass"

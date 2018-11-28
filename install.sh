@@ -8,17 +8,17 @@ NPM_ATTEMPTED=false
 
 # Green background echo
 green() {
-  echo -e "\n\e[1;30;42m $1 \e[0m\n"
+  echo -e "\n\e[1;32m$1\e[0m\n"
 }
 
 # Yellow background echo
 info() {
-  echo -e "\n\e[1;30;43m $1 \e[0m\n"
+  echo -e "\n\e[1;33m$1\e[0m\n"
 }
 
 # Error echo
 error() {
-  echo -e "\n\e[1;5;30;41m $1 \e[0m\n" 1>&2 && echo -ne '\007' && exit 1
+  echo -e "\n\e[1;5;31m$1\e[0m\n" 1>&2 && echo -ne '\007' && exit 1
 }
 
 # Perform task successfully or print failed
@@ -32,7 +32,7 @@ ask() {
   [[ ! $1 ]] && error "You must pass a question to ask!"
   question=$1
   options=${2:-"y/n"}
-  echo -e "\n\e[1;30;44m $question \e[0m" && echo "[$options] > "
+  echo -e "\n\e[1;34m$question\e[0m" && echo "[$options] > "
   [[ $3 ]] && read $3
 }
 
@@ -182,8 +182,6 @@ install() {
 
 # Copy Windows user SSH
 copy_ssh() {
-  green "[Windows ONLY] Copy user SSH"
-
   if [[ ! $CYGWIN == true && ! -x $(command -v dos2unix) ]]; then
     try install dos2unix make
   fi
