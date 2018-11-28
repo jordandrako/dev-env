@@ -26,7 +26,7 @@ alias rd=rmdir
 alias d="dirs -v | head -10"
 
 # List directory contents
-if [[ -x "$(command -v colorls)" ]]; then
+if [[ -x `command -v colorls` ]]; then
   source $(dirname $(gem which colorls))/tab_complete.sh
   alias lc="colorls -lA --sd --gs"
   alias ls="colorls"
@@ -43,7 +43,7 @@ else
 fi
 
 # Git
-if [[ -x "$(command -v git)" ]]; then
+if [[ -x `command -v git` ]]; then
   alias gs="git status -s"
   alias gss="git status"
   alias gl="git lg"
@@ -64,11 +64,11 @@ if [[ -x "$(command -v git)" ]]; then
 
   # Git finish. USAGE: gf "Commit message" [remote-branch]
   gf() {
-    if [[ $(git status -s | wc -l) -lt 1 ]]; then
+    if [[ `git status -s | wc -l` -lt 1 ]]; then
       echo "No changes."
     elif [[ ! $1 ]]; then
       echo "You must specify a commit message! USAGE: gf \"Commit message\" [remote-branch]"
-    elif [[ $2 && $(git ls-remote --heads origin $2 | wc -l) == 0 ]]; then
+    elif [[ $2 && `git ls-remote --heads origin $2 | wc -l` == 0 ]]; then
       echo "Branch \"$2\" does not exist on remote origin."
     else
       git add -A && git commit -m "$1" && [[ $2 ]] && git push origin $2
@@ -87,7 +87,7 @@ if [[ -x "$(command -v git)" ]]; then
     fi
     wipBranch="$originalBranch--WIP_$date"
 
-    if [[ $(git status -s | wc -l) -lt 1 ]]; then
+    if [[ `git status -s | wc -l` -lt 1 ]]; then
       echo "No changes."
     else
       # If wipBranch exists already, delete it before making new WIP branch.
@@ -109,7 +109,7 @@ else
 fi
 
 # NPM
-if [[ -x "$(command -v npm)" ]]; then
+if [[ -x `command -v npm` ]]; then
   alias ns="npm start"
   alias ni="npm i"
   alias nid="npm i -D"
@@ -118,7 +118,7 @@ if [[ -x "$(command -v npm)" ]]; then
   alias nrmg="npm rm -g"
 
   # Yarn
-  if [[ -x "$(command -v yarn)" ]]; then
+  if [[ -x `command -v yarn` ]]; then
     alias ys="yarn start"
     alias ya="yarn add"
     alias yad="yarn add -D"
@@ -126,12 +126,12 @@ if [[ -x "$(command -v npm)" ]]; then
   fi
 
   # Create react app
-  if [[ -x "$(command -v create-react-app)" ]]; then
+  if [[ -x `command -v create-react-app` ]]; then
     alias cra="create-react-app"
     crats() {
       create-react-app $1 --typescript
     }
-  elif [[ -x "$(command -v npx)" ]]; then
+  elif [[ -x `command -v npx` ]]; then
     alias cra="npx create-react-app"
     crats() {
       npx create-react-app $1 --typescript
@@ -140,13 +140,13 @@ if [[ -x "$(command -v npm)" ]]; then
 fi
 
 # Docker
-if [[ -x "$(command -v docker)" ]]; then
+if [[ -x `command -v docker` ]]; then
   alias dl="docker logs"
   alias dps="docker ps"
   alias dpsa="docker ps -a"
-  alias dre="docker restart"
+  alias dr="docker restart"
   alias drestart="docker restart"
-  alias drea="docker restart $(docker ps -a -q)"
+  alias dra="docker restart $(docker ps -a -q)"
   alias drestartall="docker restart $(docker ps -a -q)"
   alias dcu="docker-compose up"
   alias dcd="docker-compose down"
@@ -159,12 +159,12 @@ if [[ -x "$(command -v docker)" ]]; then
 fi
 
 # Ngrok
-if [[ -x "$(command -v ngrok)" ]]; then
+if [[ -x `command -v ngrok` ]]; then
   alias ngr="ngrok http --host-header=rewrite"
 fi
 
 # hassio
-if [[ -x "$(command -v hassio)" ]]; then
+if [[ -x `command -v hassio` ]]; then
   alias conf="cd /config"
   alias ha="hassio ha"
   alias logs="hassio ha logs"
@@ -191,7 +191,7 @@ if [[ -x `command -v docker` && `docker ps -q -f name=hass` && ! `docker ps -aq 
 fi
 
 # Rush
-if [[ -x "$(command -v rush)" ]]; then
+if [[ -x `command -v rush` ]]; then
   alias rb="rush build"
   alias rrb="rush rebuild"
   alias rbt="rush build -t"
