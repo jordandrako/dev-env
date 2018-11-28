@@ -185,7 +185,7 @@ if [[ docker_i && `docker ps -q -f name=hass` && ! `docker ps -aq -f status=exit
 
   hass_restart() {
     echo "Running config check..."
-    hass_check && \
+    docker exec -it hass python -m homeassistant -c /config --script check_config && \
     echo "Config check passed. Restarting..." && \
     docker restart hass
   }
