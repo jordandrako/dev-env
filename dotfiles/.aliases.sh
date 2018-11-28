@@ -27,12 +27,12 @@ alias d="dirs -v | head -10"
 
 # List directory contents
 if [[ -x "$(command -v colorls)" ]]; then
-  alias lc="colorls -lA --sd"
+  alias lc="colorls -lA --sd --gs"
   alias ls="colorls"
   alias lsa="colorls -la"
-  alias l="colorls -la --sd"
-  alias ll="colorls -l --sd"
-  alias la="colorls -lA --sd"
+  alias l="colorls -la --sd --gs"
+  alias ll="colorls -l --sd --gs"
+  alias la="colorls -lA --sd --gs"
 else
   alias ls="ls --color=always"
   alias lsa="ls -lah"
