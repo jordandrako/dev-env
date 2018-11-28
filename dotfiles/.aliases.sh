@@ -27,6 +27,7 @@ alias d="dirs -v | head -10"
 
 # List directory contents
 if [[ -x "$(command -v colorls)" ]]; then
+  source $(dirname $(gem which colorls))/tab_complete.sh
   alias lc="colorls -lA --sd --gs"
   alias ls="colorls"
   alias lsa="colorls -la"
