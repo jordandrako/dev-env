@@ -75,7 +75,7 @@ if [[ -x "$(command -v git)" ]]; then
     fi
   }
 
-  # Git WIP (Work-In-Progress). USAGE: wip [-l (--local: don't push)]
+  # Git WIP (Work-In-Progress). USAGE: gwip [-l (--local: don't push)]
   # WARNING: WIP branches are not a replacement for stash!
   # They are deleted if '--local' is NOT used OR it is ran again the same day.
   gwip() {
@@ -141,26 +141,26 @@ fi
 
 # Docker
 if [[ -x "$(command -v docker)" ]]; then
+  alias dl="docker logs"
   alias dps="docker ps"
   alias dpsa="docker ps -a"
+  alias dre="docker restart"
   alias drestart="docker restart"
+  alias drea="docker restart $(docker ps -a -q)"
   alias drestartall="docker restart $(docker ps -a -q)"
-  alias dup="docker-compose up"
+  alias dcu="docker-compose up"
+  alias dcd="docker-compose down"
+
+  # Check if container is running. Returns true or false.
+  # USAGE: disup container-name && <command if true> || <command if false>
+  disup() {
+    [[ `docker ps -q -f name=$1` && ! `docker ps -aq -f status=exited -f name=$1` ]] && true || false
+  }
 fi
 
 # Ngrok
 if [[ -x "$(command -v ngrok)" ]]; then
   alias ngr="ngrok http --host-header=rewrite"
-fi
-
-# create-react-app
-if [[ -x "$(command -v create-react-app)" ]]; then
-  cra_i=true
-fi
-
-# tree
-if [[ -x "$(command -v tree)" ]]; then
-  alias tree="tree -I 'node_modules|.git|cache'"
 fi
 
 # hassio
@@ -173,6 +173,20 @@ if [[ -x "$(command -v hassio)" ]]; then
     hassio ha check && \
     echo "Config check passed. Restarting..." && \
     hassio ha restart $*
+  }
+fi
+
+# Hass (docker)
+if [[ -x `command -v docker` && `docker ps -q -f name=hass` && ! `docker ps -aq -f status=exited -f name=hass` ]]; then
+  alias hass_conf="cd ~/.config/docker-configs/hass"
+  alias hass_check="docker exec -it hass python -m homeassistant -c /config --script check_config"
+  alias hass_logs="docker logs hass"
+
+  hass_restart() {
+    echo "Running config check..."
+    hass_check && \
+    echo "Config check passed. Restarting..." && \
+    docker restart hass
   }
 fi
 
