@@ -179,11 +179,11 @@ fi
 
 # Hass (docker)
 if [[ docker_i && `docker ps -q -f name=hass` && ! `docker ps -aq -f status=exited -f name=hass` ]]; then
-  alias hass_conf="cd ~/.config/docker-configs/hass"
-  alias hass_check="docker exec -it hass python -m homeassistant -c /config --script check_config"
-  alias hass_logs="docker logs hass"
+  alias ha-conf="cd ~/.config/docker-configs/hass"
+  alias ha-check="docker exec -it hass python -m homeassistant -c /config --script check_config"
+  alias ha-logs="docker logs hass"
 
-  hass_restart() {
+  ha-restart() {
     echo "Running config check..."
     docker exec -it hass python -m homeassistant -c /config --script check_config && \
     echo "Config check passed. Restarting..." && \
