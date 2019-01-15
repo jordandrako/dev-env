@@ -84,6 +84,9 @@ fi # End Antibody
 ## Color configuration
 [[ -s ~/.dircolors ]] && eval $(dircolors -b $HOME/.dircolors)
 
+# Source NPM configs
+[[ -s ~/.npm.nosudo.zsh ]] && source ~/.npm.nosudo.zsh
+
 ## Aliases
 alias zconf="nano ~/.zshrc"
 alias zsource="clear && source ~/.zshrc"
@@ -100,6 +103,3 @@ case `uname -a` in
   Linux* )
     [[ -s ~/.linux.zsh ]] && source ~/.linux.zsh;;
 esac
-
-# Source NPM configs
-[[ -s ~/.npm.nosudo.zsh ]] && source ~/.npm.nosudo.zsh

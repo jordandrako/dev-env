@@ -3,7 +3,7 @@
 initial="$PWD"
 config=$initial/dotfiles
 script_user=${1:-$USER}
-npm_packages="yarn gulp-cli create-react-app trash-cli empty-trash-cli typescript ngrok"
+npm_packages="yarn pnpm gulp-cli create-react-app trash-cli empty-trash-cli typescript ngrok"
 NPM_ATTEMPTED=false
 
 # Green background echo
@@ -47,6 +47,7 @@ npm_nosudo() {
   [[ -a ~/.npmrc ]] && try cp ~/.npmrc ~/.npmrc.bak
   try npm config set prefix '~/.npm-global'
   [[ -a ~/.npm.nosudo.zsh ]] && try cp ~/.npm.nosudo.zsh ~/.npm.nosudo.zsh.bak
+  try cp $config/.npm.nosudo.zsh ~/
 
   # Runtime config
   export PATH=~/.npm-global/bin:$PATH
