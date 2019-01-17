@@ -203,4 +203,5 @@ fi
 # Apt
 if [[ -x `command -v apt` || -x `command -v apt-get` ]]; then
   alias apt-upgrade="sudo apt update && sudo apt -y upgrade"
+  alias apt-install="sudo apt install"
 fi
