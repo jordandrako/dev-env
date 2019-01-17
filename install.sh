@@ -131,7 +131,7 @@ ask_fonts() {
 }
 
 xserver_config() {
-  green "Configuring XServer."
+  green "Configuring XServer"
   [[ -a ~/.xsrv.zsh ]] && try cp ~/.xsrv.zsh ~/.xsrv.zsh.bak
   try cp $config/.xsrv.zsh ~/
   try install xfce4 xfce4-terminal
