@@ -5,6 +5,7 @@ setopt auto_pushd
 setopt pushd_ignore_dups
 setopt pushdminus
 
+# Directory navigation
 alias -g ...="../.."
 alias -g ....="../../.."
 alias -g .....="../../../.."
@@ -197,4 +198,9 @@ if [[ -x `command -v rush` ]]; then
   alias rbt="rush build -t"
   alias rbtf="rush build -t office-ui-fabric-react"
   alias rbti="rush build -t fabric-website-internal"
+fi
+
+# Apt
+if [[ -x `command -v apt` || -x `command -v apt-get` ]]; then
+  alias apt-upgrade="sudo apt update && sudo apt -y upgrade"
 fi
