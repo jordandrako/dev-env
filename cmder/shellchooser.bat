@@ -19,7 +19,7 @@ ECHO [8]  Exit
 ECHO (*^)  Default option
 ECHO.
 
-CHOICE /N /C:12345678 /D 1 /T 10 /M "> "
+CHOICE /N /C:12345678 /D 1 /T 5 /M "> "
 CLS
 IF ERRORLEVEL ==8 GOTO end
 IF ERRORLEVEL ==7 powershell -Command "Start-Process hyper -Verb RunAs"
@@ -41,7 +41,7 @@ ECHO [4]  Exit
 ECHO (*^)  Default option
 ECHO.
 
-CHOICE /N /C:1234 /D 1 /T 10 /M "> "
+CHOICE /N /C:1234 /D 1 /T 5 /M "> "
 CLS
 IF ERRORLEVEL ==4 GOTO END
 IF ERRORLEVEL ==3 GOTO TOP
