@@ -12,6 +12,7 @@ history=cat "%CMDER_ROOT%\config\.history"
 unalias=alias /d $1
 vi=vim $*
 cmderr=cd /d "%CMDER_ROOT%"
+shell="%CMDER_ROOT%\shellchooser.bat"
 
 ;= Directories
 coder=cd /d "%CODE_DIR%"
