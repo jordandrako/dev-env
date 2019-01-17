@@ -114,7 +114,7 @@ git_config() {
 share_fonts() {
   green "Configuring Windows Fonts."
   [[ -a /etc/fonts/local.conf ]] && try sudo cp /etc/fonts/local.conf /etc/fonts/local.conf.bak
-  [[ -d /c && -z "$(ls -a /c)" ]] && try sudo cp $config/local.root.conf /etc/fonts/local.conf || try sudo cp $config/local.mnt.conf /etc/fonts/local.conf
+  try sudo cp $config/local.conf /etc/fonts/
 }
 
 ask_fonts() {
@@ -134,6 +134,7 @@ xserver_config() {
   green "Configuring XServer."
   [[ -a ~/.xsrv.zsh ]] && try cp ~/.xsrv.zsh ~/.xsrv.zsh.bak
   try cp $config/.xsrv.zsh ~/
+  try install xfce4 xfce4-terminal
 }
 
 ask_xserver() {
@@ -225,11 +226,6 @@ if [[ ! -f ~/.fzf.zsh ]]; then
   try git clone -q --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
   try ~/.fzf/install --no-bash --no-fish --no-update-rc --key-bindings --completion
 fi
-
-# Cobalt2 theme
-# [[ -d $ZSH && ! -d $ZSH/custom/themes ]] && mkdir -p $ZSH/custom/themes
-# try cp $config/cobalt2custom.zsh-theme $ZSH/custom/themes/
-# try chmod 755 $ZSH/custom/themes/cobalt2custom.zsh-theme
 
 # WSL Configuration
 if [[ $WSL == true ]]; then
