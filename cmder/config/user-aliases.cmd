@@ -13,6 +13,7 @@ unalias=alias /d $1
 vi=vim $*
 cmderr=cd /d "%CMDER_ROOT%"
 shell="%CMDER_ROOT%\shellchooser.bat"
+xdesktop="%CMDER_ROOT%\start-wsl-xfce-desktop.bat"
 
 ;= Directories
 coder=cd /d "%CODE_DIR%"
