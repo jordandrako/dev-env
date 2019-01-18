@@ -135,7 +135,7 @@ xserver_config() {
   [[ -a ~/.xsrv.zsh ]] && try cp ~/.xsrv.zsh ~/.xsrv.zsh.bak
   try cp $config/.xsrv.zsh ~/
   # Don't use install function, as user input is required.
-  try sudo apt-get update && try sudo apt-get install -y xfce4 xfce4-terminal xfce4-whiskermenu-plugin arc-theme papirus-icon-theme
+  try sudo apt-get update && try sudo apt-get install -y xfce4 xfce4-terminal xfce4-whiskermenu-plugin arc-theme papirus-icon-theme firefox-esr
   # Remove screensavers
   try sudo apt-get -qq -y purge xscreensaver gnome-screensaver light-locker i3lock >> /dev/null
 }
