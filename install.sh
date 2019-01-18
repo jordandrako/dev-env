@@ -134,7 +134,7 @@ xserver_config() {
   green "Configuring XServer"
   [[ -a ~/.xsrv.zsh ]] && try cp ~/.xsrv.zsh ~/.xsrv.zsh.bak
   try cp $config/.xsrv.zsh ~/
-  try install xfce4 xfce4-terminal
+  try sudo apt-get update && try sudo apt-get install -y xfce4 xfce4-terminal # Don't use install function, as user input is required.
   # Remove screensavers
   try sudo apt-get -qq -y purge xscreensaver gnome-screensaver light-locker i3lock >> /dev/null
 }
