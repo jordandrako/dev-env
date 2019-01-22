@@ -52,15 +52,18 @@ install() {
   fi
 }
 
-npm_nosudo() {
-  # Permanent configs
-  [[ -a ~/.npmrc ]] && try cp ~/.npmrc ~/.npmrc.bak
-  try npm config set prefix '~/.npm-global'
-  [[ -a ~/.npm.nosudo.zsh ]] && try cp ~/.npm.nosudo.zsh ~/.npm.nosudo.zsh.bak
-  try cp $config/.npm.nosudo.zsh ~/
-
-  # Runtime config
-  export PATH=~/.npm-global/bin:$PATH
+# Ask if user wants to install global npm packages.
+ask_npm() {
+  while true; do
+    info "$npm_packages"
+    ask "Install the above global npm packages?" "y/N" npmYn
+    case $npmYn in
+      [yY]* )
+        try npm_install;
+        break;;
+      * ) break;;
+    esac
+  done
 }
 
 # Install NPM packages. Installs from $npm_packages variable at the top of the file.
@@ -73,13 +76,29 @@ npm_install() {
   fi
 }
 
-ask_npm() {
+# If global npm install fails, set up a workaround to store global packages in home directory.
+npm_nosudo() {
+  # Permanent configs
+  [[ -a ~/.npmrc ]] && try cp ~/.npmrc ~/.npmrc.bak
+  try npm config set prefix '~/.npm-global'
+  [[ -a ~/.npm.nosudo.zsh ]] && try cp ~/.npm.nosudo.zsh ~/.npm.nosudo.zsh.bak
+  try cp $config/.npm.nosudo.zsh ~/
+
+  # Runtime config
+  export PATH=~/.npm-global/bin:$PATH
+}
+
+# Ask to copy git config.
+git_config() {
   while true; do
-    info "$npm_packages"
-    ask "Install the above global npm packages?" "y/N" npmYn
-    case $npmYn in
-      [yY]* )
-        try npm_install;
+    ask "Copy this git config?" "y/N" gitCpYn
+    case $gitCpYn in
+      [Yy]* )
+        if [[ -a ~/.gitconfig ]];
+          then mv ~/.gitconfig ~/.gitconfig.bak;
+        fi;
+        try cp $config/.gitconfig ~/;
+        git_global;
         break;;
       * ) break;;
     esac
@@ -105,28 +124,33 @@ git_global() {
   done
 }
 
-git_config() {
+# Ask to set up WSL for GUI apps.
+ask_xserver() {
   while true; do
-    ask "Copy this gitconfig?" "y/N" gitCpYn
-    case $gitCpYn in
-      [Yy]* )
-        if [[ -a ~/.gitconfig ]];
-          then mv ~/.gitconfig ~/.gitconfig.bak;
-        fi;
-        try cp $config/.gitconfig ~/;
-        git_global;
+    ask "Configure WSL for GUI applications?" "y/N" xYn
+    case $xYn in
+      [yY]* )
+        try xserver_config;
+        try ask_fonts;
         break;;
       * ) break;;
     esac
   done
 }
 
-share_fonts() {
-  green "Configuring Windows Fonts."
-  [[ -a /etc/fonts/local.conf ]] && try sudo cp /etc/fonts/local.conf /etc/fonts/local.conf.bak
-  try sudo cp $config/local.conf /etc/fonts/
+# Install packages for GUI apps.
+xserver_config() {
+  green "Configuring XServer"
+  [[ -a ~/.xsrv.zsh ]] && try cp ~/.xsrv.zsh ~/.xsrv.zsh.bak
+  try cp $config/.xsrv.zsh ~/
+  # Don't use install function, as user input is required.
+  try sudo apt-get update && try sudo apt-get install -y xfce4 xfce4-terminal xfce4-whiskermenu-plugin arc-theme papirus-icon-theme firefox-esr
+  # Remove screensavers
+  info "Removing screensavers"
+  try sudo apt-get -y purge xscreensaver gnome-screensaver light-locker i3lock >> /dev/null
 }
 
+# Ask to share windows fonts with WSL.
 ask_fonts() {
   while true; do
     echo $npm_package
@@ -140,30 +164,14 @@ ask_fonts() {
   done
 }
 
-xserver_config() {
-  green "Configuring XServer"
-  [[ -a ~/.xsrv.zsh ]] && try cp ~/.xsrv.zsh ~/.xsrv.zsh.bak
-  try cp $config/.xsrv.zsh ~/
-  # Don't use install function, as user input is required.
-  try sudo apt-get update && try sudo apt-get install -y xfce4 xfce4-terminal xfce4-whiskermenu-plugin arc-theme papirus-icon-theme firefox-esr
-  # Remove screensavers
-  info "Removing screensavers"
-  try sudo apt-get -y purge xscreensaver gnome-screensaver light-locker i3lock >> /dev/null
+# Copy local.conf to wsl to share windows fonts.
+share_fonts() {
+  green "Configuring Windows Fonts."
+  [[ -a /etc/fonts/local.conf ]] && try sudo cp /etc/fonts/local.conf /etc/fonts/local.conf.bak
+  try sudo cp $config/local.conf /etc/fonts/
 }
 
-ask_xserver() {
-  while true; do
-    ask "Configure XServer for GUI applications?" "y/N" xYn
-    case $xYn in
-      [yY]* )
-        try xserver_config;
-        try ask_fonts;
-        break;;
-      * ) break;;
-    esac
-  done
-}
-
+# Ask to copy window user's SSH config to new workspace.
 copy_ssh() {
   if [[ ! $CYGWIN == true && ! -x $(command -v dos2unix) ]]; then
     try install dos2unix make
