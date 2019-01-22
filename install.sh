@@ -45,10 +45,11 @@ success() {
 # Simplify installing packages between different systems.
 install() {
   [[ ! $* ]] && error "You must pass packges to try to install."
+  info "Installing '$*'"
   if [[ $CYGWIN == true ]]; then
-    try apt-cyg install $* > /dev/null
+    try apt-cyg install $*
   else
-    try sudo apt-get update > /dev/null && try sudo apt-get install $* -y > /dev/null
+    try sudo apt-get update && try sudo apt-get install $* -y
   fi
 }
 
@@ -124,6 +125,25 @@ git_global() {
   done
 }
 
+# Ask to run WLinux setup
+ask_wlinux() {
+  while true; do
+    ask "Run wlinux-setup?" "y/N" wsYn
+    case $wsYn in
+      [yY]* )
+        try run_wlinux_setup;
+        break;;
+      * ) break;;
+    esac
+  done
+}
+
+# Run wlinux-setup
+run_wlinux_setup() {
+  green "Running wlinux-setup"
+  [[ -x /etc/setup ]] && /etc/setup
+}
+
 # Ask to set up WSL for GUI apps.
 ask_xserver() {
   while true; do
@@ -131,6 +151,7 @@ ask_xserver() {
     case $xYn in
       [yY]* )
         try xserver_config;
+        try ask_desktop;
         try ask_fonts;
         break;;
       * ) break;;
@@ -147,7 +168,32 @@ xserver_config() {
   try sudo apt-get update && try sudo apt-get install -y xfce4 xfce4-terminal xfce4-whiskermenu-plugin arc-theme papirus-icon-theme firefox-esr
   # Remove screensavers
   info "Removing screensavers"
-  try sudo apt-get -y purge xscreensaver gnome-screensaver light-locker i3lock >> /dev/null
+  try sudo apt-get -y purge xscreensaver gnome-screensaver light-locker i3lock
+}
+
+ask_desktop() {
+  while true; do
+    ask "Copy xfce desktop configs?" "y/N" desktopYn
+    case $desktopYn in
+      [yY]* )
+        try desktop_config;
+        break;;
+      * ) break;;
+    esac
+  done
+}
+
+desktop_config() {
+  green "Configuring xfce desktop"
+  if [[ -d ~/.config/xfce4 ]]; then
+    [[ -d ~/.config/xfce4.bak ]] && try rm -rf ~/.config/xfce4.bak
+    try mv ~/.config/xfce4 ~/.config/xfce4.bak
+  fi
+  if [[ -d ~/.config/Thunar ]]; then
+    [[ -d ~/.config/Thunar.bak ]] && try rm -rf ~/.config/Thunar.bak
+    try mv ~/.config/Thunar ~/.config/Thunar.bak
+  fi
+  try cp -R $config/xfce4-desktop/* ~/.config/
 }
 
 # Ask to share windows fonts with WSL.
@@ -202,7 +248,7 @@ case "$(uname -a)" in
     ssh_path="/cygdrive/c/Users/$script_user/.ssh";
     CYGWIN=true
     info "WORKAROUND: Temporarily installing Cygwin's git."
-    try apt-cyg install git > /dev/null 2>&1 ;;
+    try apt-cyg install git ;;
   Linux* )
     green "Now Configuring Linux";
     LINUX=true;;
@@ -243,10 +289,11 @@ if [[ $WSL == true ]]; then
   [[ -a ~/.wsl.zsh ]] && try cp ~/.wsl.zsh ~/.wsl.zsh.bak
   try cp $config/.wsl.zsh ~/
 
-  try install lsb-release
+  [[ ! -x `command -v lsb_release` ]] && try install lsb-release
+  [[ `lsb_release -sd` == "WLinux" ]] && try ask_wlinux
 
-  git_config
   ask_xserver
+  git_config
   ask_npm
   copy_ssh
   success
@@ -285,7 +332,7 @@ if [[ $CYGWIN == true ]]; then
 
   # Remove cygwin's version of git since it isn't well supported.
   info "Removing Cygwin's git."
-  try apt-cyg remove git > /dev/null
+  try apt-cyg remove git
 
   copy_ssh
   success
