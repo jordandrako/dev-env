@@ -137,7 +137,8 @@ xserver_config() {
   # Don't use install function, as user input is required.
   try sudo apt-get update && try sudo apt-get install -y xfce4 xfce4-terminal xfce4-whiskermenu-plugin arc-theme papirus-icon-theme firefox-esr
   # Remove screensavers
-  try sudo apt-get -qq -y purge xscreensaver gnome-screensaver light-locker i3lock >> /dev/null
+  info "Removing screensavers"
+  try sudo apt-get -y purge xscreensaver gnome-screensaver light-locker i3lock >> /dev/null
 }
 
 ask_xserver() {
@@ -181,7 +182,7 @@ install() {
   if [[ $CYGWIN == true ]]; then
     try apt-cyg install $* > /dev/null
   else
-    try sudo apt-get -qq update > /dev/null && try sudo apt-get -qq install $* -y > /dev/null
+    try sudo apt-get update > /dev/null && try sudo apt-get install $* -y > /dev/null
   fi
 }
 
@@ -226,7 +227,7 @@ try cp $config/.nanorc ~/
 # fzf plugin
 if [[ ! -f ~/.fzf.zsh ]]; then
   [[ -d ~/.fzf ]] && try rm -rf ~/.fzf
-  try git clone -q --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+  try git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
   try ~/.fzf/install --no-bash --no-fish --no-update-rc --key-bindings --completion
 fi
 
