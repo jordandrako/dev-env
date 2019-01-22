@@ -42,6 +42,16 @@ success() {
   exit 0
 }
 
+# Simplify installing packages between different systems.
+install() {
+  [[ ! $* ]] && error "You must pass packges to try to install."
+  if [[ $CYGWIN == true ]]; then
+    try apt-cyg install $* > /dev/null
+  else
+    try sudo apt-get update > /dev/null && try sudo apt-get install $* -y > /dev/null
+  fi
+}
+
 npm_nosudo() {
   # Permanent configs
   [[ -a ~/.npmrc ]] && try cp ~/.npmrc ~/.npmrc.bak
@@ -154,6 +164,25 @@ ask_xserver() {
   done
 }
 
+copy_ssh() {
+  if [[ ! $CYGWIN == true && ! -x $(command -v dos2unix) ]]; then
+    try install dos2unix make
+  fi
+
+  try chmod +x $initial/copy-ssh.sh
+  while true; do
+    ask "Copy your windows ssh key?" "y/N" sshYn
+    case $sshYn in
+      [Yy]* )
+        try . $initial/copy-ssh.sh $ssh_path;
+        break;;
+      * )
+        info "You can copy ssh later by running '. path/to/dev-env/copy-ssh.sh path/to/.ssh'"
+        break;;
+    esac
+  done
+}
+
 # Check system
 case "$(uname -a)" in
   *Microsoft* )
@@ -175,36 +204,6 @@ case "$(uname -a)" in
     error "System Not Supported. Install manually.";
     exit 1;;
 esac
-
-# Simplify installing packages between different systems.
-install() {
-  [[ ! $* ]] && error "You must pass packges to try to install."
-  if [[ $CYGWIN == true ]]; then
-    try apt-cyg install $* > /dev/null
-  else
-    try sudo apt-get update > /dev/null && try sudo apt-get install $* -y > /dev/null
-  fi
-}
-
-# Copy Windows user SSH
-copy_ssh() {
-  if [[ ! $CYGWIN == true && ! -x $(command -v dos2unix) ]]; then
-    try install dos2unix make
-  fi
-
-  try chmod +x $initial/copy-ssh.sh
-  while true; do
-    ask "Copy your windows ssh key?" "y/N" sshYn
-    case $sshYn in
-      [Yy]* )
-        try . $initial/copy-ssh.sh $ssh_path;
-        break;;
-      * )
-        info "You can copy ssh later by running '. path/to/dev-env/copy-ssh.sh path/to/.ssh'"
-        break;;
-    esac
-  done
-}
 
 # Check for antibody
 if [[ ! -x "$(command -v antibody)" ]]; then
