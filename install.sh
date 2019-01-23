@@ -6,35 +6,8 @@ script_user=${1:-$USER}
 npm_packages="yarn pnpm gulp-cli create-react-app trash-cli empty-trash-cli typescript ngrok"
 NPM_ATTEMPTED=false
 
-# Green background echo
-green() {
-  echo -e "\n\e[1;32m$1\e[0m\n"
-}
-
-# Yellow background echo
-info() {
-  echo -e "\n\e[1;33m$1\e[0m\n"
-}
-
-# Error echo
-error() {
-  echo -e "\n\e[1;5;31m$1\e[0m\n" 1>&2 && echo -ne '\007' && exit 1
-}
-
-# Perform task successfully or print failed
-try() {
-  ( $* && success=true ) || ( success=false && error "FAILED: $*" )
-}
-
-# Ask with blue background.
-# Pass question and options: `ask "question" "yes/no" readVarName`
-ask() {
-  [[ ! $1 ]] && error "You must pass a question to ask!"
-  question=$1
-  options=${2:-"y/n"}
-  echo -e "\n\e[1;34m$question\e[0m" && echo "[$options] > "
-  [[ $3 ]] && read $3
-}
+# Source common functions: green, info, error, try, ask.
+source $config/.functions.sh
 
 # Source the .zshrc file and exit.
 success() {
@@ -270,6 +243,9 @@ try cp $config/.zshrc ~/
 
 [[ -a ~/.key-bindings.zsh ]] && try cp ~/.key-bindings.zsh ~/.key-bindings.zsh.bak
 try cp $config/.key-bindings.zsh ~/
+
+[[ -a ~/.functions.sh ]] && try cp ~/.functions.sh ~/.functions.sh.bak
+try cp $config/.functions.sh ~/
 
 [[ -a ~/.aliases.sh ]] && try cp ~/.aliases.sh ~/.aliases.sh.bak
 try cp $config/.aliases.sh ~/
