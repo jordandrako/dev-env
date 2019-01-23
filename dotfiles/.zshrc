@@ -56,7 +56,6 @@ if [[ -x `command -v antibody` ]]; then
   antibody bundle marzocchi/zsh-notify
   antibody bundle buonomo/yarn-completion
   antibody bundle luismayta/zsh-docker-compose-aliases
-  antibody bundle Tarrasch/zsh-colors
   antibody bundle gko/ssh-connect
 
   # Plugins with dependencies
