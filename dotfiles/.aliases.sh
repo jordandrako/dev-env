@@ -5,6 +5,9 @@ setopt auto_pushd
 setopt pushd_ignore_dups
 setopt pushdminus
 
+# Source common functions: green, info, error, try, ask.
+[[ -s ~/.functions.sh ]] && source ~/.functions.sh
+
 # Directory navigation
 alias -g ...="../.."
 alias -g ....="../../.."
@@ -105,8 +108,22 @@ if [[ -x `command -v git` ]]; then
       [[ $isLocal != true ]] && git del $wipBranch
     fi
   }
-else
-  echo "Install git ya git!"
+
+  # Deletes local branches that don't exist on origin remote with confirmation.
+  git-prune-local() {
+    while true; do
+      git branch -r | awk '{print $1}' | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk '{print $1}'
+      ask "Remove these local branches?" "y/N" pruneYn
+      case $pruneYn in
+        [yY]* )
+          git branch -r | awk '{print $1}' | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk '{print $1}' | xargs git branch -D;
+          break;;
+        * )
+          info "Branches not removed.";
+          break;;
+      esac
+    done
+  }
 fi
 
 # NPM
