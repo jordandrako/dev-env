@@ -3,7 +3,7 @@
 initial="$PWD"
 config=$initial/dotfiles
 script_user=${1:-$USER}
-npm_packages="yarn pnpm gulp-cli create-react-app trash-cli empty-trash-cli typescript ngrok"
+npm_packages="yarn pnpm gulp-cli create-react-app trash-cli empty-trash-cli typescript tslint ngrok"
 NPM_ATTEMPTED=false
 
 # Source common functions: green, info, error, try, ask.
@@ -138,10 +138,10 @@ xserver_config() {
   [[ -a ~/.xsrv.zsh ]] && try cp ~/.xsrv.zsh ~/.xsrv.zsh.bak
   try cp $config/.xsrv.zsh ~/
   # Don't use install function, as user input is required.
-  try sudo apt-get update && try sudo apt-get install -y xfce4 xfce4-terminal xfce4-whiskermenu-plugin arc-theme papirus-icon-theme firefox-esr
+  try sudo apt-get update && try sudo apt-get install -y xfce4 xfce4-terminal tilix xfce4-whiskermenu-plugin adapta-gtk-theme papirus-icon-theme firefox-esr
   # Remove screensavers
-  info "Removing screensavers"
-  try sudo apt-get -y purge xscreensaver gnome-screensaver light-locker i3lock
+  info "Removing screensavers and other xfce programs that cause issues with WSL"
+  try sudo apt-get -y purge xfce4-power-manager xscreensaver gnome-screensaver light-locker i3lock
 }
 
 ask_desktop() {
