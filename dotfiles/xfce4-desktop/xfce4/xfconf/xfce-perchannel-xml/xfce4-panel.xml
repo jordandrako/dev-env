@@ -19,19 +19,26 @@
         <value type="int" value="13"/>
         <value type="int" value="3"/>
         <value type="int" value="15"/>
+        <value type="int" value="1"/>
+        <value type="int" value="2"/>
         <value type="int" value="4"/>
         <value type="int" value="16"/>
         <value type="int" value="5"/>
-        <value type="int" value="6"/>
         <value type="int" value="7"/>
       </property>
       <property name="mode" type="uint" value="0"/>
       <property name="nrows" type="uint" value="1"/>
       <property name="disable-struts" type="bool" value="false"/>
       <property name="background-style" type="uint" value="1"/>
-      <property name="background-alpha" type="uint" value="80"/>
+      <property name="background-alpha" type="uint" value="95"/>
       <property name="length-adjust" type="bool" value="true"/>
       <property name="autohide-behavior" type="uint" value="0"/>
+      <property name="background-color" type="array">
+        <value type="uint" value="2313"/>
+        <value type="uint" value="2827"/>
+        <value type="uint" value="3341"/>
+        <value type="uint" value="65535"/>
+      </property>
     </property>
   </property>
   <property name="plugins" type="empty">
@@ -54,15 +61,10 @@
     <property name="plugin-5" type="string" value="clock">
       <property name="mode" type="uint" value="2"/>
     </property>
-    <property name="plugin-6" type="string" value="systray">
-      <property name="names-visible" type="array">
-        <value type="string" value="thunar"/>
-      </property>
-    </property>
     <property name="plugin-7" type="string" value="showdesktop"/>
     <property name="plugin-9" type="string" value="launcher">
       <property name="items" type="array">
-        <value type="string" value="15478441601.desktop"/>
+        <value type="string" value="15483601362.desktop"/>
       </property>
     </property>
     <property name="plugin-10" type="string" value="launcher">
@@ -73,10 +75,10 @@
     </property>
     <property name="plugin-8" type="string" value="separator">
       <property name="expand" type="bool" value="false"/>
-      <property name="style" type="uint" value="1"/>
+      <property name="style" type="uint" value="2"/>
     </property>
     <property name="plugin-13" type="string" value="separator">
-      <property name="style" type="uint" value="0"/>
+      <property name="style" type="uint" value="2"/>
       <property name="expand" type="bool" value="false"/>
     </property>
     <property name="plugin-16" type="string" value="separator">
@@ -94,5 +96,12 @@
       </property>
       <property name="move-first" type="bool" value="false"/>
     </property>
+    <property name="plugin-1" type="string" value="windowmenu">
+      <property name="style" type="uint" value="1"/>
+      <property name="workspace-actions" type="bool" value="true"/>
+      <property name="urgentcy-notification" type="bool" value="true"/>
+      <property name="all-workspaces" type="bool" value="true"/>
+    </property>
+    <property name="plugin-2" type="string" value="separator"/>
   </property>
 </channel>
