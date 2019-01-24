@@ -113,6 +113,7 @@ if [[ -x `command -v git` ]]; then
   git-prune-local() {
     while true; do
       git branch -r | awk '{print $1}' | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk '{print $1}'
+      git fetch -p --dry-run
       ask "Remove these local branches?" "y/N" pruneYn
       case $pruneYn in
         [yY]* )
