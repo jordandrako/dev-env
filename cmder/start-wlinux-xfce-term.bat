@@ -9,5 +9,6 @@ REM ### Setup a D-Bus instance that will be shared by all X-Window apps
 
 wlinux.exe run "sh -ic 'if [ -z \"$(pidof dbus-launch)\" ]; then export DISPLAY=127.0.0.1:0.0; dbus-launch --exit-with-x11; fi;'"
 
-REM start xfce panel
-wlinux.exe run "if [ -z $(pidof xfce4-panel) ]; then export DISPLAY=127.0.0.1:0.0; cd ~; xfsettingsd --sm-client-disable; xfce4-panel --sm-client-disable --disable-wm-check; taskkill.exe /IM x410.exe; fi;"
+REM ### Go to the selected folder path and open your terminal app
+
+wlinux.exe run "cd \"$(wslpath '%1')\"; export DISPLAY=127.0.0.1:0.0; export GTK_THEME=Adapta-Nokto; exec tilix"
