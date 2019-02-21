@@ -3,7 +3,7 @@
 initial="$PWD"
 config=$initial/dotfiles
 script_user=${1:-$USER}
-npm_packages="yarn pnpm gulp-cli create-react-app trash-cli empty-trash-cli typescript tslint ngrok"
+npm_packages="yarn pnpm gulp-cli create-react-app trash-cli empty-trash-cli typescript eslint tslint ngrok"
 NPM_ATTEMPTED=false
 
 # Source common functions: green, info, error, try, ask.
@@ -27,8 +27,9 @@ install() {
 }
 
 # Ask if user wants to install global npm packages.
+[[ -x $(command -v npm) ]] && npm_i=true || npm_i=false
 ask_npm() {
-  while true; do
+  while $npm_i; do
     info "$npm_packages"
     ask "Install the above global npm packages?" "y/N" npmYn
     case $npmYn in
@@ -42,7 +43,7 @@ ask_npm() {
 
 # Install NPM packages. Installs from $npm_packages variable at the top of the file.
 npm_install() {
-  if [[ -x $(command -v npm) ]]; then
+  if [[ $npm_i ]]; then
     green "Installing global npm packages"
     try npm i -g $npm_packages || ( [[ $NPM_ATTEMPTED == false ]] && NPM_ATTEMPTED=true && info "Setting up global npm without sudo." && try npm_nosudo && try npm_install )
   else
