@@ -23,3 +23,9 @@ fi
 echo -e "Welcome $USER! | Machine: $MACHINE $OS\n"
 
 [[ -s ~/.xsrv.zsh ]] && source ~/.xsrv.zsh
+
+if [[ -d $HOME/.rbenv/bin ]]; then
+  export PATH="$HOME/.rbenv/bin:$PATH"
+  eval "$(rebenv init -)"
+  export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
+fi
