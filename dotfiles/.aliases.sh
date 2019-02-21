@@ -89,7 +89,7 @@ if [[ -x `command -v git` ]]; then
     if [[ $1 && $1 == '-l' || $1 && $1 == '--local' ]]; then
       isLocal=true
     fi
-    wipBranch="$originalBranch--WIP_$date"
+    wipBranch="${originalBranch}--WIP_${date}"
 
     if [[ `git status -s | wc -l` -lt 1 ]]; then
       echo "No changes."
@@ -100,7 +100,7 @@ if [[ -x `command -v git` ]]; then
       fi
 
       git checkout -b $wipBranch
-      git add -A && git commit -m "$WIP_$date-$time" --no-verify
+      git add -A && git commit -m "WIP_${date}_${time}" --no-verify
       [[ $isLocal != true ]] && git push --force -u origin $wipBranch
       git checkout $originalBranch
       git merge --squash --no-commit $wipBranch
