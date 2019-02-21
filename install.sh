@@ -281,7 +281,7 @@ if [[ $LINUX == true ]]; then
   [[ -a ~/.linux.zsh ]] && try cp ~/.linux.zsh ~/.linux.zsh.bak
   try cp $config/.linux.zsh ~/
 
-  try install lsb-release
+  [[ ! -x `command -v lsb_release` ]] && try install lsb-release
 
   git_config
   ask_npm
