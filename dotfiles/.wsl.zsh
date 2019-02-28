@@ -26,6 +26,6 @@ echo -e "Welcome $USER! | Machine: $MACHINE $OS\n"
 
 if [[ -d $HOME/.rbenv/bin ]]; then
   export PATH="$HOME/.rbenv/bin:$PATH"
-  eval "$(rebenv init -)"
+  eval "$(rbenv init -)"
   export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
 fi
