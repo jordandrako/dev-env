@@ -29,6 +29,9 @@ alias md="mkdir -p"
 alias rd=rmdir
 alias d="dirs -v | head -10"
 
+# List large directories
+alias ducks="du -cksh * | sort -rh | head"
+
 # List directory contents
 if [[ -x `command -v colorls` ]]; then
   source $(dirname $(gem which colorls))/tab_complete.sh
