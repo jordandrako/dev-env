@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <key name="Software">
 	<key name="ConEmu">
-		<key name=".Vanilla" modified="2018-06-06 16:30:08" build="180528">
+		<key name=".Vanilla" modified="2019-05-08 11:37:31" build="190225">
 			<value name="ColorTable00" type="dword" data="00221100"/>
 			<value name="ColorTable01" type="dword" data="00ffaa82"/>
 			<value name="ColorTable02" type="dword" data="006eda22"/>
@@ -72,7 +72,7 @@
 			<value name="StartType" type="hex" data="02"/>
 			<value name="CmdLine" type="string" data=""/>
 			<value name="StartTasksFile" type="string" data=""/>
-			<value name="StartTasksName" type="string" data="{zsh}"/>
+			<value name="StartTasksName" type="string" data="{cmd::Cmder}"/>
 			<value name="StartFarFolders" type="hex" data="00"/>
 			<value name="StartFarEditors" type="hex" data="00"/>
 			<value name="StoreTaskbarkTasks" type="hex" data="00"/>
@@ -116,18 +116,18 @@
 			<value name="bgOperation" type="hex" data="07"/>
 			<value name="bgPluginAllowed" type="hex" data="01"/>
 			<value name="AlphaValue" type="hex" data="FF"/>
-			<value name="AlphaValueSeparate" type="hex" data="00"/>
-			<value name="AlphaValueInactive" type="hex" data="FF"/>
+			<value name="AlphaValueSeparate" type="hex" data="01"/>
+			<value name="AlphaValueInactive" type="hex" data="E8"/>
 			<value name="UserScreenTransparent" type="hex" data="00"/>
 			<value name="ColorKeyTransparent" type="hex" data="00"/>
 			<value name="ColorKeyValue" type="dword" data="00010101"/>
 			<value name="UseCurrentSizePos" type="hex" data="01"/>
 			<value name="WindowMode" type="dword" data="0000051f"/>
-			<value name="ConWnd Width" type="dword" data="00000064"/>
-			<value name="ConWnd Height" type="dword" data="00000023"/>
+			<value name="ConWnd Width" type="dword" data="0000006d"/>
+			<value name="ConWnd Height" type="dword" data="00000022"/>
 			<value name="Cascaded" type="hex" data="01"/>
-			<value name="ConWnd X" type="long" data="335"/>
-			<value name="ConWnd Y" type="long" data="170"/>
+			<value name="ConWnd X" type="long" data="804"/>
+			<value name="ConWnd Y" type="long" data="276"/>
 			<value name="16bit Height" type="ulong" data="0"/>
 			<value name="AutoSaveSizePos" type="hex" data="00"/>
 			<value name="IntegralSize" type="hex" data="00"/>
@@ -137,7 +137,7 @@
 			<value name="HideChildCaption" type="hex" data="01"/>
 			<value name="FocusInChildWindows" type="hex" data="00"/>
 			<value name="HideCaptionAlways" type="hex" data="00"/>
-			<value name="HideCaptionAlwaysFrame" type="hex" data="00"/>
+			<value name="HideCaptionAlwaysFrame" type="hex" data="FF"/>
 			<value name="HideCaptionAlwaysDelay" type="ulong" data="2000"/>
 			<value name="HideCaptionAlwaysDisappear" type="ulong" data="2000"/>
 			<value name="DownShowHiddenMessage" type="hex" data="00"/>
@@ -185,7 +185,7 @@
 			<value name="SendAltPrintScrn" type="hex" data="00"/>
 			<value name="SendPrintScrn" type="hex" data="00"/>
 			<value name="SendCtrlEsc" type="hex" data="00"/>
-			<value name="Min2Tray" type="hex" data="01"/>
+			<value name="Min2Tray" type="hex" data="00"/>
 			<value name="AlwaysShowTrayIcon" type="hex" data="00"/>
 			<value name="SafeFarClose" type="hex" data="01"/>
 			<value name="SafeFarCloseMacro" type="string" data=""/>
@@ -482,21 +482,21 @@
 			<value name="DndLKey" type="hex" data="00"/>
 			<value name="DndRKey" type="hex" data="a2"/>
 			<value name="WndDragKey" type="dword" data="00121101"/>
-			<key name="Tasks" modified="2018-05-27 15:09:01" build="180506">
-				<value name="Count" type="long" data="9"/>
-				<key name="Task1" modified="2018-06-06 16:30:08" build="180528">
-					<value name="Name" type="string" data="{zsh}"/>
-					<value name="GuiArgs" type="string" data=' /icon "%CMDER_ROOT%\icons\cmder_blue.ico"'/>
-					<value name="Cmd1" type="string" data="C:\cygwin64\bin\zsh.exe --login -i -new_console:d:%USERPROFILE%"/>
+			<key name="Tasks" modified="2019-05-08 11:34:36" build="190225">
+				<value name="Count" type="long" data="8"/>
+				<key name="Task1" modified="2019-05-08 11:37:31" build="190225">
+					<value name="Name" type="string" data="{Cmder}"/>
+					<value name="GuiArgs" type="string" data=' /icon "%CMDER_ROOT%\icons\cmder.ico"'/>
+					<value name="Cmd1" type="string" data='cmd /k "%ConEmuDir%\..\init.bat" -new_console -new_console:d:%USERPROFILE%'/>
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
-					<value name="Flags" type="dword" data="00000005"/>
+					<value name="Flags" type="dword" data="00000003"/>
 				</key>
-				<key name="Task2" modified="2018-06-06 16:30:08" build="180528">
+				<key name="Task2" modified="2019-05-08 11:34:36" build="190225">
 					<value name="Name" type="string" data="{WSL}"/>
 					<value name="GuiArgs" type="string" data=' /icon "%CMDER_ROOT%\icons\cmder_blue.ico"'/>
-					<value name="Cmd1" type="string" data="%windir%\System32\wsl.exe ~ -cur_console:p"/>
+					<value name="Cmd1" type="string" data="wsl -cur_console:p"/>
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
@@ -511,15 +511,15 @@
 					<value name="Count" type="long" data="1"/>
 					<value name="Flags" type="dword" data="00000000"/>
 				</key>
-				<key name="Task4" modified="2018-05-27 15:09:01" build="180506">
-					<value name="Name" type="string" data="{cmd::Cmder}"/>
+				<key name="Task4" modified="2019-05-08 11:34:36" build="190225">
+					<value name="Name" type="string" data="{cmd::cmd}"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
-					<value name="GuiArgs" type="string" data=' /icon "%CMDER_ROOT%\icons\cmder.ico"'/>
-					<value name="Cmd1" type="string" data='cmd /k "%ConEmuDir%\..\init.bat" -new_console -new_console:d:%USERPROFILE%'/>
+					<value name="GuiArgs" type="string" data='/dir "C:\" /icon "cmd.exe" /single'/>
+					<value name="Cmd1" type="string" data='cmd -new_console -new_console:d:"C:\code"'/>
 					<value name="Cmd2" type="string" data="%CMDER_ROOT%\vendor\git-for-windows\git-bash.exe"/>
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
-					<value name="Flags" type="dword" data="00000002"/>
+					<value name="Flags" type="dword" data="00000004"/>
 				</key>
 				<key name="Task5" modified="2018-05-27 15:09:01" build="180506">
 					<value name="Name" type="string" data="{Powershell::PowerShell as Admin}"/>
@@ -540,32 +540,23 @@
 					<value name="Count" type="long" data="1"/>
 					<value name="Cmd2" type="string" data="%CMDER_ROOT%vendor\git-for-windows\usr\bin\mintty.exe /bin/bash -l -new_console"/>
 				</key>
-				<key name="Task7" modified="2018-06-06 16:30:08" build="180528">
-					<value name="Name" type="string" data="{bash::babun}"/>
-					<value name="Flags" type="dword" data="00000004"/>
-					<value name="Hotkey" type="dword" data="00000000"/>
-					<value name="GuiArgs" type="string" data=' /icon "%CMDER_ROOT%\icons\cmder_orange.ico"'/>
-					<value name="Active" type="long" data="0"/>
-					<value name="Count" type="long" data="1"/>
-					<value name="Cmd1" type="string" data="%USERPROFILE%\.babun\cygwin\bin\mintty.exe -o Transparency=0 /bin/env CHERE_INVOKING=1 /bin/bash.exe"/>
-				</key>
-				<key name="Task8" modified="2018-06-06 16:30:08" build="180528">
+				<key name="Task7" modified="2019-05-08 11:34:36" build="190225">
 					<value name="Name" type="string" data="{bash::bash as Admin}"/>
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 					<value name="GuiArgs" type="string" data=' /icon "%CMDER_ROOT%\icons\cmder_orange.ico"'/>
-					<value name="Cmd1" type="string" data='*cmd /c "%GIT_ROOT%\bin\bash.exe" --login -i'/>
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
+					<value name="Cmd1" type="string" data='*cmd /c "%GIT_ROOT%\bin\bash.exe" --login -i'/>
 				</key>
-				<key name="Task9" modified="2018-06-06 16:30:08" build="180528">
+				<key name="Task8" modified="2019-05-08 11:34:36" build="190225">
 					<value name="Name" type="string" data="{bash::bash}"/>
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 					<value name="GuiArgs" type="string" data=' /icon "%CMDER_ROOT%\icons\cmder_orange.ico"'/>
+					<value name="Cmd1" type="string" data='cmd /c "%GIT_ROOT%\bin\bash.exe" --login -i'/>
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
-					<value name="Cmd1" type="string" data='cmd /c "%GIT_ROOT%\bin\bash.exe" --login -i'/>
 				</key>
 			</key>
 			<key name="Apps" modified="2018-01-19 08:18:07" build="171025">
@@ -778,7 +769,7 @@
 			<value name="StatusBar.Hide.Dpi" type="hex" data="01"/>
 			<value name="TabFlashChanged" type="long" data="8"/>
 			<value name="TabModifiedSuffix" type="string" data="[*]"/>
-			<key name="HotKeys" modified="2018-04-26 14:31:19" build="180422">
+			<key name="HotKeys" modified="2019-05-08 11:34:36" build="190225">
 				<value name="KeyMacroVersion" type="hex" data="02"/>
 				<value name="Multi.Modifier" type="dword" data="00000011"/>
 				<value name="Multi.ArrowsModifier" type="dword" data="0000005b"/>
@@ -798,8 +789,8 @@
 				<value name="Multi.NewConsolePopup" type="dword" data="00000000"/>
 				<value name="Multi.NewConsolePopup2" type="dword" data="00000000"/>
 				<value name="Multi.NewAttach" type="dword" data="00000000"/>
-				<value name="Multi.NewSplitV" type="dword" data="00101154"/>
-				<value name="Multi.NewSplitH" type="dword" data="00121154"/>
+				<value name="Multi.NewSplitV" type="dword" data="00101145"/>
+				<value name="Multi.NewSplitH" type="dword" data="00101144"/>
 				<value name="Multi.SplitMaximize" type="dword" data="00005d0d"/>
 				<value name="Multi.SplitSizeVU" type="dword" data="00105d26"/>
 				<value name="Multi.SplitSizeVD" type="dword" data="00105d28"/>
@@ -1010,6 +1001,7 @@
 			<value name="Language" type="string" data="en"/>
 			<value name="RestoreInactive" type="hex" data="00"/>
 			<value name="StatusBar.Hide.WMode" type="hex" data="01"/>
+			<value name="AutoTrimSingleLine" type="hex" data="00"/>
 		</key>
 	</key>
 </key>
