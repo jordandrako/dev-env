@@ -49,6 +49,11 @@ else
   alias la="ls -lAh"
 fi
 
+# Cmder
+if [[ -x `command -v cmd.exe` ]]; then
+	alias cmder="cmd.exe /k 'C:\\cmder\\integratedterm.bat'"
+fi
+
 # Git
 if [[ -x `command -v git` ]]; then
   alias gs="git status -s"
