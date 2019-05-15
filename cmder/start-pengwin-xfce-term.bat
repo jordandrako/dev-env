@@ -11,4 +11,4 @@ pengwin.exe run "sh -ic 'if [ -z \"$(pidof dbus-launch)\" ]; then export DISPLAY
 
 REM ### Go to the selected folder path and open your terminal app
 
-pengwin.exe run "cd \"$(wslpath '%1')\"; export DISPLAY=127.0.0.1:0.0; export GTK_THEME=windows-10-dark; exec tilix"
+pengwin.exe run "cd \"$(wslpath '%1')\"; export DISPLAY=127.0.0.1:0.0; export GTK_THEME=windows-10-dark; export XCURSOR_THEME=Win-8.1-NS; exec tilix"

@@ -99,22 +99,22 @@ git_global() {
   done
 }
 
-# Ask to run WLinux setup
-ask_wlinux() {
+# Ask to run Pengwin setup
+ask_pengwin() {
   while true; do
-    ask "Run wlinux-setup?" "y/N" wsYn
-    case $wsYn in
+    ask "Run pengwin-setup?" "y/N" psYn
+    case $psYn in
       [yY]* )
-        try run_wlinux_setup;
+        try run_pengwin_setup;
         break;;
       * ) break;;
     esac
   done
 }
 
-# Run wlinux-setup
-run_wlinux_setup() {
-  green "Running wlinux-setup"
+# Run pengwin-setup
+run_pengwin_setup() {
+  green "Running pengwin-setup"
   [[ -x /etc/setup ]] && /etc/setup
 }
 
@@ -127,6 +127,7 @@ ask_xserver() {
         try xserver_config;
         try ask_desktop;
         try ask_fonts;
+        try ask_cursor;
         break;;
       * ) break;;
     esac
@@ -173,7 +174,6 @@ desktop_config() {
 # Ask to share windows fonts with WSL.
 ask_fonts() {
   while true; do
-    echo $npm_package
     ask "Share Windows fonts for GUI applications?" "y/N" fontsYn
     case $fontsYn in
       [yY]* )
@@ -189,6 +189,32 @@ share_fonts() {
   green "Configuring Windows Fonts."
   [[ -a /etc/fonts/local.conf ]] && try sudo cp /etc/fonts/local.conf /etc/fonts/local.conf.bak
   try sudo cp $config/local.conf /etc/fonts/
+}
+
+# Ask to install Windows cursor theme.
+ask_cursor() {
+  while true; do
+    ask "Install Windows curor theme for GUI applications?" "y/N" cursorYn
+    case $cursorYn in
+      [yY]* )
+        try install_cursor;
+        break;;
+      * ) break;;
+    esac
+  done
+}
+
+# Install Windows cursor theme.
+install_cursor() {
+  CURSOR_DIR="/usr/share/icons/Win-8.1-NS"
+  if [ -d "$CURSOR_DIR" ]; then
+    info "Win-8.1-NS X11 cursor theme is already installed"
+  else
+    green "Installing Win-8.1-NS cursor theme"
+    try sudo cp -rf $config/Win-8.1-NS/ $CURSOR_DIR && \
+    sudo update-alternatives --install /usr/share/icons/default/index.theme x-cursor-theme /usr/share/icons/Win-8.1-NS/cursor.theme 90 && \
+    info "Installed."
+  fi
 }
 
 # Ask to copy window user's SSH config to new workspace.
@@ -239,6 +265,8 @@ if [[ ! -x "$(command -v antibody)" ]]; then
 fi
 
 # Global configuration
+[[ -d /c/cmder ]] && cp -rf cmder/* /c/cmder/
+
 [[ -a ~/.zshrc ]] && try cp ~/.zshrc ~/.zshrc.bak
 try cp $config/.zshrc ~/
 
@@ -267,7 +295,7 @@ if [[ $WSL == true ]]; then
   try cp $config/.wsl.zsh ~/
 
   [[ ! -x `command -v lsb_release` ]] && try install lsb-release
-  [[ `lsb_release -sd` == "WLinux" ]] && try ask_wlinux
+  [[ `lsb_release -sd` == "Pengwin" ]] && try ask_pengwin
 
   ask_xserver
   git_config
