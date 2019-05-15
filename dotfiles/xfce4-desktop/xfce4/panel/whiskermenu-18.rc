@@ -1,5 +1,5 @@
 favorites=code.desktop,com.gexperts.Tilix.desktop,exo-file-manager.desktop,firefox-esr.desktop
-recent=xfce-workspaces-settings.desktop,com.gexperts.Tilix.desktop,exo-file-manager.desktop,exo-terminal-emulator.desktop,thunar-settings.desktop,xfce-ui-settings.desktop,firefox-esr.desktop
+recent=xfce-ui-settings.desktop,xfce-workspaces-settings.desktop,com.gexperts.Tilix.desktop,exo-file-manager.desktop,exo-terminal-emulator.desktop,thunar-settings.desktop,firefox-esr.desktop
 button-title=Applications
 button-icon=com.gitlab.jnuutinen.minimalmenu
 button-single-row=true

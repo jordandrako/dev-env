@@ -8,7 +8,7 @@
       <property name="position" type="string" value="p=8;x=874;y=972"/>
       <property name="length" type="uint" value="100"/>
       <property name="position-locked" type="bool" value="true"/>
-      <property name="size" type="uint" value="44"/>
+      <property name="size" type="uint" value="40"/>
       <property name="plugin-ids" type="array">
         <value type="int" value="18"/>
         <value type="int" value="8"/>
@@ -64,7 +64,7 @@
     <property name="plugin-7" type="string" value="showdesktop"/>
     <property name="plugin-9" type="string" value="launcher">
       <property name="items" type="array">
-        <value type="string" value="15483601362.desktop"/>
+        <value type="string" value="15483695412.desktop"/>
       </property>
     </property>
     <property name="plugin-10" type="string" value="launcher">
@@ -102,6 +102,8 @@
       <property name="urgentcy-notification" type="bool" value="true"/>
       <property name="all-workspaces" type="bool" value="true"/>
     </property>
-    <property name="plugin-2" type="string" value="separator"/>
+    <property name="plugin-2" type="string" value="separator">
+      <property name="style" type="uint" value="1"/>
+    </property>
   </property>
 </channel>
