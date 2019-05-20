@@ -3,6 +3,7 @@
 initial="$PWD"
 config=$initial/dotfiles
 script_user=${1:-$USER}
+dainty_theme=night-owl
 npm_packages="yarn pnpm gulp-cli create-react-app trash-cli empty-trash-cli typescript eslint tslint ngrok"
 NPM_ATTEMPTED=false
 
@@ -217,6 +218,18 @@ install_cursor() {
   fi
 }
 
+install_dainty() {
+  DAINTY_DIR="~/dainty-wsltty"
+  if [ ! -d $DAINTY_DIR ]; then
+    green "Installing Dainty theme generator"
+    try git clone https://github.com/alexanderte/dainty-wsltty.git $DAINTY_DIR
+  fi
+  cd $DAINTY_DIR
+  try git pull
+  try yarn
+  try yarn build -i -p $dainty_theme
+}
+
 # Ask to copy window user's SSH config to new workspace.
 copy_ssh() {
   if [[ ! $CYGWIN == true && ! -x $(command -v dos2unix) ]]; then
@@ -282,6 +295,9 @@ try cp $config/.aliases.sh ~/
 [[ -a ~/.nanorc ]] && try cp ~/.nanorc ~/.nanorc.bak
 try cp $config/.nanorc ~/
 
+[[ -a ~/.tmux.conf ]] && try cp ~/.tmux.conf ~/.tmux.conf.bak
+try cp $config/.tmux.conf ~/
+
 # fzf plugin
 if [[ ! -f ~/.fzf.zsh ]]; then
   [[ -d ~/.fzf ]] && try rm -rf ~/.fzf
@@ -294,12 +310,14 @@ if [[ $WSL == true ]]; then
   [[ -a ~/.wsl.zsh ]] && try cp ~/.wsl.zsh ~/.wsl.zsh.bak
   try cp $config/.wsl.zsh ~/
 
+  [[ ! -x `command -v tmux` ]] && try install tmux
   [[ ! -x `command -v lsb_release` ]] && try install lsb-release
   [[ `lsb_release -sd` == "Pengwin" ]] && try ask_pengwin
 
   ask_xserver
   git_config
   ask_npm
+  install_dainty
   copy_ssh
   success
 fi # End WSL
@@ -309,6 +327,7 @@ if [[ $LINUX == true ]]; then
   [[ -a ~/.linux.zsh ]] && try cp ~/.linux.zsh ~/.linux.zsh.bak
   try cp $config/.linux.zsh ~/
 
+  [[ ! -x `command -v tmux` ]] && try install tmux
   [[ ! -x `command -v lsb_release` ]] && try install lsb-release
 
   git_config
