@@ -220,11 +220,11 @@ install_cursor() {
 
 install_dainty() {
   DAINTY_DIR="~/dainty-wsltty"
-  if [ ! -d $DAINTY_DIR ]; then
+  if [ ! -d ~/dainty-wsltty ]; then
     green "Installing Dainty theme generator"
-    try git clone https://github.com/alexanderte/dainty-wsltty.git $DAINTY_DIR
+    try git clone https://github.com/alexanderte/dainty-wsltty.git ~/dainty-wsltty
   fi
-  cd $DAINTY_DIR
+  cd ~/dainty-wsltty
   try git pull
   try yarn
   try yarn build -i -p $dainty_theme
