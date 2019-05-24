@@ -45,18 +45,14 @@ if [[ -x `command -v antibody` ]]; then
   source <(antibody init)
 
   # Plugins
-  antibody bundle caarlos0/zsh-mkc
   antibody bundle caarlos0/zsh-git-sync
-  antibody bundle caarlos0/zsh-open-github-pr
   antibody bundle robbyrussell/oh-my-zsh path:plugins/ssh-agent
   antibody bundle zdharma/fast-syntax-highlighting
   antibody bundle zsh-users/zsh-autosuggestions
   antibody bundle zsh-users/zsh-history-substring-search
   antibody bundle zsh-users/zsh-completions
-  antibody bundle marzocchi/zsh-notify
   antibody bundle buonomo/yarn-completion
   antibody bundle luismayta/zsh-docker-compose-aliases
-  antibody bundle gko/ssh-connect
 
   # Plugins with dependencies
   [[ -x `command -v python` ]] && antibody bundle djui/alias-tips
