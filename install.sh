@@ -116,7 +116,7 @@ ask_pengwin() {
 # Run pengwin-setup
 run_pengwin_setup() {
   green "Running pengwin-setup"
-  [[ -x /etc/setup ]] && /etc/setup
+  [[ -x `command -v pengwin-setup` ]] && try pengwin-setup
 }
 
 # Ask to set up WSL for GUI apps.
