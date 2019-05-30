@@ -224,7 +224,7 @@ install_dainty() {
     green "Installing Dainty theme generator"
     try git clone https://github.com/alexanderte/dainty-wsltty.git ~/dainty-wsltty
   fi
-  cd $DAINTY_DIR
+  cd ~/dainty-wsltty
   try git pull
   if [ -x `command -v yarn` ]; then
     try yarn
