@@ -224,10 +224,14 @@ install_dainty() {
     green "Installing Dainty theme generator"
     try git clone https://github.com/alexanderte/dainty-wsltty.git ~/dainty-wsltty
   fi
-  cd ~/dainty-wsltty
+  cd $DAINTY_DIR
   try git pull
-  try yarn
-  try yarn build -i -p $dainty_theme
+  if [ -x `command -v yarn` ]; then
+    try yarn
+    try yarn build -i -p $dainty_theme
+  else
+    info "Cannot install dainty without yarn. Make sure npm and yarn are installed, then try again."
+  fi
 }
 
 # Ask to copy window user's SSH config to new workspace.
