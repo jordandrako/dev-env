@@ -80,6 +80,7 @@ fi # End Antibody
 [[ -s ~/.dircolors ]] && eval $(dircolors -b $HOME/.dircolors)
 
 # Source NPM configs
+[[ -d ~/n/bin ]] && export PATH=~/n/bin:$PATH
 [[ -s ~/.npm.nosudo.zsh ]] && source ~/.npm.nosudo.zsh
 
 ## Aliases
