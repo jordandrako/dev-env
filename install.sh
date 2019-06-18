@@ -6,6 +6,8 @@ script_user=${1:-$USER}
 dainty_theme=night-owl
 npm_packages="yarn pnpm gulp-cli create-react-app trash-cli empty-trash-cli typescript eslint tslint ngrok"
 NPM_ATTEMPTED=false
+c=/mnt/c
+[[ -d /c ]] && c=/c
 
 # Source common functions: green, info, error, try, ask.
 source $config/.functions.sh
@@ -258,7 +260,7 @@ copy_ssh() {
 case "$(uname -a)" in
   *[M/m]icrosoft* )
     green "Now Configuring WSL";
-    [[ -d /c ]] && ssh_path="/c/Users/$script_user/.ssh" || ssh_path="/mnt/c/Users/$script_user/.ssh";
+    ssh_path="$c/Users/$script_user/.ssh";
     WSL=true;;
   CYGWIN* )
     green "Now Configuring Cygwin";
@@ -282,7 +284,7 @@ if [[ ! -x "$(command -v antibody)" ]]; then
 fi
 
 # Global configuration
-[[ -d /c/cmder ]] && cp -rf cmder/* /c/cmder/
+[[ -d $c/cmder ]] && cp -rf $initial/cmder/* $c/cmder/
 
 [[ -a ~/.zshrc ]] && try cp ~/.zshrc ~/.zshrc.bak
 try cp $config/.zshrc ~/
