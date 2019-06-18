@@ -256,7 +256,7 @@ copy_ssh() {
 
 # Check system
 case "$(uname -a)" in
-  *Microsoft* )
+  *[M/m]icrosoft* )
     green "Now Configuring WSL";
     [[ -d /c ]] && ssh_path="/c/Users/$script_user/.ssh" || ssh_path="/mnt/c/Users/$script_user/.ssh";
     WSL=true;;
@@ -278,7 +278,7 @@ esac
 
 # Check for antibody
 if [[ ! -x "$(command -v antibody)" ]]; then
-  try curl -sL git.io/antibody | sh -s
+  try sudo curl -sfL git.io/antibody | sh -s - -b /usr/local/bin
 fi
 
 # Global configuration
