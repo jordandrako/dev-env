@@ -280,7 +280,7 @@ esac
 
 # Check for antibody
 if [[ ! -x "$(command -v antibody)" ]]; then
-  try sudo curl -sfL git.io/antibody | sh -s - -b /usr/local/bin
+  try sudo curl -sfL git.io/antibody | sudo sh -s - -b /usr/local/bin
 fi
 
 # Global configuration
