@@ -1,6 +1,7 @@
 #!/bin/zsh
 
 ## WSL configs
+WIN_C_PATH="$(wslpath 'C:\')"
 unsetopt BG_NICE
 export MACHINE="WSL"
 [[ -d /c && -d /c/code && -n `ls -a /c/code` ]] && export CODE_DIR=/c/code || export CODE_DIR=/mnt/c/code
@@ -25,4 +26,15 @@ if [[ -d $HOME/.rbenv/bin ]]; then
   export PATH="$HOME/.rbenv/bin:$PATH"
   eval "$(rbenv init -)"
   export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
+fi
+
+# Check if we have and remove Windows NPM from path
+WIN_NPM_PATH="$(dirname "$(which npm)")"
+if [[ "${WIN_NPM_PATH}" == "${WIN_C_PATH}"* ]]; then
+  export PATH=$(echo "${PATH}" | sed -e "s#${WIN_NPM_PATH}/:##")
+fi
+
+WIN_YARN_PATH="$(dirname "$(which yarn)")"
+if [[ "${WIN_YARN_PATH}" == "${WIN_C_PATH}"* ]]; then
+  export PATH=$(echo "${PATH}" | sed -e "s#${WIN_YARN_PATH}/:##")
 fi
