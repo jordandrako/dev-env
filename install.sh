@@ -323,7 +323,7 @@ if [[ $WSL == true ]]; then
   ask_xserver
   git_config
   ask_npm
-  install_dainty
+  # install_dainty
   copy_ssh
   success
 fi # End WSL
