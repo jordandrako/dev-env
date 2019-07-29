@@ -239,3 +239,8 @@ if [[ -x `command -v code-insiders` ]]; then
   alias ci.="code-insiders ."
 fi
 
+# WSL
+if [[ -x `command -v powershell.exe` ]]; then
+	alias shutdown="powershell.exe wsl --shutdown"
+fi
+
