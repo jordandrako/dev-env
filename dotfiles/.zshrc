@@ -12,6 +12,8 @@ zmodload -i zsh/complist
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=100000
 SAVEHIST=$HISTSIZE
+bindkey "^[[A" history-beginning-search-backward
+bindkey "^[[B" history-beginning-search-forward
 
 # Options
 setopt auto_cd # cd by typing directory name if it's not a command
@@ -98,4 +100,9 @@ case `uname -a` in
     [[ -s ~/.cygwin.zsh ]] && source ~/.cygwin.zsh;;
   Linux* )
     [[ -s ~/.linux.zsh ]] && source ~/.linux.zsh;;
+  Darwin* )
+    [[ -s ~/.mac.zsh ]] && source ~/.mac.zsh
 esac
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
