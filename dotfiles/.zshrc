@@ -12,6 +12,9 @@ zmodload -i zsh/complist
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=100000
 SAVEHIST=$HISTSIZE
+autoload -U history-search-end
+zle -N history-beginning-backward-end history-search-end
+zle -N history-beginning-forward-end history-search-end
 bindkey "^[[A" history-beginning-search-backward
 bindkey "^[[B" history-beginning-search-forward
 
