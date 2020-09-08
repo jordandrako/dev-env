@@ -29,6 +29,8 @@ alias md="mkdir -p"
 alias rd=rmdir
 alias d="dirs -v | head -10"
 
+alias yeet="rm -rf"
+
 # List large directories
 alias ducks="du -cksh * | sort -rh | head"
 
@@ -51,7 +53,7 @@ fi
 
 # Cmder
 if [[ -x `command -v cmd.exe` ]]; then
-	alias cmder="cmd.exe /k 'C:\\cmder\\integratedterm.bat'"
+  alias cmder="cmd.exe /k 'C:\\cmder\\integratedterm.bat'"
 fi
 
 # Git
@@ -59,6 +61,7 @@ if [[ -x `command -v git` ]]; then
   alias gs="git status -s"
   alias gss="git status"
   alias gl="git lg"
+  alias gf="git fetch"
   alias ga="git add"
   alias gaa="git add -A"
   alias gac="git add -A && git commit -m"
@@ -74,12 +77,12 @@ if [[ -x `command -v git` ]]; then
   alias gdc="git diff --cached"
   alias git-NUKE="git reset --hard HEAD && git clean -fdq"
 
-  # Git finish. USAGE: gf "Commit message" [remote-branch]
-  gf() {
+  # Git finish. USAGE: gfin "Commit message" [remote-branch]
+  gfin() {
     if [[ `git status -s | wc -l` -lt 1 ]]; then
       echo "No changes."
     elif [[ ! $1 ]]; then
-      echo "You must specify a commit message! USAGE: gf \"Commit message\" [remote-branch]"
+      echo "You must specify a commit message! USAGE: gfin \"Commit message\" [remote-branch]"
     elif [[ $2 && `git ls-remote --heads origin $2 | wc -l` == 0 ]]; then
       echo "Branch \"$2\" does not exist on remote origin."
     else
@@ -145,14 +148,6 @@ if [[ -x `command -v npm` ]]; then
   alias nrm="npm rm"
   alias nrmg="npm rm -g"
 
-  # Yarn
-  if [[ -x `command -v yarn` ]]; then
-    alias ys="yarn start"
-    alias ya="yarn add"
-    alias yad="yarn add -D"
-    alias yrm="yarn remove"
-  fi
-
   # Create react app
   if [[ -x `command -v create-react-app` ]]; then
     alias cra="create-react-app"
@@ -165,6 +160,17 @@ if [[ -x `command -v npm` ]]; then
       npx create-react-app $1 --typescript
     }
   fi
+fi
+
+# Yarn
+if [[ -x `command -v yarn` ]]; then
+  alias ys="yarn start"
+  alias ya="yarn add"
+  alias yad="yarn add -D"
+  alias yrm="yarn remove"
+  alias yaw="yarn add -W"
+  alias yawd="yarn add -DW"
+  alias yadw="yarn add -DW"
 fi
 
 # Docker
@@ -206,7 +212,7 @@ fi
 
 # Hass (docker)
 if [[ -x `command -v docker` && `docker ps -q -f name=hass` && ! `docker ps -aq -f status=exited -f name=hass` ]]; then
-  alias ha-conf="cd ~/docker-media-server/.config/hass"
+  alias ha-conf="cd /mnt/docker/.config/hass"
   alias ha-check="docker exec -it hass python -m homeassistant -c /config --script check_config"
   alias ha-logs="docker logs hass"
 
@@ -218,29 +224,13 @@ if [[ -x `command -v docker` && `docker ps -q -f name=hass` && ! `docker ps -aq 
   }
 fi
 
-# Rush
-if [[ -x `command -v rush` ]]; then
-  alias rb="rush build"
-  alias rrb="rush rebuild"
-  alias rbt="rush build -t"
-  alias rbtf="rush build -t office-ui-fabric-react"
-  alias rbti="rush build -t fabric-website-internal"
-fi
-
 # Apt
 if [[ -x `command -v apt` || -x `command -v apt-get` ]]; then
   alias apt-upgrade="sudo apt update && sudo apt -y upgrade"
   alias apt-install="sudo apt install"
 fi
 
-# VSCode
-if [[ -x `command -v code-insiders` ]]; then
-  alias ci="code-insiders"
-  alias ci.="code-insiders ."
-fi
-
 # WSL
 if [[ -x `command -v powershell.exe` ]]; then
-	alias shutdown="powershell.exe wsl --shutdown"
+  alias shutdown="powershell.exe wsl --shutdown"
 fi
-
