@@ -8,6 +8,10 @@ setopt pushdminus
 # Source common functions: green, info, error, try, ask.
 [[ -s ~/.functions.sh ]] && source ~/.functions.sh
 
+# Utility
+alias -g and="&&"
+alias -g or="||"
+
 # Directory navigation
 alias -g ...="../.."
 alias -g ....="../../.."
