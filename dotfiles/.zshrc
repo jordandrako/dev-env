@@ -13,10 +13,18 @@ HISTFILE=$HOME/.zsh_history
 HISTSIZE=100000
 SAVEHIST=$HISTSIZE
 autoload -U history-search-end
+autoload -U up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
 zle -N history-beginning-backward-end history-search-end
 zle -N history-beginning-forward-end history-search-end
-bindkey "^[[A" history-beginning-search-backward
-bindkey "^[[B" history-beginning-search-forward
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey "^[[A" up-line-or-beginning-search
+bindkey "^[[B" down-line-or-beginning-search
+bindkey "^[[H" beginning-of-line
+bindkey "^[[F" end-of-line
+bindkey "\e[3~" delete-char
+
 
 # Options
 setopt auto_cd # cd by typing directory name if it's not a command
@@ -88,6 +96,11 @@ fi # End Antibody
 [[ -d ~/n/bin ]] && export PATH=~/n/bin:$PATH
 [[ -s ~/.npm.nosudo.zsh ]] && source ~/.npm.nosudo.zsh
 
+# NVM
+export NVM_DIR="$HOME/.nvm"
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
+
 ## Aliases
 alias zconf="nano ~/.zshrc"
 alias zsource="clear && source ~/.zshrc"
@@ -108,4 +121,3 @@ case `uname -a` in
 esac
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
