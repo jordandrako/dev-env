@@ -33,7 +33,11 @@ alias md="mkdir -p"
 alias rd=rmdir
 alias d="dirs -v | head -10"
 
-alias yeet="rm -rf"
+if [[ -x `command -v trash` ]]; then
+  alias yeet="trash"
+else
+  alias yeet="rm -rf"
+fi
 
 # List large directories
 alias ducks="du -cksh * | sort -rh | head"
