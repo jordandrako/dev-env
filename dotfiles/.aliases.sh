@@ -234,7 +234,12 @@ if [[ -x `command -v apt` || -x `command -v apt-get` ]]; then
   alias apt-install="sudo apt install"
 fi
 
-# WSL
+# WSL Powershell
 if [[ -x `command -v powershell.exe` ]]; then
   alias shutdown="powershell.exe wsl --shutdown"
+fi
+
+# WSL ADB
+if [[ -x `command -v adb.exe` ]]; then
+  alias adb="adb.exe"
 fi
