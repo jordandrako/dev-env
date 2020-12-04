@@ -4,7 +4,8 @@
 WIN_C_PATH="$(wslpath 'C:\')"
 unsetopt BG_NICE
 export MACHINE="WSL"
-[[ -d /c && -d /c/code && -n `ls -a /c/code` ]] && export CODE_DIR=/c/code || export CODE_DIR=/mnt/c/code
+[[ -d ~/code ]] && export CODE_DIR=~/code
+# [[ -d /c && -d /c/code && -n `ls -a /c/code` ]] && export CODE_DIR=/c/code || export CODE_DIR=/mnt/c/code
 
 alias coder="cd $CODE_DIR"
 alias nsfi="cd $CODE_DIR && cd ui-fabric-website-internal/apps/fabric-website-internal && npm start"
