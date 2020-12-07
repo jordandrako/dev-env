@@ -109,8 +109,9 @@ alias zsource="clear && source ~/.zshrc"
 [[ -s ~/.aliases.sh ]] && source ~/.aliases.sh
 
 ## OS specific configs
-case `uname -a` in
-  *Microsoft* )
+opt=$( tr '[:upper:]' '[:lower:]' <<< `uname -a` )
+case $opt in
+  *microsoft* )
     [[ -s ~/.wsl.zsh ]] && source ~/.wsl.zsh;;
   CYGWIN* )
     [[ -s ~/.cygwin.zsh ]] && source ~/.cygwin.zsh;;
