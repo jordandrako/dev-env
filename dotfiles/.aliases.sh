@@ -190,8 +190,6 @@ if [[ -x `command -v docker` ]]; then
   alias drestart="docker restart"
   alias dra="docker restart $(docker ps -a -q)"
   alias drestartall="docker restart $(docker ps -a -q)"
-  alias dcu="docker-compose up"
-  alias dcd="docker-compose down"
 
   # Check if container is running. Returns true or false.
   # USAGE: disup container-name && <command if true> || <command if false>
@@ -200,22 +198,17 @@ if [[ -x `command -v docker` ]]; then
   }
 fi
 
+# Docker-compose
+if [[ -x `command -v docker-compose` ]]; then
+  alias dcu="docker-compose up"
+  alias dcupdb="docker-compose up -d --build --remove-orphans"
+  alias dcd="docker-compose down"
+  alias dcl="docker-compose logs"
+fi
+
 # Ngrok
 if [[ -x `command -v ngrok` ]]; then
   alias ngr="ngrok http --host-header=rewrite"
-fi
-
-# hassio
-if [[ -x `command -v hassio` ]]; then
-  alias conf="cd /config"
-  alias ha="hassio ha"
-  alias logs="hassio ha logs"
-  restart() {
-    echo "Running config check..."
-    hassio ha check && \
-    echo "Config check passed. Restarting..." && \
-    hassio ha restart $*
-  }
 fi
 
 # Hass (docker)
@@ -246,4 +239,9 @@ fi
 # WSL ADB
 if [[ -x `command -v adb.exe` ]]; then
   alias adb="adb.exe"
+fi
+
+# IdeaIU
+if [[ -f ~/ideaIU/bin/idea.sh ]]; then
+  alias idea="~/ideaIU/bin/idea.sh &!"
 fi

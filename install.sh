@@ -3,8 +3,7 @@
 initial="$PWD"
 config=$initial/dotfiles
 script_user=${1:-$USER}
-dainty_theme=night-owl
-npm_packages="yarn gulp-cli create-react-app trash-cli empty-trash-cli typescript eslint ngrok"
+npm_packages="yarn gulp-cli create-react-app @vue/cli trash-cli empty-trash-cli typescript eslint ngrok"
 NPM_ATTEMPTED=false
 c=/mnt/c
 [[ -d /c ]] && c=/c
@@ -220,22 +219,6 @@ install_cursor() {
   fi
 }
 
-install_dainty() {
-  DAINTY_DIR="~/dainty-wsltty"
-  if [ ! -d ~/dainty-wsltty ]; then
-    green "Installing Dainty theme generator"
-    try git clone https://github.com/alexanderte/dainty-wsltty.git ~/dainty-wsltty
-  fi
-  cd ~/dainty-wsltty
-  try git pull
-  if [ -x `command -v yarn` ]; then
-    try yarn
-    try yarn build -i -p $dainty_theme
-  else
-    info "Cannot install dainty without yarn. Make sure npm and yarn are installed, then try again."
-  fi
-}
-
 # Ask to copy window user's SSH config to new workspace.
 copy_ssh() {
   if [[ ! $CYGWIN == true && ! -x $(command -v dos2unix) ]]; then
@@ -323,7 +306,6 @@ if [[ $WSL == true ]]; then
   ask_xserver
   git_config
   ask_npm
-  # install_dainty
   copy_ssh
   success
 fi # End WSL

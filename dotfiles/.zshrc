@@ -44,14 +44,27 @@ zstyle ':completion:*' group-name '' # group results by category
 zstyle ':completion:::::' completer _expand _complete _ignored _approximate # enable approximate matches for completion
 
 # Customize PATH
-export PATH="$HOME/bin:/usr/local/bin:$PATH"
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$HOME/bin:/usr/local/bin:$PATH"
 
 ## Custom Plugins
 # fzf: Fuzzy completion
 [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
 
+# Java: SDKMan
+[[ -f ~/.sdkman/bin/sdkman-init.sh ]] && source ~/.sdkman/bin/sdkman-init.sh
+[[ -f ~/.sdkman/candidates/java/current ]] && export JAVA_HOME=~/.sdkman/candidates/java/current
+
 # RVM: Ruby version manager
 [[ -s ~/.rvm/scripts/rvm ]] && source ~/.rvm/scripts/rvm
+
+# Source NPM configs
+[[ -d ~/n/bin ]] && export PATH=~/n/bin:$PATH
+[[ -s ~/.npm.nosudo.zsh ]] && source ~/.npm.nosudo.zsh
+
+# NVM
+export NVM_DIR="$HOME/.nvm"
+[[ -s "/usr/local/opt/nvm/nvm.sh" ]] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+[[ -s "/usr/local/opt/nvm/etc/bash_completion" ]] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
 
 ## Antibody
 if [[ -x `command -v antibody` ]]; then
@@ -89,18 +102,6 @@ if [[ -x `command -v antibody` ]]; then
   antibody bundle denysdovhan/spaceship-prompt
 fi # End Antibody
 
-## Color configuration
-[[ -s ~/.dircolors ]] && eval $(dircolors -b $HOME/.dircolors)
-
-# Source NPM configs
-[[ -d ~/n/bin ]] && export PATH=~/n/bin:$PATH
-[[ -s ~/.npm.nosudo.zsh ]] && source ~/.npm.nosudo.zsh
-
-# NVM
-export NVM_DIR="$HOME/.nvm"
-[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
-
 ## Aliases
 alias zconf="nano ~/.zshrc"
 alias zsource="clear && source ~/.zshrc"
@@ -122,5 +123,3 @@ case $opt in
 esac
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
