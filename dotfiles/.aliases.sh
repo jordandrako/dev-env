@@ -203,7 +203,7 @@ if [[ -x `command -v docker-compose` ]]; then
   alias dcu="docker-compose up"
   alias dcupdb="docker-compose up -d --build --remove-orphans"
   alias dcp="docker-compose pull"
-  alias dcupdate="docker-compose pull && docker-compose up -d -build --remove-orphans --force-recreate"
+  alias dcupdate="docker-compose pull && docker-compose up -d --build --remove-orphans --force-recreate"
   alias dcd="docker-compose down"
   alias dcl="docker-compose logs"
 fi
