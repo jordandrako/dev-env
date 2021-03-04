@@ -23,9 +23,12 @@ try() {
 # Ask with blue background.
 # Pass question and options: `ask "question" "yes/no" readVarName`
 ask() {
-  [[ ! $1 ]] && error "You must pass a question to ask!"
-  question=$1
-  input=${2:="y/n"}
-  echo -e "\n\e[1;34m$question\e[0m" && echo "[$input] > "
-  [[ $3 ]] && read $3
+  if [[ ! $1 ]]; then
+    error "You must pass a question to ask!"
+  else
+    question=$1
+    input=${2:="y/n"}
+    echo -e "\n\e[1;34m$question\e[0m" && echo "[$input] > "
+    [[ $3 ]] && read $3
+  fi
 }
