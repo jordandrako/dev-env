@@ -114,11 +114,11 @@ opt=$( tr '[:upper:]' '[:lower:]' <<< `uname -a` )
 case $opt in
   *microsoft* )
     [[ -s ~/.wsl.zsh ]] && source ~/.wsl.zsh;;
-  CYGWIN* )
+  cygwin* )
     [[ -s ~/.cygwin.zsh ]] && source ~/.cygwin.zsh;;
-  Linux* )
+  linux* )
     [[ -s ~/.linux.zsh ]] && source ~/.linux.zsh;;
-  Darwin* )
+  darwin* )
     [[ -s ~/.mac.zsh ]] && source ~/.mac.zsh
 esac
 
