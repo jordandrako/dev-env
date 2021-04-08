@@ -11,6 +11,8 @@ setopt pushdminus
 # Utility
 alias -g and="&&"
 alias -g or="||"
+alias uefi="sudo systemctl reboot --firmware-setup"
+alias eufi="sudo systemctl reboot --firmware-setup"
 
 # Directory navigation
 alias -g ...="../.."
