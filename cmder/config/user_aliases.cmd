@@ -8,7 +8,6 @@ e.=explorer .
 ls=ls --show-control-chars -F --color $*
 pwd=cd
 clear=cls
-history=cat "%CMDER_ROOT%\config\.history"
 unalias=alias /d $1
 vi=vim $*
 cmderr=cd /d "%CMDER_ROOT%"
@@ -49,7 +48,6 @@ nid= npm i -D $*
 ngi=npm i -g $*
 nrm=npm rm $*
 nrmg=npm rm -g $*
-nsfi=cd /d "%CODE_DIR%\ui-fabric-website-internal\apps\fabric-website-internal" && npm start
 
 ;= Create react app
 cra=create-react-app $*
@@ -65,14 +63,8 @@ yrm=yarn remove $*
 dps=docker ps $*
 dpsa=docker ps -a $*
 drestart=docker restart $*
-dup=docker-compose up $*
+dcup=docker-compose up $*
+dcd=docker-compose down $*
 
 ;= Ngrok
 ngr=ngrok http --host-header=rewrite $1
-
-;= Rush
-rb=rush build $*
-rrb=rush rebuild $*
-rbt=rush build -t $*
-rbtf=rush build -t office-ui-fabric-react $*
-rbti=rush build -t fabric-website-internal $*
