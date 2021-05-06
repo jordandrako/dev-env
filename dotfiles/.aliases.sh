@@ -13,6 +13,8 @@ alias -g and="&&"
 alias -g or="||"
 alias uefi="sudo systemctl reboot --firmware-setup"
 alias eufi="sudo systemctl reboot --firmware-setup"
+alias pid="info 'Click on the window to find its PID' && xprop _NET_WM_PID | cut -d' ' -f3"
+alias killwindow="info 'Click on the window to kill it' && xprop _NET_WM_PID | cut -d' ' -f3 | xargs kill"
 
 # Directory navigation
 alias -g ...="../.."
