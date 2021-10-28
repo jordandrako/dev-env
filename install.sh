@@ -3,7 +3,7 @@
 initial="$PWD"
 config=$initial/dotfiles
 script_user=${1:-$USER}
-npm_packages="yarn gulp-cli create-react-app @vue/cli trash-cli empty-trash-cli typescript eslint ngrok"
+npm_packages="trash-cli empty-trash-cli typescript eslint ngrok"
 NPM_ATTEMPTED=false
 c=/mnt/c
 [[ -d /c ]] && c=/c
@@ -25,6 +25,54 @@ install() {
     try apt-cyg install $*
   else
     try sudo apt-get update && try sudo apt-get install $* -y
+  fi
+}
+
+ask_dotfile_install() {
+  while true; do
+    ask "Install dev-env dotfiles? This will backup and override existing dotfiles." "Y/n" oYn
+    case $oYn in
+      [nN]* )
+        break;;
+      * )
+        try dotfile_install;
+        break;;
+    esac
+  done
+}
+
+dotfile_install() {
+  # Check for antibody
+  if [[ ! -x "$(command -v antibody)" ]]; then
+    try curl -sfL git.io/antibody | sudo sh -s - -b /usr/local/bin
+  fi
+
+  # Global configuration
+  [[ -d $c/cmder ]] && cp -rf $initial/cmder/* $c/cmder/
+
+  [[ -a ~/.zshrc ]] && try cp ~/.zshrc ~/.zshrc.bak
+  try cp $config/.zshrc ~/
+
+  [[ -a ~/.key-bindings.zsh ]] && try cp ~/.key-bindings.zsh ~/.key-bindings.zsh.bak
+  try cp $config/.key-bindings.zsh ~/
+
+  [[ -a ~/.functions.sh ]] && try cp ~/.functions.sh ~/.functions.sh.bak
+  try cp $config/.functions.sh ~/
+
+  [[ -a ~/.aliases.sh ]] && try cp ~/.aliases.sh ~/.aliases.sh.bak
+  try cp $config/.aliases.sh ~/
+
+  [[ -a ~/.nanorc ]] && try cp ~/.nanorc ~/.nanorc.bak
+  try cp $config/.nanorc ~/
+
+  [[ -a ~/.tmux.conf ]] && try cp ~/.tmux.conf ~/.tmux.conf.bak
+  try cp $config/.tmux.conf ~/
+
+  # fzf plugin
+  if [[ ! -f ~/.fzf.zsh ]]; then
+    [[ -d ~/.fzf ]] && try rm -rf ~/.fzf
+    try git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+    try ~/.fzf/install --no-bash --no-fish --no-update-rc --key-bindings --completion
   fi
 }
 
@@ -120,105 +168,6 @@ run_pengwin_setup() {
   [[ -x `command -v pengwin-setup` ]] && try pengwin-setup
 }
 
-# Ask to set up WSL for GUI apps.
-ask_xserver() {
-  while true; do
-    ask "Configure WSL for GUI applications?" "y/N" xYn
-    case $xYn in
-      [yY]* )
-        try xserver_config;
-        try ask_desktop;
-        try ask_fonts;
-        try ask_cursor;
-        break;;
-      * ) break;;
-    esac
-  done
-}
-
-# Install packages for GUI apps.
-xserver_config() {
-  green "Configuring XServer"
-  [[ -a ~/.xsrv.zsh ]] && try cp ~/.xsrv.zsh ~/.xsrv.zsh.bak
-  try cp $config/.xsrv.zsh ~/
-  # Don't use install function, as user input is required.
-  try sudo apt-get update && try sudo apt-get install -y xfce4 xfce4-terminal tilix xfce4-whiskermenu-plugin adapta-gtk-theme papirus-icon-theme firefox-esr
-  # Remove screensavers
-  info "Removing screensavers and other xfce programs that cause issues with WSL"
-  try sudo apt-get -y purge xfce4-power-manager xscreensaver gnome-screensaver light-locker i3lock
-}
-
-ask_desktop() {
-  while true; do
-    ask "Copy xfce desktop configs?" "y/N" desktopYn
-    case $desktopYn in
-      [yY]* )
-        try desktop_config;
-        break;;
-      * ) break;;
-    esac
-  done
-}
-
-desktop_config() {
-  green "Configuring xfce desktop"
-  if [[ -d ~/.config/xfce4 ]]; then
-    [[ -d ~/.config/xfce4.bak ]] && try rm -rf ~/.config/xfce4.bak
-    try mv ~/.config/xfce4 ~/.config/xfce4.bak
-  fi
-  if [[ -d ~/.config/Thunar ]]; then
-    [[ -d ~/.config/Thunar.bak ]] && try rm -rf ~/.config/Thunar.bak
-    try mv ~/.config/Thunar ~/.config/Thunar.bak
-  fi
-  try cp -R $config/xfce4-desktop/* ~/.config/
-}
-
-# Ask to share windows fonts with WSL.
-ask_fonts() {
-  while true; do
-    ask "Share Windows fonts for GUI applications?" "y/N" fontsYn
-    case $fontsYn in
-      [yY]* )
-        try share_fonts;
-        break;;
-      * ) break;;
-    esac
-  done
-}
-
-# Copy local.conf to wsl to share windows fonts.
-share_fonts() {
-  green "Configuring Windows Fonts."
-  [[ -a /etc/fonts/local.conf ]] && try sudo cp /etc/fonts/local.conf /etc/fonts/local.conf.bak
-  try sudo cp $config/local.conf /etc/fonts/
-}
-
-# Ask to install Windows cursor theme.
-ask_cursor() {
-  while true; do
-    ask "Install Windows curor theme for GUI applications?" "y/N" cursorYn
-    case $cursorYn in
-      [yY]* )
-        try install_cursor;
-        break;;
-      * ) break;;
-    esac
-  done
-}
-
-# Install Windows cursor theme.
-install_cursor() {
-  CURSOR_DIR="/usr/share/icons/Win-8.1-NS"
-  if [ -d "$CURSOR_DIR" ]; then
-    info "Win-8.1-NS X11 cursor theme is already installed"
-  else
-    green "Installing Win-8.1-NS cursor theme"
-    try sudo cp -rf $config/Win-8.1-NS/ $CURSOR_DIR && \
-    sudo update-alternatives --install /usr/share/icons/default/index.theme x-cursor-theme /usr/share/icons/Win-8.1-NS/cursor.theme 90 && \
-    info "Installed."
-  fi
-}
-
 # Ask to copy window user's SSH config to new workspace.
 copy_ssh() {
   if [[ ! $CYGWIN == true && ! -x $(command -v dos2unix) ]]; then
@@ -261,38 +210,7 @@ case "$(uname -a)" in
     exit 1;;
 esac
 
-# Check for antibody
-if [[ ! -x "$(command -v antibody)" ]]; then
-  try curl -sfL git.io/antibody | sudo sh -s - -b /usr/local/bin
-fi
-
-# Global configuration
-[[ -d $c/cmder ]] && cp -rf $initial/cmder/* $c/cmder/
-
-[[ -a ~/.zshrc ]] && try cp ~/.zshrc ~/.zshrc.bak
-try cp $config/.zshrc ~/
-
-[[ -a ~/.key-bindings.zsh ]] && try cp ~/.key-bindings.zsh ~/.key-bindings.zsh.bak
-try cp $config/.key-bindings.zsh ~/
-
-[[ -a ~/.functions.sh ]] && try cp ~/.functions.sh ~/.functions.sh.bak
-try cp $config/.functions.sh ~/
-
-[[ -a ~/.aliases.sh ]] && try cp ~/.aliases.sh ~/.aliases.sh.bak
-try cp $config/.aliases.sh ~/
-
-[[ -a ~/.nanorc ]] && try cp ~/.nanorc ~/.nanorc.bak
-try cp $config/.nanorc ~/
-
-[[ -a ~/.tmux.conf ]] && try cp ~/.tmux.conf ~/.tmux.conf.bak
-try cp $config/.tmux.conf ~/
-
-# fzf plugin
-if [[ ! -f ~/.fzf.zsh ]]; then
-  [[ -d ~/.fzf ]] && try rm -rf ~/.fzf
-  try git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-  try ~/.fzf/install --no-bash --no-fish --no-update-rc --key-bindings --completion
-fi
+ask_dotfile_install
 
 # WSL Configuration
 if [[ $WSL == true ]]; then
@@ -303,7 +221,6 @@ if [[ $WSL == true ]]; then
   [[ ! -x `command -v lsb_release` ]] && try install lsb-release
   [[ `lsb_release -sd` == "Pengwin" ]] && try ask_pengwin
 
-  ask_xserver
   git_config
   ask_npm
   copy_ssh
