@@ -17,7 +17,7 @@ alias pid="info 'Click on the window to find its PID' && xprop _NET_WM_PID | cut
 alias killwindow="info 'Click on the window to kill it' && xprop _NET_WM_PID | cut -d' ' -f3 | xargs kill"
 alias untar="tar xzvf"
 function untard() {
-  dir=`echo $1 | sed 's/\.tar\.gz//gI'
+  dir=`echo $1 | sed 's/\.tar\.gz//gI'`
 	mkdir -p "./$dir"
 	tar xzvf $1 -C "./$dir"
 }
