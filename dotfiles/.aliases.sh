@@ -176,7 +176,7 @@ if [[ -x `command -v npm` ]]; then
   elif [[ -x `command -v npx` ]]; then
     alias cra="npx create-react-app"
     crats() {
-      npx create-react-app $1 --typescript
+      npx create-react-app $1 --template typescript
     }
   fi
 fi
