@@ -167,18 +167,19 @@ if [[ -x `command -v npm` ]]; then
   alias nrm="npm rm"
   alias nrmg="npm rm -g"
 
-  # Create react app
-  if [[ -x `command -v yarn` ]]; then
-    alias cra="yarn create react-app"
-    crats() {
-      yarn create react-app $1 --template typescript
-    }
-  elif [[ -x `command -v npx` ]]; then
-    alias cra="npx create-react-app"
-    crats() {
-      npx create-react-app $1 --template typescript
-    }
-  fi
+fi
+
+# Create react app
+if [[ -x `command -v yarn` ]]; then
+  alias cra="yarn create react-app"
+  crats() {
+    yarn create react-app $1 --template typescript
+  }
+elif [[ -x `command -v npx` ]]; then
+  alias cra="npx create-react-app"
+  crats() {
+    npx create-react-app $1 --template typescript
+  }
 fi
 
 # Yarn
