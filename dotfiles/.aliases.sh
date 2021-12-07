@@ -168,10 +168,10 @@ if [[ -x `command -v npm` ]]; then
   alias nrmg="npm rm -g"
 
   # Create react app
-  if [[ -x `command -v create-react-app` ]]; then
-    alias cra="create-react-app"
+  if [[ -x `command -v yarn` ]]; then
+    alias cra="yarn create react-app"
     crats() {
-      create-react-app $1 --typescript
+      yarn create react-app $1 --template typescript
     }
   elif [[ -x `command -v npx` ]]; then
     alias cra="npx create-react-app"
