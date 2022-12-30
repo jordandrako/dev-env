@@ -1,2 +1,9 @@
-set smooth
+#set smooth
 set tabsize 2
+set softwrap
+set atblanks
+set linenumbers
+set indicator
+set mouse
+set smarthome
+
