@@ -63,8 +63,8 @@ yrm=yarn remove $*
 dps=docker ps $*
 dpsa=docker ps -a $*
 drestart=docker restart $*
-dcup=docker-compose up $*
-dcd=docker-compose down $*
+dcup=docker compose up $*
+dcd=docker compose down $*
 
 ;= Ngrok
 ngr=ngrok http --host-header=rewrite $1
