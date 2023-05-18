@@ -1,3 +1,4 @@
 secrets*
 cmder/**/.history
 nohup.out
+.DS_Store

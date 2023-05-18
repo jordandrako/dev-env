@@ -21,7 +21,9 @@ success() {
 install() {
   [[ ! $* ]] && error "You must pass packges to try to install."
   info "Installing '$*'"
-  if [[ $CYGWIN == true ]]; then
+  if [[ $MAC == true ]]; then
+    try brew update && try brew install $*
+  elif [[ $CYGWIN == true ]]; then
     try apt-cyg install $*
   else
     try sudo apt-get update && try sudo apt-get install $* -y
@@ -44,7 +46,11 @@ ask_dotfile_install() {
 dotfile_install() {
   # Check for antibody
   if [[ ! -x "$(command -v antibody)" ]]; then
-    try curl -sfL git.io/antibody | sudo sh -s - -b /usr/local/bin
+    if [[ $MAC == true ]]; then
+      try install antibody
+    else
+      try curl -sfL git.io/antibody | sudo sh -s - -b /usr/local/bin
+    fi
   fi
 
   # Global configuration
@@ -203,8 +209,9 @@ case "$(uname -a)" in
   Linux* )
     green "Now Configuring Linux";
     LINUX=true;;
-  # Darwin* ) @TODO: SUPPORT MAC LATER
-  #   machine="Mac" ;;
+  Darwin* )
+    green "Now Configuring Mac";
+    MAC=true;;
   * )
     error "System Not Supported. Install manually.";
     exit 1;;
@@ -224,6 +231,18 @@ if [[ $WSL == true ]]; then
   git_config
   ask_npm
   copy_ssh
+  success
+fi # End WSL
+
+# Mac Configuration
+if [[ $MAC == true ]]; then
+  [[ -a ~/.mac.zsh ]] && try cp ~/.mac.zsh ~/.mac.zsh.bak
+  try cp $config/.mac.zsh ~/
+
+  [[ ! -x `command -v tmux` ]] && try install tmux
+
+  git_config
+  ask_npm
   success
 fi # End WSL
 

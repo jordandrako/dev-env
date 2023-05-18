@@ -169,19 +169,6 @@ if [[ -x `command -v npm` ]]; then
 
 fi
 
-# Create react app
-if [[ -x `command -v yarn` ]]; then
-  alias cra="yarn create react-app"
-  crats() {
-    yarn create react-app $1 --template typescript
-  }
-elif [[ -x `command -v npx` ]]; then
-  alias cra="npx create-react-app"
-  crats() {
-    npx create-react-app $1 --template typescript
-  }
-fi
-
 # Yarn
 if [[ -x `command -v yarn` ]]; then
   alias ys="yarn start"
@@ -202,6 +189,12 @@ if [[ -x `command -v docker` ]]; then
   alias drestart="docker restart"
   alias dra="docker restart $(docker ps -a -q)"
   alias drestartall="docker restart $(docker ps -a -q)"
+  alias dcu="docker compose up"
+  alias dcupdb="docker compose up -d --build --remove-orphans"
+  alias dcp="docker compose pull"
+  alias dcupdate="docker compose pull && docker compose up -d --build --remove-orphans --force-recreate"
+  alias dcd="docker compose down"
+  alias dcl="docker compose logs"
 
   # Check if container is running. Returns true or false.
   # USAGE: disup container-name && <command if true> || <command if false>
@@ -210,33 +203,9 @@ if [[ -x `command -v docker` ]]; then
   }
 fi
 
-# docker compose
-if [[ -x `command -v docker compose` ]]; then
-  alias dcu="docker compose up"
-  alias dcupdb="docker compose up -d --build --remove-orphans"
-  alias dcp="docker compose pull"
-  alias dcupdate="docker compose pull && docker compose up -d --build --remove-orphans --force-recreate"
-  alias dcd="docker compose down"
-  alias dcl="docker compose logs"
-fi
-
 # Ngrok
 if [[ -x `command -v ngrok` ]]; then
   alias ngr="ngrok http --host-header=rewrite"
-fi
-
-# Hass (docker)
-if [[ -x `command -v docker` && `docker ps -q -f name=hass` && ! `docker ps -aq -f status=exited -f name=hass` ]]; then
-  alias ha-conf="cd /mnt/docker/.config/hass"
-  alias ha-check="docker exec -it hass python -m homeassistant -c /config --script check_config"
-  alias ha-logs="docker logs hass"
-
-  ha-restart() {
-    echo "Running config check..."
-    docker exec -it hass python -m homeassistant -c /config --script check_config && \
-    echo "Config check passed. Restarting..." && \
-    docker restart hass
-  }
 fi
 
 # Apt
