@@ -45,13 +45,13 @@ ask_dotfile_install() {
 
 dotfile_install() {
   # Check for antibody
-  if [[ ! -x "$(command -v antibody)" ]]; then
-    if [[ $MAC == true ]]; then
-      try install antibody
-    else
-      try curl -sfL git.io/antibody | sudo sh -s - -b /usr/local/bin
-    fi
-  fi
+  # if [[ ! -x "$(command -v antibody)" ]]; then
+  #   if [[ $MAC == true ]]; then
+  #     try install antibody
+  #   else
+  #     try curl -sfL git.io/antibody | sudo sh -s - -b /usr/local/bin
+  #   fi
+  # fi
 
   # Global configuration
   [[ -d $c/cmder ]] && cp -rf $initial/cmder/* $c/cmder/
