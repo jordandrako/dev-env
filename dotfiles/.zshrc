@@ -66,8 +66,9 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 ## TMUX
-export ZSH_TMUX_AUTOSTART=true
-export ZSH_TMUX_DEFAULT_SESSION_NAME="`hostname`"
+TMUX_PLUGINS="${XDG_DATA_HOME:-${HOME}/.tmux}/plugins/tpm"
+[ ! -d $TMUX_PLUGINS ] && mkdir -p "$(dirname $TMUX_PLUGINS)"
+[ ! -d $TMUX_PLUGINS/.git ] && git clone https://github.com/tmux-plugins/tpm "$TMUX_PLUGINS"
 
 ## Zinit
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
