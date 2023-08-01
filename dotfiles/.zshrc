@@ -65,41 +65,42 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$HOME/b
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
-## Antibody
-if [[ -x `command -v antibody` ]]; then
-  source <(antibody init)
+## TMUX
+export ZSH_TMUX_AUTOSTART=true
+export ZSH_TMUX_DEFAULT_SESSION_NAME="`hostname`"
 
-  # Plugins
-  antibody bundle caarlos0/zsh-git-sync
-  antibody bundle robbyrussell/oh-my-zsh path:plugins/ssh-agent
-  antibody bundle zdharma/fast-syntax-highlighting
-  antibody bundle zsh-users/zsh-autosuggestions
-  antibody bundle zsh-users/zsh-history-substring-search
-  antibody bundle zsh-users/zsh-completions
-  antibody bundle buonomo/yarn-completion
-  antibody bundle luismayta/zsh-docker-compose-aliases
+## Zinit
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+[ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
+[ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+source "${ZINIT_HOME}/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
 
-  # Plugins with dependencies
-  [[ -x `command -v python` ]] && antibody bundle djui/alias-tips
+zinit snippet OMZ::plugins/ssh-agent/ssh-agent.plugin.zsh
+zinit light zpm-zsh/tmux
+zinit light zsh-users/zsh-autosuggestions,async
+zinit light zsh-users/zsh-history-substring-search,async
+zinit light zsh-users/zsh-completions,async
+zinit light zdharma-continuum/fast-syntax-highlighting,async
 
-  # Customize Theme
-  SPACESHIP_CHAR_SYMBOL="❯ "
-  SPACESHIP_CHAR_SYMBOL_ROOT="# "
-  SPACESHIP_PROMPT_ORDER=(
-    dir
-    line_sep
-    jobs
-    exit_code
-    char
-  )
+# Customize Theme
+SPACESHIP_CHAR_SYMBOL="❯ "
+SPACESHIP_CHAR_SYMBOL_ROOT="# "
+SPACESHIP_PROMPT_ORDER=(
+  dir
+  line_sep
+  jobs
+  exit_code
+  char
+)
 
-  SPACESHIP_RPROMPT_ORDER=(
-    git
-  )
+SPACESHIP_RPROMPT_ORDER=(
+  git
+)
 
-  # Load Theme
-  antibody bundle denysdovhan/spaceship-prompt
-fi # End Antibody
+# Load Theme
+zinit light denysdovhan/spaceship-prompt
 
 ## Aliases
 alias zconf="nano ~/.zshrc"
