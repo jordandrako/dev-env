@@ -62,8 +62,9 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$HOME/b
 [[ -s ~/.npm.nosudo.zsh ]] && source ~/.npm.nosudo.zsh
 
 # NVM
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+export NVM_DIR="$HOME/.nvm"
+[[ -s "/usr/local/opt/nvm/nvm.sh" ]] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+[[ -s "/usr/local/opt/nvm/etc/bash_completion" ]] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
 
 ## TMUX
 export ZSH_TMUX_AUTOSTART=true
@@ -79,10 +80,10 @@ autoload -Uz _zinit
 
 zinit snippet OMZ::plugins/ssh-agent/ssh-agent.plugin.zsh
 zinit light zpm-zsh/tmux
-zinit light zsh-users/zsh-autosuggestions,async
-zinit light zsh-users/zsh-history-substring-search,async
-zinit light zsh-users/zsh-completions,async
-zinit light zdharma-continuum/fast-syntax-highlighting,async
+zinit light zsh-users/zsh-autosuggestions
+zinit light zsh-users/zsh-history-substring-search
+zinit light zsh-users/zsh-completions
+zinit light zdharma-continuum/fast-syntax-highlighting
 
 # Customize Theme
 SPACESHIP_CHAR_SYMBOL="❯ "
