@@ -86,8 +86,10 @@ zinit light zdharma-continuum/fast-syntax-highlighting
 # Customize Theme
 SPACESHIP_CHAR_SYMBOL="❯ "
 SPACESHIP_CHAR_SYMBOL_ROOT="# "
+SPACESHIP_TIME_SHOW=true
 SPACESHIP_PROMPT_ORDER=(
   dir
+  git
   line_sep
   jobs
   exit_code
@@ -95,7 +97,8 @@ SPACESHIP_PROMPT_ORDER=(
 )
 
 SPACESHIP_RPROMPT_ORDER=(
-  git
+	node
+	time
 )
 
 # Load Theme
