@@ -13,8 +13,10 @@ source $config/.functions.sh
 
 # Source the .zshrc file and exit.
 success() {
-  green "Done! Restart zsh or run source ~/.zshrc"
-  exit 0
+  green "Done! Restarting zsh..."
+  # green "Done! Restart zsh or run source ~/.zshrc"
+  exec zsh
+  # exit 0
 }
 
 # Simplify installing packages between different systems.
