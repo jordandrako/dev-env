@@ -183,6 +183,7 @@ fi
 # Docker
 if [[ -x `command -v docker` ]]; then
   alias dl="docker logs"
+  alias dlf="docker logs -f"
   alias dps="docker ps"
   alias dpsa="docker ps -a"
   alias dr="docker restart"
