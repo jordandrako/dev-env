@@ -90,24 +90,6 @@ zinit light zsh-users/zsh-history-substring-search
 zinit light zsh-users/zsh-completions
 zinit light zdharma-continuum/fast-syntax-highlighting
 
-# Customize Theme
-SPACESHIP_CHAR_SYMBOL="❯ "
-SPACESHIP_CHAR_SYMBOL_ROOT="# "
-SPACESHIP_TIME_SHOW=true
-SPACESHIP_PROMPT_ORDER=(
-  dir
-  git
-  line_sep
-  jobs
-  exit_code
-  char
-)
-
-SPACESHIP_RPROMPT_ORDER=(
-	node
-	time
-)
-
 ## Aliases
 alias zconf="nano ~/.zshrc"
 alias zsource="clear && source ~/.zshrc"

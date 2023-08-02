@@ -61,6 +61,9 @@ dotfile_install() {
   [[ -a ~/.zshrc ]] && try cp ~/.zshrc ~/.zshrc.bak
   try cp $config/.zshrc ~/
 
+  [[ -a ~/.p10k.zsh ]] && try cp ~/.p10k.zsh ~/.p10k.zsh.bak
+  try cp $config/.p10k.zsh ~/
+
   [[ -a ~/.key-bindings.zsh ]] && try cp ~/.key-bindings.zsh ~/.key-bindings.zsh.bak
   try cp $config/.key-bindings.zsh ~/
 
