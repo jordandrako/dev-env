@@ -67,9 +67,6 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 
 ## TMUX
 TMUX_MOTD=false
-TMUX_PLUGINS="${XDG_DATA_HOME:-${HOME}/.tmux}/plugins/tpm"
-[ ! -d $TMUX_PLUGINS ] && mkdir -p "$(dirname $TMUX_PLUGINS)"
-[ ! -d $TMUX_PLUGINS/.git ] && git clone https://github.com/tmux-plugins/tpm "$TMUX_PLUGINS"
 
 ## Zinit
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
