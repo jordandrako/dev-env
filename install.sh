@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/zsh
 
 initial="$PWD"
 config=$initial/dotfiles
@@ -9,14 +9,14 @@ c=/mnt/c
 [[ -d /c ]] && c=/c
 
 # Source common functions: green, info, error, try, ask.
-source $config/.functions.sh
+source $config/.functions.zsh
+
+isInstalled zsh && green "zsh found, continuing..." || error "zsh not found. Install zsh first." 1
 
 # Source the .zshrc file and exit.
 success() {
   green "Done! Restarting zsh..."
-  # green "Done! Restart zsh or run source ~/.zshrc"
   exec zsh
-  # exit 0
 }
 
 # Simplify installing packages between different systems.
@@ -46,15 +46,6 @@ ask_dotfile_install() {
 }
 
 dotfile_install() {
-  # Check for antibody
-  # if [[ ! -x "$(command -v antibody)" ]]; then
-  #   if [[ $MAC == true ]]; then
-  #     try install antibody
-  #   else
-  #     try curl -sfL git.io/antibody | sudo sh -s - -b /usr/local/bin
-  #   fi
-  # fi
-
   # Global configuration
   [[ -d $c/cmder ]] && cp -rf $initial/cmder/* $c/cmder/
 
@@ -64,14 +55,14 @@ dotfile_install() {
   [[ -a ~/.p10k.zsh ]] && try cp ~/.p10k.zsh ~/.p10k.zsh.bak
   try cp $config/.p10k.zsh ~/
 
-  [[ -a ~/.key-bindings.zsh ]] && try cp ~/.key-bindings.zsh ~/.key-bindings.zsh.bak
-  try cp $config/.key-bindings.zsh ~/
+  [[ -a ~/.config/.key-bindings.zsh ]] && try cp ~/.config/.key-bindings.zsh ~/.config/.key-bindings.zsh.bak
+  try cp $config/.key-bindings.zsh ~/.config/
 
-  [[ -a ~/.functions.sh ]] && try cp ~/.functions.sh ~/.functions.sh.bak
-  try cp $config/.functions.sh ~/
+  [[ -a ~/.config/.functions.zsh ]] && try cp ~/.config/.functions.zsh ~/.config/.functions.zsh.bak
+  try cp $config/.functions.zsh ~/.config/
 
-  [[ -a ~/.aliases.sh ]] && try cp ~/.aliases.sh ~/.aliases.sh.bak
-  try cp $config/.aliases.sh ~/
+  [[ -a ~/.config/.aliases.zsh ]] && try cp ~/.config/.aliases.zsh ~/.config/.aliases.zsh.bak
+  try cp $config/.aliases.zsh ~/.config/
 
   [[ -a ~/.nanorc ]] && try cp ~/.nanorc ~/.nanorc.bak
   try cp $config/.nanorc ~/
@@ -117,8 +108,8 @@ npm_nosudo() {
   # Permanent configs
   [[ -a ~/.npmrc ]] && try cp ~/.npmrc ~/.npmrc.bak
   try npm config set prefix '~/.npm-global'
-  [[ -a ~/.npm.nosudo.zsh ]] && try cp ~/.npm.nosudo.zsh ~/.npm.nosudo.zsh.bak
-  try cp $config/.npm.nosudo.zsh ~/
+  [[ -a ~/.config/.npm.nosudo.zsh ]] && try cp ~/.config/.npm.nosudo.zsh ~/.config/.npm.nosudo.zsh.bak
+  try cp $config/.npm.nosudo.zsh ~/.config/
 
   # Runtime config
   export PATH=~/.npm-global/bin:$PATH
@@ -162,7 +153,7 @@ git_global() {
 
 # Ask to run Pengwin setup
 ask_pengwin() {
-  while true; do
+  while [[ -x `command -v pengwin-setup` ]]; do
     ask "Run pengwin-setup?" "y/N" psYn
     case $psYn in
       [yY]* )
@@ -182,7 +173,7 @@ run_pengwin_setup() {
 # Ask to copy window user's SSH config to new workspace.
 copy_ssh() {
   if [[ ! $CYGWIN == true && ! -x $(command -v dos2unix) ]]; then
-    try install dos2unix make
+    install dos2unix make
   fi
 
   try chmod +x $initial/copy-ssh.sh
@@ -226,11 +217,11 @@ ask_dotfile_install
 
 # WSL Configuration
 if [[ $WSL == true ]]; then
-  [[ -a ~/.wsl.zsh ]] && try cp ~/.wsl.zsh ~/.wsl.zsh.bak
-  try cp $config/.wsl.zsh ~/
+  [[ -a ~/.config/.wsl.zsh ]] && try cp ~/.config/.wsl.zsh ~/.config/.wsl.zsh.bak
+  try cp $config/.wsl.zsh ~/.config/
 
-  [[ ! -x `command -v tmux` ]] && try install tmux
-  [[ ! -x `command -v lsb_release` ]] && try install lsb-release
+  isInstalled tmux || install tmux
+  isInstalled lsb_release || install lsb-release
   [[ `lsb_release -sd` == "Pengwin" ]] && try ask_pengwin
 
   git_config
@@ -241,10 +232,10 @@ fi # End WSL
 
 # Mac Configuration
 if [[ $MAC == true ]]; then
-  [[ -a ~/.mac.zsh ]] && try cp ~/.mac.zsh ~/.mac.zsh.bak
-  try cp $config/.mac.zsh ~/
+  [[ -a ~/.config/.mac.zsh ]] && try cp ~/.config/.mac.zsh ~/.config/.mac.zsh.bak
+  try cp $config/.mac.zsh ~/.config/
 
-  [[ ! -x `command -v tmux` ]] && try install tmux
+  [[ ! -x `command -v tmux` ]] && install tmux
 
   git_config
   ask_npm
@@ -253,11 +244,11 @@ fi # End WSL
 
 # Linux Configuration
 if [[ $LINUX == true ]]; then
-  [[ -a ~/.linux.zsh ]] && try cp ~/.linux.zsh ~/.linux.zsh.bak
-  try cp $config/.linux.zsh ~/
+  [[ -a ~/.config/.linux.zsh ]] && try cp ~/.config/.linux.zsh ~/.config/.linux.zsh.bak
+  try cp $config/.linux.zsh ~/.config/
 
-  [[ ! -x `command -v tmux` ]] && try install tmux
-  [[ ! -x `command -v lsb_release` ]] && try install lsb-release
+  [[ ! -x `command -v tmux` ]] && install tmux
+  [[ ! -x `command -v lsb_release` ]] && install lsb-release
 
   git_config
   ask_npm
@@ -266,8 +257,8 @@ fi # End Linux
 
 # Cygwin configuration
 if [[ $CYGWIN == true ]]; then
-  [[ -a ~/.cygwin.zsh ]] && try cp ~/.cygwin.zsh ~/.cygwin.zsh.bak
-  try cp $config/.cygwin.zsh ~/
+  [[ -a ~/.config/.cygwin.zsh ]] && try cp ~/.config/.cygwin.zsh ~/.config/.cygwin.zsh.bak
+  try cp $config/.cygwin.zsh ~/.config/
 
   [[ -a ~/.minttyrc ]] && try cp ~/.minttyrc ~/.minttyrc.bak
   try cp $config/.minttyrc ~/
@@ -278,7 +269,7 @@ if [[ $CYGWIN == true ]]; then
     chmod +x /bin/apt-cyg
   fi
 
-  try install chere gdb dos2unix openssh nano zip unzip bzip2 coreutils gawk grep sed diffutils patchutils tar bash-completion ca-certificates curl rsync
+  install chere gdb dos2unix openssh nano zip unzip bzip2 coreutils gawk grep sed diffutils patchutils tar bash-completion ca-certificates curl rsync
 
   git_config
   ask_npm

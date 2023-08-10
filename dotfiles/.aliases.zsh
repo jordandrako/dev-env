@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/zsh
 
 # Changing/making/removing directory
 setopt auto_pushd
@@ -6,7 +6,7 @@ setopt pushd_ignore_dups
 setopt pushdminus
 
 # Source common functions: green, info, error, try, ask.
-[[ -s ~/.functions.sh ]] && source ~/.functions.sh
+[[ -s ~/.config/.functions.zsh ]] && source ~/.config/.functions.zsh
 
 # Utility
 alias -g and="&&"

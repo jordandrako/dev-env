@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/zsh
 
 ## Linux configs
 export MACHINE="Linux"

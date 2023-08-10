@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/zsh
 
 ## Cygwin configs
 unsetopt PROMPT_SP

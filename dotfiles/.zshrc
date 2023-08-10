@@ -66,7 +66,7 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$HOME/b
 
 # Source NPM configs
 [[ -d ~/n/bin ]] && export PATH=~/n/bin:$PATH
-[[ -s ~/.npm.nosudo.zsh ]] && source ~/.npm.nosudo.zsh
+[[ -s ~/.config/.npm.nosudo.zsh ]] && source ~/.config/.npm.nosudo.zsh
 
 # NVM
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
@@ -92,22 +92,23 @@ zinit light zdharma-continuum/fast-syntax-highlighting
 
 ## Aliases
 alias zconf="nano ~/.zshrc"
-alias zsource="clear && source ~/.zshrc"
+alias zsource="source ~/.zshrc"
 
 # Include alias file
-[[ -s ~/.aliases.sh ]] && source ~/.aliases.sh
+[[ -s ~/.config/.functions.zsh ]] && source ~/.config/.functions.zsh
+[[ -s ~/.config/.aliases.zsh ]] && source ~/.config/.aliases.zsh
 
 ## OS specific configs
 opt=$( tr '[:upper:]' '[:lower:]' <<< `uname -a` )
 case $opt in
   *microsoft* )
-    [[ -s ~/.wsl.zsh ]] && source ~/.wsl.zsh;;
+    [[ -s ~/.config/.wsl.zsh ]] && source ~/.config/.wsl.zsh;;
   cygwin* )
-    [[ -s ~/.cygwin.zsh ]] && source ~/.cygwin.zsh;;
+    [[ -s ~/.config/.cygwin.zsh ]] && source ~/.config/.cygwin.zsh;;
   linux* )
-    [[ -s ~/.linux.zsh ]] && source ~/.linux.zsh;;
+    [[ -s ~/.config/.linux.zsh ]] && source ~/.config/.linux.zsh;;
   darwin* )
-    [[ -s ~/.mac.zsh ]] && source ~/.mac.zsh
+    [[ -s ~/.config/.mac.zsh ]] && source ~/.config/.mac.zsh
 esac
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"

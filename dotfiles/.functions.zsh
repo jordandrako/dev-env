@@ -1,4 +1,9 @@
-#!/bin/bash
+#!/usr/bin/zsh
+
+# Check if command is installed
+isInstalled() {
+  [[ -x `command -v $1` ]]
+}
 
 # Green background echo
 green() {
@@ -12,7 +17,8 @@ info() {
 
 # Error echo
 error() {
-  echo -e "\n\x1B[1;5;31m$1\x1B[0m\n" 1>&2 && echo -ne '\007'
+  echo -e "\n\x1B[1;5;31m$1\x1B[0m\n" 1>&2
+  [[ $2 -gt 0 ]] && exit $2 || echo -ne '\007'
 }
 
 # Perform task successfully or print failed
