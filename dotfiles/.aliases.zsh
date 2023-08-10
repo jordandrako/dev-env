@@ -183,14 +183,39 @@ fi
 # Docker
 if [[ -x `command -v docker` ]]; then
   psFormat="table {{.Names}}\t{{.Image}}\t{{.Status}}\t{{.RunningFor}}\t{{.ID}}"
+
+  if [[ -x `command -v docker-color-output` ]]; then
+    dps() {
+      docker ps --format '$psFormat' "$@" | docker-color-output
+    }
+    dpsa() {
+      docker ps --format '$psFormat' -a "$@" | docker-color-output
+    }
+    dcps() {
+      docker compose ps --format '$psFormat' "$@" | docker-color-output
+    }
+    dcpsa() {
+      docker compose ps --format '$psFormat' -a "$@" | docker-color-output
+    }
+    di() {
+      docker images "$@" | docker-color-output
+    }
+  else
+    alias dps="docker ps --format '$psFormat'"
+    alias dpsa="docker ps -a --format '$psFormat'"
+    alias di="docker images"
+    alias dcps="docker compose ps --format '$psFormat'"
+    alias dcpsa="docker compose ps -a --format '$psFormat'"
+  fi
+
   alias dl="docker logs"
   alias dlf="docker logs -f"
-  alias dps="docker ps --format '$psFormat'"
-  alias dpsa="docker ps -a --format '$psFormat'"
   alias dr="docker restart"
   alias drestart="docker restart"
-  alias dra="docker restart $(docker ps -a -q)"
-  alias drestartall="docker restart $(docker ps -a -q)"
+  alias dra="docker restart `docker ps -a -q`"
+  alias drr="docker restart `docker ps -q`"
+  alias drestartall="docker restart `docker ps -a -q`"
+  alias drestartrunning="docker restart `docker ps -q`"
   alias dt="docker stop"
   alias dstop="docker stop"
   alias ds="docker start"
