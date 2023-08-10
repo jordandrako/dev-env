@@ -182,14 +182,21 @@ fi
 
 # Docker
 if [[ -x `command -v docker` ]]; then
+  psFormat="table {{.Names}}\t{{.Image}}\t{{.Status}}\t{{.RunningFor}}\t{{.ID}}"
   alias dl="docker logs"
   alias dlf="docker logs -f"
-  alias dps="docker ps"
-  alias dpsa="docker ps -a"
+  alias dps="docker ps --format '$psFormat'"
+  alias dpsa="docker ps -a --format '$psFormat'"
   alias dr="docker restart"
   alias drestart="docker restart"
   alias dra="docker restart $(docker ps -a -q)"
   alias drestartall="docker restart $(docker ps -a -q)"
+  alias dt="docker stop"
+  alias dstop="docker stop"
+  alias ds="docker start"
+  alias dstart="docker start"
+
+  # Docker Compose
   alias dcu="docker compose up"
   alias dcupdb="docker compose up -d --build --remove-orphans"
   alias dcp="docker compose pull"
