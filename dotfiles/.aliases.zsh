@@ -186,16 +186,16 @@ if [[ -x `command -v docker` ]]; then
 
   if [[ -x `command -v docker-color-output` ]]; then
     dps() {
-      docker ps --format '$psFormat' "$@" | docker-color-output
+      docker ps --format "$psFormat" "$@" | docker-color-output
     }
     dpsa() {
-      docker ps --format '$psFormat' -a "$@" | docker-color-output
+      docker ps --format "$psFormat" -a "$@" | docker-color-output
     }
     dcps() {
-      docker compose ps --format '$psFormat' "$@" | docker-color-output
+      docker compose ps --format "$psFormat" "$@" | docker-color-output
     }
     dcpsa() {
-      docker compose ps --format '$psFormat' -a "$@" | docker-color-output
+      docker compose ps --format "$psFormat" -a "$@" | docker-color-output
     }
     di() {
       docker images "$@" | docker-color-output
