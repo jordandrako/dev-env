@@ -11,8 +11,12 @@
   unstage = reset HEAD --
   undo = reset HEAD~ --
   dc = diff --cached
+  go = switch -c
 [push]
-  default = simple
+  autoSetupRemote = true
+[pull]
+  rebase = false
+  ff = only
 [remote "origin"]
   prune = true
 [core]
@@ -30,6 +34,5 @@
   keepbackups = false
   prompt = false
   trustexitcode = false
-[pull]
-  rebase = false
-  ff = only
+[init]
+  defaultBranch = main
