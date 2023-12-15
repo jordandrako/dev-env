@@ -182,7 +182,7 @@ fi
 
 # Docker
 if [[ -x `command -v docker` ]]; then
-  psFormat="table {{.Names}}\t{{.Image}}\t{{.Status}}\t{{.RunningFor}}\t{{.ID}}"
+  export psFormat="table {{.Names}}\t{{.Image}}\t{{.Status}}\t{{.RunningFor}}\t{{.ID}}"
 
   if [[ -x `command -v docker-color-output` ]]; then
     dps() {
@@ -190,6 +190,9 @@ if [[ -x `command -v docker` ]]; then
     }
     dpsa() {
       docker ps --format "$psFormat" -a "$@" | docker-color-output
+    }
+    dpsaw() {
+      viddy -c -n 1 'docker ps --format "$psFormat" -a "$@" | docker-color-output'
     }
     dcps() {
       docker compose ps --format "$psFormat" "$@" | docker-color-output
