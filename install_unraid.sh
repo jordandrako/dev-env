@@ -3,21 +3,21 @@
 dl_path="https://raw.githubusercontent.com/jordandrako/dev-env/master/dotfiles"
 
 # Global configuration
-wget "${dl_path}/.zshrc" -o ~/.zshrc
+wget "${dl_path}/.zshrc" -O ~/.zshrc
 
-wget "${dl_path}/.nanorc" -o ~/.nanorc
+wget "${dl_path}/.nanorc" -O ~/.nanorc
 
-wget "${dl_path}/.tmux.conf" -o ~/.tmux.conf
+wget "${dl_path}/.tmux.conf" -O ~/.tmux.conf
 
-wget "${dl_path}/.p10k.zsh" -o ~/.p10k.zsh
+wget "${dl_path}/.p10k.zsh" -O ~/.p10k.zsh
 
-wget "${dl_path}/.key-bindings.zsh" -o ~/.config/.key-bindings.zsh
+wget "${dl_path}/.key-bindings.zsh" -O ~/.config/.key-bindings.zsh
 
-wget "${dl_path}/.functions.zsh" -o ~/.config/.functions.zsh
+wget "${dl_path}/.functions.zsh" -O ~/.config/.functions.zsh
 
-wget "${dl_path}/.aliases.zsh" -o ~/.config/.aliases.zsh
+wget "${dl_path}/.aliases.zsh" -O ~/.config/.aliases.zsh
 
-wget "${dl_path}/.linux.zsh" -o ~/.config/.linux.zsh
+wget "${dl_path}/.linux.zsh" -O ~/.config/.linux.zsh
 
 # fzf plugin
 if [[ ! -f ~/.fzf.zsh ]]; then
