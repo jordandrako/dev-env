@@ -180,6 +180,16 @@ if [[ -x `command -v yarn` ]]; then
   alias yadw="yarn add -DW"
 fi
 
+# Auto package manager
+if [[ -x `command -v pm` ]]; then
+  alias ps="pm start"
+  alias pi="pm i"
+  alias pid="pm i -D"
+  alias pgi="pm i -g"
+  alias prm="pm rm"
+  alias prmg="pm rm -g"
+fi
+
 # Docker
 if [[ -x `command -v docker` ]]; then
   export psFormat="table {{.Names}}\t{{.Image}}\t{{.Status}}\t{{.RunningFor}}\t{{.ID}}"

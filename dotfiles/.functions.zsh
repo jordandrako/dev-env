@@ -38,3 +38,16 @@ ask() {
     [[ $3 ]] && read $3
   fi
 }
+
+# Run appropriate package manager command based on lock file
+pm(){
+    declare packageManager="npm"
+    if [ -f "pnpm-lock.yaml" ]; then
+        packageManager="pnpm"
+    elif [ -f "yarn.lock" ]; then
+        packageManager="yarn"
+    elif [ -f "bun.lockb" ]; then
+        packageManager="bun"
+    fi
+    "$packageManager" "$@"
+}
