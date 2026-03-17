@@ -85,7 +85,13 @@ if [[ -x `command -v git` ]]; then
   alias gaa="git add -A"
   alias gac="git add -A && git commit -m"
   alias gc="git commit -m"
-  alias go="git switch -c"
+  go() {
+    if git show-ref --verify --quiet "refs/heads/$1"; then
+      git switch "$1"
+    else
+      git switch -c "$1"
+    fi
+  }
   alias gob="git switch -c"
   alias gol="git switch -"
   alias gm="git merge"
