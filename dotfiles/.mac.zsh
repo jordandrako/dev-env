@@ -1,4 +1,4 @@
-#!/usr/bin/zsh
+#!/usr/bin/env zsh
 
 export CODE_DIR=/Users/$USER/code
 

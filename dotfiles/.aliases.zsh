@@ -1,4 +1,4 @@
-#!/usr/bin/zsh
+#!/usr/bin/env zsh
 
 # Changing/making/removing directory
 setopt auto_pushd
@@ -258,6 +258,12 @@ fi
 if [[ -x `command -v apt` || -x `command -v apt-get` ]]; then
   alias apt-upgrade="sudo apt update && sudo apt -y upgrade"
   alias apt-install="sudo apt install"
+fi
+
+# DNF (Fedora/Bazzite)
+if [[ -x `command -v dnf` ]]; then
+  alias dnf-upgrade="sudo dnf upgrade -y"
+  alias dnf-install="sudo dnf install"
 fi
 
 # WSL Powershell

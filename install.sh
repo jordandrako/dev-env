@@ -1,4 +1,9 @@
-#!/usr/bin/zsh
+#!/usr/bin/env zsh
+
+# Set up Linuxbrew if present
+if [[ -d /home/linuxbrew/.linuxbrew ]]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
 
 initial="$PWD"
 config=$initial/dotfiles
@@ -27,8 +32,14 @@ install() {
     try brew update && try brew install $*
   elif [[ $CYGWIN == true ]]; then
     try apt-cyg install $*
-  else
+  elif [[ -x $(command -v brew) ]]; then
+    try brew install $*
+  elif [[ -x $(command -v apt-get) ]]; then
     try sudo apt-get update && try sudo apt-get install $* -y
+  elif [[ -x $(command -v dnf) ]]; then
+    try sudo dnf install $* -y
+  else
+    error "No supported package manager found. Install '$*' manually."
   fi
 }
 
@@ -248,7 +259,6 @@ if [[ $LINUX == true ]]; then
   try cp $config/.linux.zsh ~/.config/
 
   [[ ! -x `command -v tmux` ]] && install tmux
-  [[ ! -x `command -v lsb_release` ]] && install lsb-release
 
   git_config
   ask_npm

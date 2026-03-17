@@ -1,4 +1,4 @@
-#!/usr/bin/zsh
+#!/usr/bin/env zsh
 
 NPM_PACKAGES=~/.npm-global
 export PATH=$NPM_PACKAGES/bin:$PATH
